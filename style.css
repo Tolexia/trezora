@@ -18,7 +18,7 @@
 }
 
 body {
-    background-image: url('/images/background.jpg');
+    background-image: url('./images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .introduction {
-    background-image: url('/images/papyrus.webp');
+    background-image: url('./images/papyrus.webp');
     background-size: cover;
     background-repeat: no-repeat;
     padding: calc(var(--spacing) * 8) calc(var(--spacing) * 16);
