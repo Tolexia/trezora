@@ -51,12 +51,33 @@ function moveDirection(direction)
     }
 }
 
+function placeBoatAndTreasure()
+{
+    if(localStorage.getItem('boatCordX') == null || localStorage.getItem('boatCordX') == undefined)
+    {
+        localStorage.setItem('boatCordX', 1);
+    }
+    if(localStorage.getItem('boatCordY') == null || localStorage.getItem('boatCordY') == undefined)
+    {
+        localStorage.setItem('boatCordY', 1);
+    }
+    if(localStorage.getItem('treasureCordX') == null || localStorage.getItem('treasureCordX') == undefined)
+    {
+        localStorage.setItem('treasureCordX', Math.floor(Math.random() * 5)+1);
+    }
+    if(localStorage.getItem('treasureCordY') == null || localStorage.getItem('treasureCordY') == undefined)
+    {
+        localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
+    }
+}
+
 function newGame()
 {
    for (key in localStorage) 
    {
         localStorage.removeItem(key);
    }
+   placeBoatAndTreasure()
    window.location.reload();
 }
 
