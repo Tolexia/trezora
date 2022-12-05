@@ -4,7 +4,7 @@ function moveDirection(direction)
         case "N":
             if(parseInt(localStorage.getItem('boatCordY')) - 1 > 1)
             {
-                localStorage.setItem('trycount', localStorage.getItem('trycount')+1);
+                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY'))-1);
                 window.location.reload();
             }
@@ -16,7 +16,7 @@ function moveDirection(direction)
         case "S":
             if(parseInt(localStorage.getItem('boatCordY')) + 1 <= 12)
             {
-                localStorage.setItem('trycount', localStorage.getItem('trycount')+1);
+                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY')) + 1);
                 window.location.reload();
             }
@@ -28,7 +28,7 @@ function moveDirection(direction)
         case "E":
             if(parseInt(localStorage.getItem('boatCordX'))+1 > 1)
             {
-                localStorage.setItem('trycount', localStorage.getItem('trycount')+1);
+                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX'))+1);
                 window.location.reload();
             }
@@ -40,7 +40,7 @@ function moveDirection(direction)
         case "W":
             if(parseInt(localStorage.getItem('boatCordX')) - 1 <= 12)
             {
-                localStorage.setItem('trycount', localStorage.getItem('trycount')+1);
+                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX')) - 1);
                 window.location.reload();
             }

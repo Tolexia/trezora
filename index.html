@@ -150,7 +150,7 @@
     {
         if(localStorage.getItem('isFound') == null || localStorage.getItem('isFound') == undefined)
         {
-            alert('Treasure found');
+            alert('Treasure found in '+ localStorage.getItem('trycount')+" attempts");
             localStorage.setItem('isFound', "1");
         }
     }
