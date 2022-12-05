@@ -101,6 +101,14 @@
 }
 .navigation a {
     position: absolute;
+    cursor:pointer;
+    font-family: var(--main-font);
+    color: white!important;
+    font-size: 30px;
+}
+
+.navigation a:hover {
+    color:grey!important;
 }
 
 .infos {

@@ -8,6 +8,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./map.css">
+    <link rel="manifest" href="manifest.json">
     <script src="./functions.js"></script>
     <base href="/[repo]/">
 </head>
@@ -58,10 +59,10 @@
                 </div> -->
                 <div class="navigation">
                     <h2>Navigation</h2>
-                    <a onclick="moveDirection('N')" href="#" class="north" style="left:51%;top:0;">N</a>
-                    <a onclick="moveDirection('S')" href="#" class="south" style="left:51%;bottom:0;">S</a>
-                    <a onclick="moveDirection('E')" href="#" class="east" style="left:96%;top:48%;">E</a>
-                    <a onclick="moveDirection('W')" href="#" class="west" style="top:48%;left:4%;">W</a>
+                    <a onclick="moveDirection('N')" class="north" style="left: 50%;top:0;">N</a>
+                    <a onclick="moveDirection('S')" class="south" style="left:50%;top:90%;">S</a>
+                    <a onclick="moveDirection('E')" class="east" style="left:95%;top:46%;">E</a>
+                    <a onclick="moveDirection('W')" class="west" style="top:46%;left:4%;">W</a>
                 </div>
             </div>
         </div>
@@ -144,7 +145,11 @@
 
     if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
     {
-        alert('Treasure found');
+        if(localStorage.getItem('isFound') == null || localStorage.getItem('isFound') == undefined)
+        {
+            alert('Treasure found');
+            localStorage.setItem('isFound', "1");
+        }
     }
    
 </script>
