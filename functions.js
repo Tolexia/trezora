@@ -1,12 +1,13 @@
 function moveDirection(direction)
 {
+    const boat = document.querySelector('.boat');
     switch (direction) {
         case "N":
             if(parseInt(localStorage.getItem('boatCordY')) - 1 > 1)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY'))-1);
-                window.location.reload();
+                boat.style = "animation-name:movingNorth;animation-duration: 3s;animation-fill-mode: forwards;";
             }
             else
             {
@@ -18,7 +19,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY')) + 1);
-                window.location.reload();
+                boat.style = "animation-name:movingSouth;animation-duration: 3s;animation-fill-mode: forwards;";
             }
             else
             {
@@ -30,7 +31,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX'))+1);
-                window.location.reload();
+                boat.style = "animation-name:movingEast;animation-duration: 3s;animation-fill-mode: forwards;";
             }
             else
             {
@@ -42,7 +43,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX')) - 1);
-                window.location.reload();
+                boat.style = "animation-name:movingWest;animation-duration: 3s;animation-fill-mode: forwards;";
             }
             else
             {
@@ -53,6 +54,15 @@ function moveDirection(direction)
         default:
             break;
     }
+    let cordx = localStorage.getItem('boatCordX')
+    let cordy = localStorage.getItem('boatCordY')
+    let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
+    // window.location.reload();
+    setTimeout(() => {
+        tile.appendChild(boat)
+        // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
+        boat.style = "";
+    }, 3000);
 }
 
 

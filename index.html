@@ -128,13 +128,13 @@
         for (let x = 1; x <= 12; x++) 
         {
             let tileClone = tile.cloneNode() 
-            tileClone.dataset.cordx = x;
+            tileClone.dataset.cordX = x;
             tileClone.dataset.cordY = y;
             col.appendChild(tileClone);
             if(boatx == x && boaty == y)
             {
                 tileClone.appendChild(boat);
-                boat.style.display = "flex";
+                boat.style.display = "block";
                 if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
                 {
                     boat.src = '/treasurefind_js/images/boat.png';
