@@ -32,6 +32,20 @@
         width: 100px;
     }
 }
+@media screen and (max-width: 768px) {
+    .navigation {
+        display: flex;
+        justify-content: space-around;
+    }
+    .navigation .south , .navigation .north,  .navigation .east, .navigation .west
+    {
+      position: initial;
+    }
+
+    h2 {
+        margin-top: 5px;
+    }
+}
 
 @media screen and (max-width: 1475px) {
     .tile {
@@ -63,6 +77,23 @@
 
 .island {
     background-image: url('./images/island.png');
+}
+
+.north {
+    left: 40%;
+    top:25%;
+}
+.south {
+    left: 40%;
+    top:65%;
+}
+.east {
+    left: 5%;
+    top: 44%;
+}
+.west {
+    top: 44%;
+    left: 70%;
 }
 
 @keyframes myBoat {
@@ -130,10 +161,10 @@
 
 .navigation {
     position: relative;
-    background-image: url('./images/compass.png');
-    background-size: cover;
+    /* background-image: url('./images/compass.png');
+    background-size: cover; */
     width: 100%;
-    height: 300px;
+    height: 100%;
     padding-top: 0.2em;
     background-position: center;
 }
