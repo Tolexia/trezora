@@ -75,11 +75,17 @@ function newGame()
     {
         localStorage.removeItem(key);
     }
+    let minX = 3;
+    let maxX = 9;
+    let minY = 2;
+    let maxY = 5;
+    let randomX = Math.floor(Math.random()*(maxX-minX+1)+minX);
+    let randomY = Math.floor(Math.random()*(maxY-minY+1)+minY);
     localStorage.setItem('boatCordX', 1);
     localStorage.setItem('boatCordY', 1);
     localStorage.setItem('trycount', 0);
-    localStorage.setItem('treasureCordX', Math.floor(Math.random() * 5)+1);
-    localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
+    localStorage.setItem('treasureCordX', randomX);
+    localStorage.setItem('treasureCordY', randomY);
     localStorage.setItem('displayType', "1");
     window.location.reload();
 }
