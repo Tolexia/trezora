@@ -1,13 +1,14 @@
 function moveDirection(direction)
 {
     const boat = document.querySelector('.boat');
+    boat.classList.remove('boat');
     switch (direction) {
         case "N":
             if(parseInt(localStorage.getItem('boatCordY')) - 1 > 1)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY'))-1);
-                boat.style = "animation-name:movingNorth;animation-duration: 3s;animation-fill-mode: forwards;";
+                boat.style = "animation-name:movingNorth;animation-duration: 3s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
             {
@@ -19,7 +20,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY')) + 1);
-                boat.style = "animation-name:movingSouth;animation-duration: 3s;animation-fill-mode: forwards;";
+                boat.style = "animation-name:movingSouth;animation-duration: 3s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
             {
@@ -31,7 +32,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX'))+1);
-                boat.style = "animation-name:movingEast;animation-duration: 3s;animation-fill-mode: forwards;";
+                boat.style = "animation-name:movingEast;animation-duration: 3s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
             {
@@ -43,7 +44,7 @@ function moveDirection(direction)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX')) - 1);
-                boat.style = "animation-name:movingWest;animation-duration: 3s;animation-fill-mode: forwards;";
+                boat.style = "animation-name:movingWest;animation-duration: 3s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
             {
@@ -60,8 +61,10 @@ function moveDirection(direction)
     // window.location.reload();
     setTimeout(() => {
         tile.appendChild(boat)
+        boat.classList.add('boat');
         // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
         boat.style = "";
+        checkIfWon();
     }, 3000);
 }
 
@@ -74,8 +77,17 @@ function newGame()
     }
     localStorage.setItem('boatCordX', 1);
     localStorage.setItem('boatCordY', 1);
+    localStorage.setItem('trycount', 0);
     localStorage.setItem('treasureCordX', Math.floor(Math.random() * 5)+1);
     localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
     window.location.reload();
+}
+
+function checkIfWon()
+{
+    if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
+    {
+        alert('Treasure found in '+ localStorage.getItem('trycount')+" attempts");
+    }
 }
 
