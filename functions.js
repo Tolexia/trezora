@@ -80,6 +80,7 @@ function newGame()
     localStorage.setItem('trycount', 0);
     localStorage.setItem('treasureCordX', Math.floor(Math.random() * 5)+1);
     localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
+    localStorage.setItem('displayType', "1");
     window.location.reload();
 }
 

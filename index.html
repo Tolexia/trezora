@@ -96,6 +96,7 @@
     {
         localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
     }
+   
     console.log(localStorage.getItem('treasureCordX'))
     console.log(localStorage.getItem('treasureCordY'))
     const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
@@ -146,7 +147,12 @@
         col.style.display = "flex";
     }
 
-   
+    if(localStorage.getItem('displayType') == "1")
+    {
+        let type = localStorage.getItem(localStorage.getItem('treasureCordY')+"-"+localStorage.getItem('treasureCordX'));
+        alert('Rumors say that you should search on the '+type+"s")
+        localStorage.setItem('displayType', "0");
+    }
 </script>
 
 

@@ -114,6 +114,7 @@ blockquote {
     .nav-item.nav-link {
         transform: rotate(-90deg);
         transform-origin: right top;
+        cursor: pointer;
     }
     .navbar-nav {
         justify-content: center;
