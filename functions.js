@@ -7,7 +7,7 @@ function moveDirection(direction, boat = null)
     boat.classList.remove('boat');
     switch (direction) {
         case "N":
-            if(parseInt(localStorage.getItem('boatCordY')) - 1 > 1)
+            if(parseInt(localStorage.getItem('boatCordY')) - 1 >= 1)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY'))-1);
@@ -43,7 +43,7 @@ function moveDirection(direction, boat = null)
             }
         break;
         case "W":
-            if(parseInt(localStorage.getItem('boatCordX')) - 1 > 1)
+            if(parseInt(localStorage.getItem('boatCordX')) - 1 >= 1)
             {
                 localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
                 localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX')) - 1);

@@ -26,40 +26,6 @@
     align-items: center;
 }
 
-@media screen and (max-width: 1800px) {
-    .tile {
-        height: 100px;
-        width: 100px;
-    }
-}
-@media screen and (max-width: 768px) {
-    .navigation {
-        display: flex;
-        justify-content: space-around;
-    }
-    .navigation .south , .navigation .north,  .navigation .east, .navigation .west
-    {
-      position: initial;
-    }
-
-    h2 {
-        margin-top: 5px;
-    }
-}
-
-@media screen and (max-width: 1475px) {
-    .tile {
-        height: 80px;
-        width: 80px;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .tile {
-        height: 60px;
-        width: 60px;
-    }
-}
 
 .tile-name {
     position: absolute;
@@ -152,11 +118,14 @@
     0%{
         transform: translate(0,0) rotate(0);
     }
-    10% {
+    25% {
         transform:translate(0,0) rotateZ(-68deg) rotateX(60deg);
     }
-    100% {
+    75% {
         transform: translateY(-80%) rotateZ(-68deg) rotateX(60deg);
+    }
+    100% {
+        transform: translateY(-80%) rotateZ(0) rotateX(0);
     }
 }
 @keyframes movingSouth {
@@ -164,11 +133,14 @@
     0%{
         transform: translate(0,0) rotate(0);
     }
-    10% {
+    25% {
         transform:translate(0,0) rotateZ(70deg) rotateX(60deg);
     }
+    75% {
+        transform: translate(10px, 80%) rotateZ(70deg) rotateX(60deg);
+    }
     100% {
-        transform:translate(10px, 80%) rotateZ(70deg) rotateX(60deg);
+        transform:translate(10px, 80%) rotateZ(0) rotateX(0);
     }
 }
 
@@ -188,7 +160,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 1em;
-    margin-top: 1em;
 }
 
 .navigation {
@@ -227,4 +198,40 @@
 
 h2 {
     font-size: 1.3em;
+}
+
+
+@media screen and (max-width: 1800px) {
+    .tile {
+        height: 100px;
+        width: 100px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .navigation {
+        display: flex;
+        justify-content: space-around;
+    }
+    .navigation .south , .navigation .north,  .navigation .east, .navigation .west
+    {
+      position: initial;
+    }
+
+    h2 {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 1475px) {
+    .tile {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .tile {
+        height: 60px;
+        width: 60px;
+    }
 }

@@ -96,6 +96,14 @@ blockquote {
     margin-top:0.5em;
 }
 
+.creator-credits {
+    font-size: 8px;
+    color:white;
+    position:fixed;
+    bottom:0;
+    right: 0;
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
     h1 {
         display: none;
@@ -111,6 +119,14 @@ blockquote {
         overflow-x: hidden;
     }
 
+    .map {
+        width: 92vh;
+        height: 95vw;
+        left: 5%;
+        position: absolute;
+        margin-top: 1em;
+    }
+
     .nav-item.nav-link {
         transform: rotate(-90deg);
         transform-origin: right top;
@@ -119,6 +135,10 @@ blockquote {
     .navbar-nav {
         justify-content: center;
         align-items: center;
+    }
+
+    .creator-credits {
+        display: none;
     }
   }
 
