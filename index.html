@@ -67,7 +67,8 @@
             </div>
         </div>
     </div>
-    <img class="boat img-fluid" src="/images/boat.png" alt="Black Pearl" style="display: none;"/>
+    <img id = "boat" class="boat img-fluid" src="/images/boat.png" alt="Black Pearl" style="display: none;"/>
+    <img id = "boat2" class="boat img-fluid" src="/images/boat2.png" alt="Silent Mary" style="display: none;"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -77,27 +78,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
-    <a href="https://www.freepik.com/free-photo/3d-grunge-room-interior-with-spotlight-smoky-atmosphere-background_6038271.htm#query=black%20smoke&position=2&from_view=keyword" style="font-size: 6px;color:white;">
+    <a href="https://www.freepik.com/free-photo/3d-grunge-room-interior-with-spotlight-smoky-atmosphere-background_6038271.htm#query=black%20smoke&position=2&from_view=keyword" style="font-size: 6px;color:white;position:fixed;bottom:0;">
         Background by kjpargeter
     </a>
 </body>
 </html>
 <script>
-    if(localStorage.getItem('boatCordX') == null || localStorage.getItem('boatCordX') == undefined)
+    if(
+        localStorage.getItem('boatCordX') == null || 
+        localStorage.getItem('boatCordY') == null ||
+        localStorage.getItem('boat2CordX') == null || 
+        localStorage.getItem('boat2CordY') == null
+        )
     {
-        localStorage.setItem('boatCordX', 1);
-    }
-    if(localStorage.getItem('boatCordY') == null || localStorage.getItem('boatCordY') == undefined)
-    {
-        localStorage.setItem('boatCordY', 1);
-    }
-    if(localStorage.getItem('treasureCordX') == null || localStorage.getItem('treasureCordX') == undefined)
-    {
-        localStorage.setItem('treasureCordX', Math.floor(Math.random() * 5)+1);
-    }
-    if(localStorage.getItem('treasureCordY') == null || localStorage.getItem('treasureCordY') == undefined)
-    {
-        localStorage.setItem('treasureCordY', Math.floor(Math.random() * 5)+1);
+        newGame();
     }
    
     console.log(localStorage.getItem('treasureCordX'))
@@ -117,10 +111,13 @@
 
     let boatx = localStorage.getItem('boatCordX');
     let boaty = localStorage.getItem('boatCordY');
+    let boat2x = localStorage.getItem('boat2CordX');
+    let boat2y = localStorage.getItem('boat2CordY');
     const column = document.querySelector('.row.column');
     const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
-    const boat = document.querySelector('.boat');
+    const boat = document.querySelector('#boat');
+    const boat2 = document.querySelector('#boat2');
     const manifest = document.querySelector('#manifest');
     if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
     {
@@ -142,6 +139,15 @@
                 if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
                 {
                     boat.src = '/treasurefind_js/images/boat.png';
+                }
+            }
+            if(boat2x == x && boat2y == y)
+            {
+                tileClone.appendChild(boat2);
+                boat2.style.display = "block";
+                if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
+                {
+                    boat2.src = '/treasurefind_js/images/boat2.png';
                 }
             }
             tileClone.classList.add(localStorage.getItem(y+'-'+x))
