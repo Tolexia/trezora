@@ -121,10 +121,10 @@ blockquote {
 
     .map {
         width: 92vh;
-        height: 95vw;
+        height: 98vw;
         left: 5%;
         position: absolute;
-        margin-top: 1em;
+        margin-top: 5px;
     }
 
     .nav-item.nav-link {
@@ -139,6 +139,9 @@ blockquote {
 
     .creator-credits {
         display: none;
+    }
+    .navigation {
+        opacity:0.8;
     }
   }
 

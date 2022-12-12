@@ -126,5 +126,95 @@ function checkIfWon()
         localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
         alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
     }
+    else
+    {
+        // Add dataset to tile where the boat is define that it has already gone there and it should not get again for this game
+    }
 }
+/**
+ * Steps :
+ * - Determine all possible tiles on which the treasure can be
+ * - Determine the closest one
+ * - Determine the direction to take to get to it
+ * - Once on it, if the treasure is not, get to another
+ */
+function moveBoatAuto(boat)
+{
+    let boatCordX = "";
+    let boatCordY = "";
+    if(boat.id.match(/2/))
+    {
+        boatCordX = localStorage.getItem('boat2CordX');
+        boatCordY = localStorage.getItem('boat2CordY');
+    }
+    else
+    {
+        boatCordX = localStorage.getItem('boatCordX');
+        boatCordY = localStorage.getItem('boatCordY');
+    }
+    let treasureCordX = localStorage.getItem('treasureCordX');
+    let treasureCordY = localStorage.getItem('treasureCordY');
+    let type = localStorage.getItem(treasureCordY+'-'+treasureCordX);
 
+    // Find possible treasure places
+    let allSameTiles = document.querySelectorAll('.'+type);
+    let minX = 13;
+    let minY = 7;
+    let distanceX = 0;
+    let distanceY = 0;
+    let nearestTile = null;
+    allSameTiles.forEach(tile => {
+        distanceX = parseInt(tile.dataset.cordX) - parseInt(boatCordX);
+        distanceY = parseInt(tile.dataset.cordY) - parseInt(boatCordY);
+        if(distanceX  < 0)
+        {
+            distanceX = -distanceX;
+        }
+        if(distanceY  < 0)
+        {
+            distanceY = -distanceY;
+        }
+        if(distanceX  <= minX && distanceY <= minY )
+        {
+            minX = distanceX;
+            minY = distanceY;
+            nearestTile = tile;
+        }
+    })
+
+    // Deduce direction to take
+
+    direction = "";
+    if(nearestTile != null)
+    {
+        if(minX <= minY && minX != 0 && minY != 0)
+        {
+            distanceX = parseInt(nearestTile.dataset.cordX) - parseInt(boatCordX);
+            if(distanceX < 0)
+            {
+                direction = "W";
+            }
+            else
+            {
+                direction = "E";
+            }
+        }
+        else
+        {
+            distanceY = parseInt(nearestTile.dataset.cordY) - parseInt(boatCordY);
+            if(distanceY < 0)
+            {
+                direction = "N";
+            }
+            else
+            {
+                direction = "S";
+            }
+        }
+    }
+    else
+    {
+        alert('Error closest tile')
+    }
+    moveDirection(direction, boat)
+}
