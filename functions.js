@@ -97,10 +97,10 @@ function newGame()
     localStorage.setItem('displayType', "1");
     window.location.reload();
 }
-function gainXp()
+function gainXp(hasWon = true)
 {
     let xp = 0;
-    if(parseInt(localStorage.getItem('trycount')) <= 3)
+    if(parseInt(localStorage.getItem('trycount')) <= 3 || !hasWon)
     {
         xp = 250;
     }
@@ -125,6 +125,12 @@ function checkIfWon()
         let xp = gainXp();
         localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
         alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
+    }
+    else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
+    {
+        let xp = gainXp(false);
+        localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
+        alert('Defeat..\n'+xp+" coins won anyway, keep going!");
     }
     else
     {
