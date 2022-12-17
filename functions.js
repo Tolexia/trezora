@@ -1,16 +1,24 @@
 function moveDirection(direction, boat = null)
 {
+    let keyX;
+    let keyY;
     if(boat == null)
     {
         boat = document.querySelector('#boat');
+        keyX = "boatCordX";
+        keyY = "boatCordY";
+    }
+    else
+    {
+        keyX = "boat2CordX";
+        keyY = "boat2CordY";
     }
     boat.classList.remove('boat');
     switch (direction) {
         case "N":
-            if(parseInt(localStorage.getItem('boatCordY')) - 1 >= 1)
+            if(parseInt(localStorage.getItem(keyY)) - 1 >= 1)
             {
-                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
-                localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY'))-1);
+                localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY))-1);
                 boat.style = "animation-name:movingNorth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
@@ -19,10 +27,9 @@ function moveDirection(direction, boat = null)
             }
         break;
         case "S":
-            if(parseInt(localStorage.getItem('boatCordY')) + 1 <= 6)
+            if(parseInt(localStorage.getItem(keyY)) + 1 <= 6)
             {
-                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
-                localStorage.setItem('boatCordY', parseInt(localStorage.getItem('boatCordY')) + 1);
+                localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY)) + 1);
                 boat.style = "animation-name:movingSouth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
@@ -31,10 +38,9 @@ function moveDirection(direction, boat = null)
             }
         break;
         case "E":
-            if(parseInt(localStorage.getItem('boatCordX'))+1 <= 12)
+            if(parseInt(localStorage.getItem(keyX))+1 <= 12)
             {
-                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
-                localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX'))+1);
+                localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX))+1);
                 boat.style = "animation-name:movingEast;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
@@ -43,10 +49,9 @@ function moveDirection(direction, boat = null)
             }
         break;
         case "W":
-            if(parseInt(localStorage.getItem('boatCordX')) - 1 >= 1)
+            if(parseInt(localStorage.getItem(keyX)) - 1 >= 1)
             {
-                localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
-                localStorage.setItem('boatCordX', parseInt(localStorage.getItem('boatCordX')) - 1);
+                localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX)) - 1);
                 boat.style = "animation-name:movingWest;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
             }
             else
@@ -58,16 +63,20 @@ function moveDirection(direction, boat = null)
         default:
             break;
     }
-    let cordx = localStorage.getItem('boatCordX')
-    let cordy = localStorage.getItem('boatCordY')
+    let cordx = localStorage.getItem(keyX)
+    let cordy = localStorage.getItem(keyY)
     let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
+    if(boat.id == "boat")
+    {
+        moveBoatAuto(document.querySelector('#boat2'))
+    }
     // window.location.reload();
     setTimeout(() => {
         tile.appendChild(boat)
         boat.classList.add('boat');
         // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
         boat.style = "";
-        checkIfWon();
+        checkIfWon(boat);
     }, 2000);
 }
 
@@ -95,6 +104,7 @@ function newGame()
     localStorage.setItem('treasureCordX', randomX);
     localStorage.setItem('treasureCordY', randomY);
     localStorage.setItem('displayType', "1");
+    localStorage.setItem('goneThere', JSON.stringify(['1-1','6-12']))
     window.location.reload();
 }
 function gainXp(hasWon = true)
@@ -118,23 +128,51 @@ function gainXp(hasWon = true)
     }
     return xp;
 }
-function checkIfWon()
+function checkIfWon(boat)
 {
-    if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
+    if(boat.id == "boat2")
     {
-        let xp = gainXp();
-        localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-        alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
-    }
-    else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
-    {
-        let xp = gainXp(false);
-        localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-        alert('Defeat..\n'+xp+" coins won anyway, keep going!");
-    }
-    else
-    {
-        // Add dataset to tile where the boat is define that it has already gone there and it should not get again for this game
+        if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
+        {
+            let xp = gainXp();
+            localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
+            alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
+        }
+        else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
+        {
+            let xp = gainXp(false);
+            localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
+            alert('Defeat..\n'+xp+" coins won anyway, keep going!");
+        }
+        else
+        {
+            localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
+            boatCordX = localStorage.getItem('boatCordX');
+            boatCordY = localStorage.getItem('boa2CordY');
+            boat2CordX = localStorage.getItem('boat2CordX');
+            boat2CordY = localStorage.getItem('boat2CordY');
+            let data = JSON.parse(localStorage.getItem('goneThere'));
+            if(!data.includes(boatCordY+"-"+boatCordX))
+            {
+                data.push(boatCordY+"-"+boatCordX)
+            }
+            if(!data.includes(boat2CordY+"-"+boat2CordX))
+            {
+                data.push(boat2CordY+"-"+boat2CordX)
+            }
+            localStorage.setItem('goneThere', JSON.stringify(data))
+            if(localStorage.getItem('currentTarget2') != null)
+            {
+                let currentTarget = JSON.parse(localStorage.getItem('currentTarget2'));
+                console.log("checkIfWon-currentTarget", currentTarget)
+    
+                console.log("currentTarget.x == boat2CordX && currentTarget.y == boat2CordY", currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
+                if(currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
+                {
+                    localStorage.removeItem('currentTarget2');
+                }
+            }
+        }
     }
 }
 /**
@@ -144,59 +182,103 @@ function checkIfWon()
  * - Determine the direction to take to get to it
  * - Once on it, if the treasure is not, get to another
  */
-function moveBoatAuto(boat)
+function moveBoatAuto(boat = null)
 {
     let boatCordX = "";
     let boatCordY = "";
+    if(boat == null)
+    {
+        boat = document.querySelector('#boat2');
+    }
     if(boat.id.match(/2/))
     {
-        boatCordX = localStorage.getItem('boat2CordX');
-        boatCordY = localStorage.getItem('boat2CordY');
+        boatCordX = parseInt(localStorage.getItem('boat2CordX'));
+        boatCordY = parseInt(localStorage.getItem('boat2CordY'));
     }
     else
     {
-        boatCordX = localStorage.getItem('boatCordX');
-        boatCordY = localStorage.getItem('boatCordY');
+        boatCordX = parseInt(localStorage.getItem('boatCordX'));
+        boatCordY = parseInt(localStorage.getItem('boatCordY'));
     }
-    let treasureCordX = localStorage.getItem('treasureCordX');
-    let treasureCordY = localStorage.getItem('treasureCordY');
+    let treasureCordX = parseInt(localStorage.getItem('treasureCordX'));
+    let treasureCordY = parseInt(localStorage.getItem('treasureCordY'));
     let type = localStorage.getItem(treasureCordY+'-'+treasureCordX);
 
     // Find possible treasure places
     let allSameTiles = document.querySelectorAll('.'+type);
+    console.log("allSameTiles", allSameTiles)
     let minX = 13;
     let minY = 7;
     let distanceX = 0;
     let distanceY = 0;
     let nearestTile = null;
-    allSameTiles.forEach(tile => {
-        distanceX = parseInt(tile.dataset.cordX) - parseInt(boatCordX);
-        distanceY = parseInt(tile.dataset.cordY) - parseInt(boatCordY);
-        if(distanceX  < 0)
-        {
-            distanceX = -distanceX;
-        }
-        if(distanceY  < 0)
-        {
-            distanceY = -distanceY;
-        }
-        if(distanceX  <= minX && distanceY <= minY )
-        {
-            minX = distanceX;
-            minY = distanceY;
-            nearestTile = tile;
-        }
-    })
+    let goneThere = JSON.parse(localStorage.getItem('goneThere'));
+    console.log(goneThere)
+    if(localStorage.getItem('currentTarget2') == null)
+    {
+        allSameTiles.forEach(tile => {
+            let tileX = parseInt(tile.dataset.cordX) 
+            let tileY = parseInt(tile.dataset.cordY) 
+            if(!(tileX == boatCordX && tileY == boatCordY))
+            {
+                if(tileX < (boatCordX))
+                {
+                    distanceX = (boatCordX) -  tileX;
+                }
+                else
+                {
+                    distanceX = tileX - (boatCordX);
+                }
+                if(tileY < (boatCordY))
+                {
+                    distanceY =  (boatCordY) - tileY;
+                }
+                else
+                {
+                    distanceY = tileY - (boatCordY);
+                }
+                let rand = Math.random();
+                // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
+                if( ((distanceX+distanceY == minX + minY && rand <= 0.5) || distanceX+distanceY  < minX + minY) && !goneThere.includes(tile.dataset.cordY+"-"+tile.dataset.cordX))
+                {
+                    console.log("minX + minY", minX + minY)
+                    console.log("distanceX+distanceY", distanceX+distanceY)
+                    console.log("rand",rand)
+                    minX = distanceX;
+                    minY = distanceY;
+                    nearestTile = tile;
+                    localStorage.setItem('currentTarget2', JSON.stringify({x:tile.dataset.cordX,y:tile.dataset.cordY}));
+                }
+            }
+        })
+    }
 
     // Deduce direction to take
-
+    nearestTile = JSON.parse(localStorage.getItem('currentTarget2'))
     direction = "";
     if(nearestTile != null)
     {
-        if(minX <= minY && minX != 0 && minY != 0)
+        let nearX = parseInt(nearestTile.x)
+        let nearY = parseInt(nearestTile.y)
+        if((nearX) < (boatCordX))
         {
-            distanceX = parseInt(nearestTile.dataset.cordX) - parseInt(boatCordX);
-            if(distanceX < 0)
+            distanceX = (boatCordX) -  (nearX);
+        }
+        else
+        {
+            distanceX = (nearX) - (boatCordX);
+        }
+        if((nearY) < (boatCordY))
+        {
+            distanceY =  (boatCordY) - (nearY);
+        }
+        else
+        {
+            distanceY = (nearY) - (boatCordY);
+        }
+        if(distanceY == 0 || (distanceX <= distanceY && distanceX != 0))
+        {
+            if(nearX <  boatCordX)
             {
                 direction = "W";
             }
@@ -207,8 +289,8 @@ function moveBoatAuto(boat)
         }
         else
         {
-            distanceY = parseInt(nearestTile.dataset.cordY) - parseInt(boatCordY);
-            if(distanceY < 0)
+            
+            if(nearY < boatCordY)
             {
                 direction = "N";
             }
