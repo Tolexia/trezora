@@ -164,15 +164,14 @@ function checkIfWon(boat)
         {
             let xp = gainXp();
             localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-            alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
-            newGame();
+            wonAnimation(xp);
+            
         }
         else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
         {
             let xp = gainXp(false);
             localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-            alert('Defeat..\n'+xp+" coins won anyway, keep going!");
-            newGame();
+            loseAnimation(xp);
         }
         else
         {
@@ -194,9 +193,6 @@ function checkIfWon(boat)
             if(localStorage.getItem('currentTarget2') != null)
             {
                 let currentTarget = JSON.parse(localStorage.getItem('currentTarget2'));
-                console.log("checkIfWon-currentTarget", currentTarget)
-    
-                console.log("currentTarget.x == boat2CordX && currentTarget.y == boat2CordY", currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
                 if(currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
                 {
                     localStorage.removeItem('currentTarget2');
@@ -204,6 +200,47 @@ function checkIfWon(boat)
             }
         }
     }
+}
+
+function wonAnimation(xp)
+{
+    Swal.fire({
+        title: 'You win!',
+        html: 'Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !",
+        confirmButtonText: 'Cool',
+        showConfirmButton: true,
+        customClass: {
+            container: 'swal2-backdrop-show win'
+        }  
+    })
+      .then((result) => {
+        newGame();
+      })
+}
+function loseAnimation(xp)
+{
+    Swal.fire({
+        title: 'Defeat',
+        html: xp+" coins won anyway, keep going!",
+        confirmButtonText: 'Go back',
+        showConfirmButton: true,
+        customClass: {
+            container: 'swal2-backdrop-show lose'
+        }  
+    })
+      .then((result) => {
+        newGame();
+      })
+}
+
+function hint() {
+    let type = localStorage.getItem(localStorage.getItem('treasureCordY')+"-"+localStorage.getItem('treasureCordX'));
+    Swal.fire({
+        icon:'info',
+        html: 'Rumors say that you should search on the '+type+"s",
+        confirmButtonText: 'Understood',
+        showConfirmButton: true,
+    })
 }
 /**
  * Steps :
@@ -236,14 +273,12 @@ function moveBoatAuto(boat = null)
 
     // Find possible treasure places
     let allSameTiles = document.querySelectorAll('.'+type);
-    console.log("allSameTiles", allSameTiles)
     let minX = 13;
     let minY = 7;
     let distanceX = 0;
     let distanceY = 0;
     let nearestTile = null;
     let goneThere = JSON.parse(localStorage.getItem('goneThere'));
-    console.log(goneThere)
     if(localStorage.getItem('currentTarget2') == null)
     {
         allSameTiles.forEach(tile => {
@@ -271,9 +306,6 @@ function moveBoatAuto(boat = null)
                 // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
                 if( ((distanceX+distanceY == minX + minY && rand <= 0.5) || distanceX+distanceY  < minX + minY) && !goneThere.includes(tile.dataset.cordY+"-"+tile.dataset.cordX))
                 {
-                    console.log("minX + minY", minX + minY)
-                    console.log("distanceX+distanceY", distanceX+distanceY)
-                    console.log("rand",rand)
                     minX = distanceX;
                     minY = distanceY;
                     nearestTile = tile;
