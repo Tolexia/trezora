@@ -19,7 +19,14 @@ function moveDirection(direction, boat = null)
             if(parseInt(localStorage.getItem(keyY)) - 1 >= 1)
             {
                 localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY))-1);
-                boat.style = "animation-name:movingNorth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                if(boat.id == "boat2")
+                {
+                    boat.style = "animation-name:movingNorth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
+                else
+                {
+                    boat.style = "animation-name:movingNorth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
             }
             else
             {
@@ -30,7 +37,14 @@ function moveDirection(direction, boat = null)
             if(parseInt(localStorage.getItem(keyY)) + 1 <= 6)
             {
                 localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY)) + 1);
-                boat.style = "animation-name:movingSouth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                if(boat.id == "boat2")
+                {
+                    boat.style = "animation-name:movingSouth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
+                else
+                {
+                    boat.style = "animation-name:movingSouth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
             }
             else
             {
@@ -41,7 +55,14 @@ function moveDirection(direction, boat = null)
             if(parseInt(localStorage.getItem(keyX))+1 <= 12)
             {
                 localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX))+1);
-                boat.style = "animation-name:movingEast;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                if(boat.id == "boat2")
+                {
+                    boat.style = "animation-name:movingEast2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
+                else
+                {
+                    boat.style = "animation-name:movingEast;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
             }
             else
             {
@@ -52,7 +73,14 @@ function moveDirection(direction, boat = null)
             if(parseInt(localStorage.getItem(keyX)) - 1 >= 1)
             {
                 localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX)) - 1);
-                boat.style = "animation-name:movingWest;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                if(boat.id == "boat2")
+                {
+                    boat.style = "animation-name:movingWest2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
+                else
+                {
+                    boat.style = "animation-name:movingWest;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                }
             }
             else
             {
@@ -137,12 +165,14 @@ function checkIfWon(boat)
             let xp = gainXp();
             localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
             alert('Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !");
+            newGame();
         }
         else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
         {
             let xp = gainXp(false);
             localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
             alert('Defeat..\n'+xp+" coins won anyway, keep going!");
+            newGame();
         }
         else
         {

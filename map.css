@@ -143,6 +143,62 @@
         transform:translate(10px, 80%) rotateZ(0) rotateX(0);
     }
 }
+@keyframes movingEast2 {
+   
+    0% {
+        transform: scaleX(-1) rotate(5deg)
+        translate(0 px, 0 px);
+    }
+    50% {
+        transform: scaleX(-1)  rotate(5deg) translate(-60%, 5px);
+    }
+   100% {
+        transform:scaleX(-1) rotate(-5deg) translateX(-120%)
+        ;
+   }
+}
+@keyframes movingWest2 {
+   
+    0%{
+        transform: translateX(0) rotate(5deg);
+    }
+    50% {
+        transform:  rotate(5deg) translate(-60%, 5px);
+    }
+    100% {
+        transform: translateX(-120%) rotate(-5deg);
+    }
+}
+@keyframes movingNorth2 {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(68deg) rotateX(-60deg);
+    }
+    75% {
+        transform: translateY(-80%) rotateZ(68deg) rotateX(-60deg);
+    }
+    100% {
+        transform: translateY(-80%) rotateZ(0) rotateX(0);
+    }
+}
+@keyframes movingSouth2 {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(-70deg) rotateX(-60deg);
+    }
+    75% {
+        transform: translate(10px, 80%) rotateZ(-70deg) rotateX(-60deg);
+    }
+    100% {
+        transform:translate(10px, 80%) rotateZ(0) rotateX(0);
+    }
+}
 
 .boat {
     filter: drop-shadow(3px 3px 5px var(--dark));
