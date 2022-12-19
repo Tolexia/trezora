@@ -28,6 +28,7 @@
                     <a class="nav-item nav-link" onclick="document.querySelector('.container-fluid').style.display = 'block'">Map</a>
                     <a class="nav-item nav-link" onclick="newGame()">New Game</a>
                     <a class="nav-item nav-link" onclick="hint()">Hint</a>
+                    <a class="nav-item nav-link" onclick="compass()">Compass</a>
                     <a class="nav-item nav-link" onclick="document.querySelector('.container-fluid').style.display = 'none'">Credits</a>
                 </div>
             </div>
@@ -47,18 +48,12 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <!-- <div class="infos">
-                    <h2>Information</h2>
-                    <p>
-                        The boat is at <span id = "currentBoatCoords">1,1</span> which is <span id = "currentTileType">sea</span>
-                    </p>
-                </div> -->
                 <div class="navigation">
                     <h2>Navigation</h2>
-                    <a onclick="moveDirection('N')" class="north">N</a>
-                    <a onclick="moveDirection('S')" class="south">S</a>
-                    <a onclick="moveDirection('E')" class="east">E</a>
-                    <a onclick="moveDirection('W')" class="west">W</a>
+                    <a onclick="moveDirection('N',null, this);" class="north">N</a>
+                    <a onclick="moveDirection('S',null, this)" class="south">S</a>
+                    <a onclick="moveDirection('E',null, this)" class="east">E</a>
+                    <a onclick="moveDirection('W',null, this)" class="west">W</a>
                 </div>
             </div>
         </div>

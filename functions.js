@@ -1,4 +1,4 @@
-function moveDirection(direction, boat = null)
+function moveDirection(direction, boat = null, node = null)
 {
     let keyX;
     let keyY;
@@ -105,6 +105,10 @@ function moveDirection(direction, boat = null)
         // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
         boat.style = "";
         checkIfWon(boat);
+        if (node != null && node.classList.contains("enlightened"))
+        {
+            node.classList.remove("enlightened");
+        }
     }, 2000);
 }
 
@@ -367,4 +371,38 @@ function moveBoatAuto(boat = null)
         alert('Error closest tile')
     }
     moveDirection(direction, boat)
+}
+
+function compass()
+{
+    boatCordX = parseInt(localStorage.getItem('boatCordX'));
+    boatCordY = parseInt(localStorage.getItem('boatCordY'));
+    let treasureCordX = parseInt(localStorage.getItem('treasureCordX'));
+    let treasureCordY = parseInt(localStorage.getItem('treasureCordY'));
+    let directions = [];
+
+    if(treasureCordY < (boatCordY))
+    {
+        directions.push("north");
+    }
+    else if(treasureCordY > (boatCordY))
+    {
+        directions.push("south");
+    }
+    if(treasureCordX < (boatCordX))
+    {
+        directions.push("west");
+    }
+    else if(treasureCordX > (boatCordX))
+    {
+        directions.push("east");
+    }
+    directions.forEach(direction => {
+        let node = document.querySelector("a."+direction);
+        console.log(node)
+        if (node != null)
+        {
+            node.classList.add("enlightened");
+        }
+    })
 }

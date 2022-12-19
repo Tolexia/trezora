@@ -234,7 +234,12 @@
     color: white!important;
     font-size: 30px;
 }
-
+a.enlightened {
+    color : rgba(4,232,0,0.75)!important;
+    /* box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75);
+-webkit-box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75);
+-moz-box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75); */
+}
 .nav-item {
     cursor:pointer;
 }
