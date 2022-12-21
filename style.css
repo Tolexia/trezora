@@ -131,7 +131,11 @@ blockquote {
         margin-top: 50px;
         transform: rotate(-90deg);
         transform-origin: left top;
-        overflow-x: hidden;
+        overflow: hidden;
+    }
+
+    body {
+        overflow: hidden;
     }
 
     .swal2-container.swal2-backdrop-show {
@@ -146,7 +150,7 @@ blockquote {
     }
     .swal2-popup {
         width: fit-content;
-        transform: translate(4%,15%);
+        transform: translate(4%,0);
     }
 
     .map {
@@ -166,6 +170,7 @@ blockquote {
         justify-content: center;
         align-items: center;
         flex-direction: row;
+        padding: 2em;
         
     }
 

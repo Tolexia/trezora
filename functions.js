@@ -406,3 +406,49 @@ function compass()
         }
     })
 }
+
+function reveal()
+{
+    Swal.fire({
+            text: 'Touch a tile to reveal if the treasure is hidden on it or not',
+            icon: 'info',
+            confirmButtonText: 'Cool',
+            showConfirmButton: true
+    }).then(result => {
+        if(result.isConfirmed)
+        {
+            const tiles = document.querySelectorAll('.tile');
+            tiles.forEach(tile => {
+                tile.addEventListener('click', handleReveal)
+            })
+        }
+    })
+}
+
+function handleReveal(e)
+{
+    if(e.target.dataset.cordX == localStorage.getItem('treasureCordX') && e.target.dataset.cordY == localStorage.getItem('treasureCordY'))
+    {
+        Swal.fire({
+            text: 'Congrats!\n You have found the treasure, now claim it !',
+            icon: 'success',
+            confirmButtonText: 'GO',
+            showConfirmButton: true
+        })
+        .then(res => {
+            document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleReveal))
+        })
+    }
+    else
+    {
+        Swal.fire({
+            text: 'Wrong tile!\n The treasure is hidden somewhere else, keep searching !',
+            icon: 'error',
+            confirmButtonText: 'GO',
+            showConfirmButton: true
+        })
+        .then(res => {
+            document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleReveal))
+        })
+    }
+}
