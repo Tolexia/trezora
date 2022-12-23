@@ -156,7 +156,7 @@ blockquote {
     .map {
         width: 90vh;
         height: 98vw;
-        left: 2%;
+        left: 0;
         position: absolute;
         margin-top: 5px;
     }
