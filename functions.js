@@ -13,6 +13,7 @@ function moveDirection(direction, boat = null, node = null)
         keyX = "boat2CordX";
         keyY = "boat2CordY";
     }
+    let speed = localStorage.getItem('speed');
     boat.classList.remove('boat');
     switch (direction) {
         case "N":
@@ -94,7 +95,7 @@ function moveDirection(direction, boat = null, node = null)
     let cordx = localStorage.getItem(keyX)
     let cordy = localStorage.getItem(keyY)
     let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
-    if(boat.id == "boat")
+    if(boat.id == "boat" && speed == "1")
     {
         moveBoatAuto(document.querySelector('#boat2'))
     }
@@ -108,6 +109,11 @@ function moveDirection(direction, boat = null, node = null)
         if (node != null && node.classList.contains("enlightened"))
         {
             node.classList.remove("enlightened");
+        }
+        if(speed != "1" && boat.id == "boat")
+        {
+            localStorage.setItem('speed', "1");
+            moveDirection(direction);
         }
     }, 2000);
 }
@@ -136,6 +142,7 @@ function newGame()
     localStorage.setItem('treasureCordX', randomX);
     localStorage.setItem('treasureCordY', randomY);
     localStorage.setItem('displayType', "1");
+    localStorage.setItem('speed', "1");
     localStorage.setItem('goneThere', JSON.stringify(['1-1','6-12']))
     window.location.reload();
 }
@@ -442,7 +449,8 @@ function handleReveal(e)
     else
     {
         Swal.fire({
-            text: 'Wrong tile!\n The treasure is hidden somewhere else, keep searching !',
+            title: "Wrong tile", 
+            text: 'The treasure is hidden somewhere else, keep searching !',
             icon: 'error',
             confirmButtonText: 'GO',
             showConfirmButton: true
@@ -451,4 +459,17 @@ function handleReveal(e)
             document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleReveal))
         })
     }
+}
+
+function doubleSpeedOneTime()
+{
+    Swal.fire({
+        text: 'Speed doubled !',
+        icon: 'success',
+        confirmButtonText: 'GO',
+        showConfirmButton: true
+    })
+    .then(res => {
+        localStorage.setItem('speed', "2");
+    })
 }
