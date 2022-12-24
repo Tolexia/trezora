@@ -169,9 +169,9 @@ function gainXp(hasWon = true)
     }
     return xp;
 }
-function checkIfWon(boat)
+function checkIfWon(boat = null)
 {
-    if(boat.id == "boat2")
+    if(boat == null || boat.id == "boat2")
     {
         if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
         {
@@ -219,7 +219,7 @@ function wonAnimation(xp)
 {
     Swal.fire({
         title: 'You win!',
-        html: 'Congrats !\nTreasure found in '+ localStorage.getItem('trycount')+" attempts.\n"+xp+" coins won !",
+        html: 'Congrats !<br>Treasure found in '+ localStorage.getItem('trycount')+" attempts.<br>"+xp+" coins won !",
         confirmButtonText: 'Cool',
         showConfirmButton: true,
         customClass: {
@@ -439,7 +439,8 @@ function handleReveal(e)
     if(e.target.dataset.cordX == localStorage.getItem('treasureCordX') && e.target.dataset.cordY == localStorage.getItem('treasureCordY'))
     {
         Swal.fire({
-            text: 'Congrats!\n You have found the treasure, now claim it !',
+            title: "Congrats!", 
+            text: 'You have found the treasure, now claim it !',
             icon: 'success',
             confirmButtonText: 'GO',
             showConfirmButton: true
@@ -507,7 +508,7 @@ function handleTeleport(e)
         setTimeout(() => {
             boat.classList.add('boat');
             boat.style = "";
-            checkIfWon(boat);
+            checkIfWon();
             document.body.style.pointerEvents = "";
         }, 2000);
     }, 2000);
