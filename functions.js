@@ -1,5 +1,6 @@
 function moveDirection(direction, boat = null, node = null)
 {
+    document.body.style.pointerEvents = "none";
     let keyX;
     let keyY;
     if(boat == null)
@@ -115,6 +116,7 @@ function moveDirection(direction, boat = null, node = null)
             localStorage.setItem('speed', "1");
             moveDirection(direction);
         }
+        document.body.style.pointerEvents = "";
     }, 2000);
 }
 
@@ -472,4 +474,42 @@ function doubleSpeedOneTime()
     .then(res => {
         localStorage.setItem('speed', "2");
     })
+}
+
+function teleport()
+{
+    Swal.fire({
+            text: "Touch a tile to instantly get to it, it's magic !",
+            icon: 'info',
+            confirmButtonText: "Let's go",
+            showConfirmButton: true
+    }).then(result => {
+        if(result.isConfirmed)
+        {
+            const tiles = document.querySelectorAll('.tile');
+            tiles.forEach(tile => {
+                tile.addEventListener('click', handleTeleport)
+            })
+        }
+    })
+}
+
+function handleTeleport(e)
+{
+    document.body.style.pointerEvents = "none";
+    boat.classList.remove('boat');
+    boat.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+    setTimeout(() => {
+        e.target.appendChild(boat)
+        localStorage.setItem('boatCordX', e.target.dataset.cordX);
+        localStorage.setItem('boatCordY', e.target.dataset.cordY);
+        boat.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+        setTimeout(() => {
+            boat.classList.add('boat');
+            boat.style = "";
+            checkIfWon(boat);
+            document.body.style.pointerEvents = "";
+        }, 2000);
+    }, 2000);
+    document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleTeleport))
 }
