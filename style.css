@@ -29,6 +29,10 @@ nav {
     font-family: var(--main-font);
 }
 
+.dropdown {
+    margin-right: 10px;
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--main-font);
     color: var(--light);
@@ -119,10 +123,11 @@ blockquote {
     background: radial-gradient(circle, rgba(130,9,9,0.9724264705882353) 0%, rgba(0,0,0,0.9136029411764706) 100%);
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
-    h1 {
-        display: none;
-    }
+.dropdown-item {
+    cursor: pointer;
+}
+@media screen and (max-width: 767px) and (orientation: portrait) {
+   
     .container-fluid {
         width: 100vh;
         height: 100vw;
@@ -161,17 +166,16 @@ blockquote {
         margin-top: 5px;
     }
 
-    .nav-item.nav-link {
-        transform: rotate(-90deg) translateX(30px);
-        transform-origin: right top;
+    .dropdown{
+        /* transform: rotate(-90deg) translateX(30px); */
+        /* transform-origin: right top; */
         cursor: pointer;
     }
     .navbar-nav {
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: row!important;
         padding: 2em;
-        
     }
 
     .navigation {

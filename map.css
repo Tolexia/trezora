@@ -39,6 +39,7 @@
 
 .port {
     background-image: url('./images/port.png');
+    background-size: contain;
 }
 
 .island {
@@ -289,6 +290,25 @@ h2 {
         width: 100px;
     }
 }
+
+
+@media screen and (max-width: 1475px) {
+    .tile {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .tile {
+        height: 60px;
+        width: 60px;
+    }
+    h1, h2 {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .navigation {
         display: flex;
@@ -302,18 +322,8 @@ h2 {
     h2 {
         margin-top: 5px;
     }
-}
-
-@media screen and (max-width: 1475px) {
-    .tile {
-        height: 80px;
-        width: 80px;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .tile {
-        height: 60px;
-        width: 60px;
+    .tile, .boat {
+        height: 16vw;
+        width: auto;
     }
 }
