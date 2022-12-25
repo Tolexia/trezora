@@ -514,3 +514,20 @@ function handleTeleport(e)
     }, 2000);
     document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleTeleport))
 }
+
+function confirmNewGame()
+{
+    Swal.fire({
+        html: "This will start a new game.<br>Confirm ?",
+        icon: 'warning',
+        confirmButtonText: "Yes",
+        cancelButtonText: "Nope",
+        showConfirmButton: true,
+        showCancelButton: true
+}).then(result => {
+    if(result.isConfirmed)
+    {
+       newGame();
+    }
+})
+}

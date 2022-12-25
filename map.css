@@ -282,7 +282,9 @@ a.enlightened {
 h2 {
     font-size: 1.3em;
 }
-
+.doublespeed {
+    font-size: 25px;
+}
 
 @media screen and (max-width: 1800px) {
     .tile {
