@@ -539,7 +539,7 @@ function tutorial()
     html += "Do you hear the call of adventure ?<br /><br />";
     html += "Do you feel yourself the soul of a true pirate ?<br /><br />";
     html += "Go ahead and make your attempt, sail across the sea and find the treasure before your opponent !<br /><br />";
-    html += "In this quick tutorial, you will learn how to optimize your chance to win !<br /><br />";
+    html += "In this quick tutorial, you will learn how to optimize your chance to win !";
     html += "</p>";
     Swal.fire({
         title: "Find the treasure !",
@@ -588,13 +588,12 @@ function tutorial()
                         if(result.isConfirmed)
                         {
                             html = "<p>";
-                            html += "In order to help you finding the treasure before your opponent, powers were given to you<br />";
-                            html += "These are :";
+                            html += "In order to help you finding the treasure before your opponent, powers were given to you :<br />";
                             html += "<ul>";
-                            html += "<li>Compass: cardinal letters indicating the direction of the treasure will be green enlightened until you click them.</li><br />";
-                            html += "<li>Reveal: click a tile to reveal if the treasure is hidden there or not.</li><br />";
-                            html += "<li>Double speed: The next move will make you reach 2 tiles instead of one. Your opponent will move only once.</li><br />";
-                            html += "<li>Teleport: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li><br />";
+                            html += "<li>Compass: cardinal letters indicating the direction of the treasure will be green enlightened until you click them.</li>";
+                            html += "<li>Reveal: click a tile to reveal if the treasure is hidden there or not.</li>";
+                            html += "<li>Double speed: The next move will make you reach 2 tiles instead of one. Your opponent will move only once.</li>";
+                            html += "<li>Teleport: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li>";
                             html += "</ul>";
                             html += "</p>";
                             Swal.fire({
