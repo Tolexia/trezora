@@ -632,5 +632,6 @@ function tutorial()
             })
         }
     })
-    localStorage.setItem('displayTuto',"no")
+    localStorage.setItem('displayTuto',"no");
+    newGame();
 }

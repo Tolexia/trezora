@@ -277,13 +277,16 @@
     {
         tutorial();
     }
-    setTimeout(() => {
-        if(localStorage.getItem('displayType') == "1")
-        {
-            hint();
-            localStorage.setItem('displayType', "0");
-        }
-    }, 2000)
+    else
+    {
+        setTimeout(() => {
+            if(localStorage.getItem('displayType') == "1")
+            {
+                hint();
+                localStorage.setItem('displayType', "0");
+            }
+        }, 2000)
+    }
 </script>
 
 
