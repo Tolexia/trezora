@@ -125,7 +125,7 @@ function newGame()
 {
    for (key in localStorage) 
     {
-        if(key != "playerXp")
+        if(key != "playerXp" && key != "displayTuto")
         {
             localStorage.removeItem(key);
         }
@@ -524,10 +524,114 @@ function confirmNewGame()
         cancelButtonText: "Nope",
         showConfirmButton: true,
         showCancelButton: true
-}).then(result => {
-    if(result.isConfirmed)
-    {
-       newGame();
-    }
-})
+    }).then(result => {
+        if(result.isConfirmed)
+        {
+        newGame();
+        }
+    })
+}
+
+function tutorial()
+{
+    let html = "<p>";
+    html += "Greetings, fellow sailor !<br /><br />";
+    html += "Do you hear the call of adventure ?<br /><br />";
+    html += "Do you feel yourself the soul of a true pirate ?<br /><br />";
+    html += "Go ahead and make your attempt, sail across the sea and find the treasure before your opponent !<br /><br />";
+    html += "In this quick tutorial, you will learn how to optimize your chance to win !<br /><br />";
+    html += "</p>";
+    Swal.fire({
+        title: "Find the treasure !",
+        html: html,
+        confirmButtonText: "Yes",
+        cancelButtonText: "Skip tutorial",
+        showConfirmButton: true,
+        showCancelButton: true
+    }).then(result => {
+        if(result.isConfirmed)
+        {
+            html = "<p>";
+            html += "At the beggining of the game, an hint will teach you on which type of tiles the treasure is hidden<br />";
+            html += "There are 3 types of tile : Sea, Island, and Port<br />";
+            html += "During the game, if you want to display the hint again, click on the hint logo :<br />";
+            html += "<span style = 'font-size:25px;padding:0 10px;border:1px solid black; border-radius:50%;display: inline-block;'>?</span>"
+            html += "</p>";
+            Swal.fire({
+                title: "Hint",
+                html: html,
+                confirmButtonText: "Continue",
+                confirmButtonColor: "green",
+                cancelButtonText: "Skip tutorial",
+                showConfirmButton: true,
+                showCancelButton: true
+            })
+            .then(result => {
+                if(result.isConfirmed)
+                {
+                    html = "<p>";
+                    html += "To navigate across the sea, click on the first letters of cardinal directions:<br />";
+                    html += "N for North, S for South, E for East, and W for West<br />";
+                    html += "If you were to reach out of the map, a nice pop up will tell you and prevent you to fall in a warp zone.<br />";
+                    html += "Each time you move, your opponent will do the same. It also knows the hint so beware!<br />";
+                    html += "</p>";
+                    Swal.fire({
+                        title: "Moving",
+                        html: html,
+                        confirmButtonText: "Continue",
+                        confirmButtonColor: "green",
+                        cancelButtonText: "Skip tutorial",
+                        showConfirmButton: true,
+                        showCancelButton: true
+                    })
+                    .then(result => {
+                        if(result.isConfirmed)
+                        {
+                            html = "<p>";
+                            html += "In order to help you finding the treasure before your opponent, powers were given to you<br />";
+                            html += "These are :";
+                            html += "<ul>";
+                            html += "<li>Compass: cardinal letters indicating the direction of the treasure will be green enlightened until you click them.</li><br />";
+                            html += "<li>Reveal: click a tile to reveal if the treasure is hidden there or not.</li><br />";
+                            html += "<li>Double speed: The next move will make you reach 2 tiles instead of one. Your opponent will move only once.</li><br />";
+                            html += "<li>Teleport: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li><br />";
+                            html += "</ul>";
+                            html += "</p>";
+                            Swal.fire({
+                                title: "Powers",
+                                html: html,
+                                confirmButtonText: "Continue",
+                                confirmButtonColor: "green",
+                                cancelButtonText: "Skip tutorial",
+                                showConfirmButton: true,
+                                showCancelButton: true
+                            })
+                            .then(result => {
+                                if(result.isConfirmed)
+                                {
+                                    html = "<p>";
+                                    html += "If you find the treasure, you win the game and gain Xp. <br />";
+                                    html += "In the future, this xp will be the very ressources that will unlock your powers.<br />";
+                                    html += "For now, it's not so useful and you won't be able to see the total amount you've reached.. Yet.<br />";
+                                    html += "If your opponent find the treasure, you lose the game but also gain xp.<br />";
+                                    html += "When the game is over, a new one starts immediately to keep on having fun !<br />";
+                                    html += "<b>You know everything about sailing, so set sail fellow pirate, you've got a treasure to find !</b><br />";
+                                    html += "</p>";
+                                    Swal.fire({
+                                        title: "Ending game",
+                                        html: html,
+                                        confirmButtonText: "Start",
+                                        confirmButtonColor: "green",
+                                        showConfirmButton: true,
+                                        showCancelButton: false
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+    localStorage.setItem('displayTuto',"no")
 }
