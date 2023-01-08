@@ -534,11 +534,12 @@ function confirmNewGame()
 
 function tutorial()
 {
+    console.log("tuto")
     let html = "<p>";
-    html += "Greetings, fellow sailor !<br /><br />";
-    html += "Do you hear the call of adventure ?<br /><br />";
-    html += "Do you feel yourself the soul of a true pirate ?<br /><br />";
-    html += "Go ahead and make your attempt, sail across the sea and find the treasure before your opponent !<br /><br />";
+    html += "Greetings, fellow sailor !<br />";
+    html += "Do you hear the call of adventure ?<br />";
+    html += "Do you feel yourself the soul of a true pirate ?<br />";
+    html += "Go ahead and make your attempt, sail across the sea and find the treasure before your opponent !<br />";
     html += "In this quick tutorial, you will learn how to optimize your chance to win !";
     html += "</p>";
     Swal.fire({
@@ -587,15 +588,13 @@ function tutorial()
                     .then(result => {
                         if(result.isConfirmed)
                         {
-                            html = "<p>";
-                            html += "In order to help you finding the treasure before your opponent, powers were given to you :<br />";
+                            html = "";
                             html += "<ul>";
-                            html += "<li>Compass: cardinal letters indicating the direction of the treasure will be green enlightened until you click them.</li>";
-                            html += "<li>Reveal: click a tile to reveal if the treasure is hidden there or not.</li>";
-                            html += "<li>Double speed: The next move will make you reach 2 tiles instead of one. Your opponent will move only once.</li>";
-                            html += "<li>Teleport: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li>";
+                            html += "<li><b>Compass</b>: cardinal letters indicating the direction of the treasure will be green enlightened</li>";
+                            html += "<li><b>Reveal</b>: click a tile to reveal if the treasure is hidden there or not.</li>";
+                            html += "<li><b>Double speed</b>: The next move will make you reach 2 tiles instead of one.</li>";
+                            html += "<li><b>Teleport</b>: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li>";
                             html += "</ul>";
-                            html += "</p>";
                             Swal.fire({
                                 title: "Powers",
                                 html: html,
@@ -608,14 +607,12 @@ function tutorial()
                             .then(result => {
                                 if(result.isConfirmed)
                                 {
-                                    html = "<p>";
+                                    html = "";
                                     html += "If you find the treasure, you win the game and gain Xp. <br />";
-                                    html += "In the future, this xp will be the very ressources that will unlock your powers.<br />";
-                                    html += "For now, it's not so useful and you won't be able to see the total amount you've reached.. Yet.<br />";
+                                    html += "In future updates, this xp will be the very ressources that will unlock your powers.<br />";
                                     html += "If your opponent find the treasure, you lose the game but also gain xp.<br />";
                                     html += "When the game is over, a new one starts immediately to keep on having fun !<br />";
-                                    html += "<b>You know everything about sailing, so set sail fellow pirate, you've got a treasure to find !</b><br />";
-                                    html += "</p>";
+                                    html += "<b>You're now ready to sail, so set sail fellow pirate, you've got a treasure to find !</b>";
                                     Swal.fire({
                                         title: "Ending game",
                                         html: html,
