@@ -624,14 +624,28 @@ function tutorial()
                                         showConfirmButton: true,
                                         showCancelButton: false
                                     })
+                                    .then(res => {
+                                        newGame();
+                                    })
+                                }
+                                else
+                                {
+                                    newGame();
                                 }
                             })
                         }
+                        else
+                        {
+                            newGame();
+                        }
                     })
+                }
+                else
+                {
+                    newGame();
                 }
             })
         }
     })
     localStorage.setItem('displayTuto',"no");
-    newGame();
 }
