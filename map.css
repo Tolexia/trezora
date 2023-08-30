@@ -222,8 +222,11 @@
     }
 }
 
-.boat {
+.boat img {
     filter: drop-shadow(3px 3px 5px var(--dark));
+}
+.boat {
+    position:relative;
 }
 #boat {
     animation: 3s linear myBoat 0s infinite alternate;
@@ -284,6 +287,20 @@ h2 {
 }
 .doublespeed {
     font-size: 25px;
+}
+
+/* Life bar */
+.lifebar
+{
+    display: block;
+    position: absolute;
+    top: 60%;
+    width: 60%;
+    height:5%;
+    /* background: rgb(0,255,0); */
+    background: linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) 100%, #ff0000 100%); 
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 @media screen and (max-width: 1800px) {

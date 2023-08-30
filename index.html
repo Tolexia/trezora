@@ -93,6 +93,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" onclick="document.querySelector('.container-fluid').style.display = 'block'">Map</a>
                           <a class="dropdown-item" onclick="document.querySelector('.container-fluid').style.display = 'none'">Credits</a>
+                          <a class="dropdown-item" onclick="location.href = location.href.replace('index.html', 'shop.html')">Shop</a>
                         </div>
                       </div>
                 </div>
@@ -168,8 +169,14 @@
             </div>
         </div>
     </div>
-    <img id = "boat" class="boat img-fluid" src="/images/boat.png" alt="Black Pearl" style="display: none;"/>
-    <img id = "boat2" class="boat img-fluid" src="/images/boat2.png" alt="Silent Mary" style="display: none;"/>
+    <div id = "boat" class="boat" style="display: none;">
+        <img  class="img-fluid" src="/images/boat.png" alt="Black Pearl" />
+        <span class="lifebar"></span>
+    </div>
+    <div id="boat2" class="boat2" style="display: none;">
+        <img class="img-fluid" src="/images/boat2.png" alt="Silent Mary"/>
+        <span class="lifebar"></span>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -221,8 +228,21 @@
     const column = document.querySelector('.row.column');
     const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
-    const boat = document.querySelector('#boat');
-    const boat2 = document.querySelector('#boat2');
+    window.boat = document.querySelector('#boat');
+    window.boat2 = document.querySelector('#boat2');
+    const boat = window.boat;
+    const boat2 = window.boat2;
+    window.lifebar = boat.querySelector('.lifebar');
+    window.lifebar2 = boat2.querySelector('.lifebar');
+    window.maxLifeAmountBoat = (localStorage.getItem('maxLifeAmountBoat') != null ? localStorage.getItem('maxLifeAmountBoat') : 10);
+    window.maxLifeAmountBoat2 = (localStorage.getItem('maxLifeAmountBoat2') != null ? localStorage.getItem('maxLifeAmountBoat2') : 10);
+    window.currentLifeAmountBoat = (localStorage.getItem('currentLifeAmountBoat') != null ? localStorage.getItem('currentLifeAmountBoat') : window.maxLifeAmountBoat);
+    window.currentLifeAmountBoat2 = (localStorage.getItem('currentLifeAmountBoat2') != null ? localStorage.getItem('currentLifeAmountBoat2') : window.maxLifeAmountBoat2);
+    let percentLifeAmount = window.currentLifeAmountBoat*100/window.maxLifeAmountBoat;
+    let percentLifeAmount2 = window.currentLifeAmountBoat2*100/window.maxLifeAmountBoat2;
+    window.lifebar.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
+    window.lifebar2.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount2}%, #ff0000 ${percentLifeAmount2}%)`; 
+   
     for (let y = 1; y <= 6; y++) 
     {
         let col = column.cloneNode();
