@@ -5,7 +5,7 @@ function moveDirection(direction, boat = null, node = null)
     let keyY;
     if(boat == null)
     {
-        boat = document.querySelector('#boat');
+        boat = window.boat;
         keyX = "boatCordX";
         keyY = "boatCordY";
     }
@@ -98,7 +98,7 @@ function moveDirection(direction, boat = null, node = null)
     let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
     if(boat.id == "boat" && speed == "1")
     {
-        moveBoatAuto(document.querySelector('#boat2'))
+        moveBoatAuto(window.boat2)
     }
     // window.location.reload();
     setTimeout(() => {
@@ -268,7 +268,7 @@ function moveBoatAuto(boat = null)
     let boatCordY = "";
     if(boat == null)
     {
-        boat = document.querySelector('#boat2');
+        boat = window.boat2;
     }
     if(boat.id.match(/2/))
     {
@@ -292,6 +292,7 @@ function moveBoatAuto(boat = null)
     let distanceY = 0;
     let nearestTile = null;
     let goneThere = JSON.parse(localStorage.getItem('goneThere'));
+    console.log("localStorage.getItem('goneThere')", localStorage.getItem('goneThere'))
     if(localStorage.getItem('currentTarget2') == null)
     {
         allSameTiles.forEach(tile => {
@@ -645,4 +646,9 @@ function tutorial()
         }
     })
     localStorage.setItem('displayTuto',"no");
+}
+
+function fight()
+{
+    
 }
