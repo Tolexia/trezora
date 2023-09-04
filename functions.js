@@ -117,7 +117,7 @@ function moveDirection(direction, boat = null, node = null)
             moveDirection(direction);
         }
         document.body.style.pointerEvents = "";
-    }, 2000);
+    }, 1500);
 }
 
 
@@ -274,6 +274,12 @@ function moveBoatAuto(boat = null)
     {
         boatCordX = parseInt(localStorage.getItem('boat2CordX'));
         boatCordY = parseInt(localStorage.getItem('boat2CordY'));
+        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) || Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))))
+        {
+            let goFight = Math.random() > 0.5;
+            // if(goFight == true)
+            //     return fight(boat, window.boat);
+        }
     }
     else
     {
@@ -648,7 +654,7 @@ function tutorial()
     localStorage.setItem('displayTuto',"no");
 }
 
-function fight()
+function fight(attacker, defender)
 {
     
 }
