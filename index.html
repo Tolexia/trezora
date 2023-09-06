@@ -220,6 +220,56 @@
             }
         }
     }
+    /* STATS */
+    let maxLifeAmountBoat = localStorage.getItem('maxLifeAmountBoat');
+    let maxLifeAmountBoat2 = localStorage.getItem('maxLifeAmountBoat2');
+    let currentLifeAmountBoat = localStorage.getItem('currentLifeAmountBoat');
+    let currentLifeAmountBoat2 = localStorage.getItem('currentLifeAmountBoat2');
+    let attackPower = localStorage.getItem('attackPower');
+    let attackPower2 = localStorage.getItem('attackPower2');
+    let shieldArmor = localStorage.getItem('shieldArmor');
+    let shieldArmor2 = localStorage.getItem('shieldArmor2');
+    if(maxLifeAmountBoat == null)
+    {
+        maxLifeAmountBoat = 10;
+        localStorage.setItem('maxLifeAmountBoat', maxLifeAmountBoat);
+    }
+    if(maxLifeAmountBoat2 == null)
+    {
+        maxLifeAmountBoat2 = 10;
+        localStorage.setItem('maxLifeAmountBoat2', maxLifeAmountBoat2);
+    }
+    if(currentLifeAmountBoat == null)
+    {
+        currentLifeAmountBoat = maxLifeAmountBoat;
+        localStorage.setItem('currentLifeAmountBoat', currentLifeAmountBoat);
+    }
+    if(currentLifeAmountBoat2 == null)
+    {
+        currentLifeAmountBoat2 = maxLifeAmountBoat2;
+        localStorage.setItem('currentLifeAmountBoat2', currentLifeAmountBoat2);
+    }
+    if(attackPower == null)
+    {
+        attackPower = 3;
+        localStorage.setItem('attackPower', attackPower);
+    }
+    if(attackPower2 == null)
+    {
+        attackPower2 = 3;
+        localStorage.setItem('attackPower2', attackPower2);
+    }
+    if(shieldArmor == null)
+    {
+        shieldArmor = 0;
+        localStorage.setItem('shieldArmor', shieldArmor);
+    }
+    if(shieldArmor2 == null)
+    {
+        shieldArmor2 = 0;
+        localStorage.setItem('shieldArmor2', shieldArmor2);
+    }
+    
 
     let boatx = localStorage.getItem('boatCordX');
     let boaty = localStorage.getItem('boatCordY');
@@ -228,21 +278,31 @@
     const column = document.querySelector('.row.column');
     const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
-    window.boat = document.querySelector('#boat');
-    window.boat2 = document.querySelector('#boat2');
+    window.boat = document.getElementById('boat');
+    window.boat2 = document.getElementById('boat2');
     const boat = window.boat;
     const boat2 = window.boat2;
     window.lifebar = boat.querySelector('.lifebar');
     window.lifebar2 = boat2.querySelector('.lifebar');
-    window.maxLifeAmountBoat = (localStorage.getItem('maxLifeAmountBoat') != null ? localStorage.getItem('maxLifeAmountBoat') : 10);
-    window.maxLifeAmountBoat2 = (localStorage.getItem('maxLifeAmountBoat2') != null ? localStorage.getItem('maxLifeAmountBoat2') : 10);
-    window.currentLifeAmountBoat = (localStorage.getItem('currentLifeAmountBoat') != null ? localStorage.getItem('currentLifeAmountBoat') : window.maxLifeAmountBoat);
-    window.currentLifeAmountBoat2 = (localStorage.getItem('currentLifeAmountBoat2') != null ? localStorage.getItem('currentLifeAmountBoat2') : window.maxLifeAmountBoat2);
-    let percentLifeAmount = window.currentLifeAmountBoat*100/window.maxLifeAmountBoat;
-    let percentLifeAmount2 = window.currentLifeAmountBoat2*100/window.maxLifeAmountBoat2;
-    window.lifebar.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
-    window.lifebar2.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount2}%, #ff0000 ${percentLifeAmount2}%)`; 
-   
+
+    window.stats = {
+        boat: {
+            node: boat,
+            shieldArmor: shieldArmor,
+            attackPower: attackPower,
+            maxLifeAmountBoat: maxLifeAmountBoat,
+            currentLifeAmountBoat : currentLifeAmountBoat
+        },
+        boat2: {
+            node: boat2,
+            shieldArmor: shieldArmor2,
+            attackPower: attackPower2,
+            maxLifeAmountBoat: maxLifeAmountBoat2,
+            currentLifeAmountBoat : currentLifeAmountBoat2
+        }
+    }
+    updateLifeBar(boat)
+    updateLifeBar(boat2)
     for (let y = 1; y <= 6; y++) 
     {
         let col = column.cloneNode();
