@@ -96,6 +96,26 @@ function moveDirection(direction, boat = null, node = null)
     let cordx = localStorage.getItem(keyX)
     let cordy = localStorage.getItem(keyY)
     let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
+    // Heal boat on ports
+    if(tile.classList.contains('port'))
+    {
+        let complement = (boat.id.includes("2") ? "2" : "");
+        const propLife = "currentLifeAmountBoat"+complement;
+        const propMaxLife = "maxLifeAmountBoat"+complement;
+        let currentLife = localStorage.getItem(propLife);
+        let maxLife = localStorage.getItem(propMaxLife);
+        if(currentLife < maxLife)
+        {
+            const heal = (20/100);
+            let newLife = Math.ceil(currentLife + (currentLife*heal));
+            if(newLife >= maxLife)
+                localStorage.setItem(propLife, maxLife);
+            else
+                localStorage.setItem(propLife, newLife);
+
+            updateLifeBar(boat)
+        }
+    }
     if(boat.id == "boat" && speed == "1")
     {
         moveBoatAuto(window.boat2)
@@ -684,12 +704,15 @@ function tutorial()
 function fight(attacker, defender)
 {
     console.log("fight");
-    const statAttacker = window.stats[attacker.id];
-    const statDefender = window.stats[defender.id];
-    let newLifeDefender = statDefender.currentLifeAmountBoat - statAttacker.attackPower + statDefender.shieldArmor;
-    window.stats[defender.id].currentLifeAmountBoat = newLifeDefender;
-    let complement = (defender.id.includes("2") ? "2" : "");
-    let propLife = "currentLifeAmountBoat"+complement;
+    let complement1 = (attacker.id.includes("2") ? "2" : "");
+    let complement2 = (defender.id.includes("2") ? "2" : "");
+    const propAttack = "attackPower"+complement1;
+    const propLife = "currentLifeAmountBoat"+complement2;
+    const propShield = "shieldArmor"+complement2;
+    const attackPower = localStorage.getItem(propAttack);
+    const shieldArmor = localStorage.getItem(propShield);
+    const currentLifeAmount = localStorage.getItem(propLife);
+    let newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
     localStorage.setItem(propLife, newLifeDefender);
     updateLifeBar(defender)
 }
