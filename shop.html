@@ -8,40 +8,52 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./map.css">
+    <link rel="stylesheet" href="./shop.css">
     <script type="text/javascript" src="./libraries/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./libraries/sweetalert2.min.css">
-    <script src="./functions.js"></script>
-    <base href="/[repo]/">
+    <!--<script src="./functions.js"></script> -->
+    <script>
+        if(window.location.href.includes("github"))
+        {
+            document.head.innerHTML += '<base href="/[repo]/">'
+        }
+    </script>
 </head>
 <body>
-    <h1>This is the shop</h1>
+    <h1>Shop</h1>
     <div class="container">
-        <ul>
-            <li>
-                Armor 1 (1000)
-                <button type="button">Buy</button>
-            </li>
-            <li>
-                Weapon 1 (1000)
-                <button type="button">Buy</button>
-            </li>
-            <li>
-                Armor 2 (5 000)
-                <button type="button">Buy</button>
-            </li>
-            <li>
-                Weapon 2 (5 000)
-                <button type="button">Buy</button>
-            </li>
-            <li>
-                Armor 3 (20 000)
-                <button type="button">Buy</button>
-            </li>
-            <li>
-                Weapon 3 (20 000)
-                <button type="button">Buy</button>
-            </li>
-        </ul>
+        <img src="./images/tresor.png" alt="chest on the left" class="chestleft">
+        <img src="./images/pirate_gold.png" alt="Merchant" class="merch">
+        <img src="./images/chest.png" alt="chest on the right" class="chestright">
+        <!--
+        
+            <ul>
+                <li>
+                    Armor 1 (1000)
+                    <button type="button">Buy</button>
+                </li>
+                <li>
+                    Weapon 1 (1000)
+                    <button type="button">Buy</button>
+                </li>
+                <li>
+                    Armor 2 (5 000)
+                    <button type="button">Buy</button>
+                </li>
+                <li>
+                    Weapon 2 (5 000)
+                    <button type="button">Buy</button>
+                </li>
+                <li>
+                    Armor 3 (20 000)
+                    <button type="button">Buy</button>
+                </li>
+                <li>
+                    Weapon 3 (20 000)
+                    <button type="button">Buy</button>
+                </li>
+            </ul>
+        -->
     </div>
 </body>
 </html>

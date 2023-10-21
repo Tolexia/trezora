@@ -16,7 +16,11 @@
     --spacing-3: calc(var(--spacing) * 3);
     --spacing-4: calc(var(--spacing) * 4);
 }
-
+html, body
+{
+    height: 100vh;
+    width: 100vw;
+}
 body {
     background-image: url('./images/background.jpg');
     background-size: cover;

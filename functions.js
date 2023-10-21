@@ -321,7 +321,7 @@ function moveBoatAuto(boat = null)
     {
         boatCordX = parseInt(localStorage.getItem('boat2CordX'));
         boatCordY = parseInt(localStorage.getItem('boat2CordY'));
-        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) || Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))))
+        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) <=2 && Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))) <= 1)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
@@ -345,7 +345,6 @@ function moveBoatAuto(boat = null)
     let distanceY = 0;
     let nearestTile = null;
     let goneThere = JSON.parse(localStorage.getItem('goneThere'));
-    console.log("localStorage.getItem('goneThere')", localStorage.getItem('goneThere'))
     if(localStorage.getItem('currentTarget2') == null)
     {
         allSameTiles.forEach(tile => {
@@ -462,7 +461,6 @@ function compass()
     }
     directions.forEach(direction => {
         let node = document.querySelector("a."+direction);
-        console.log(node)
         if (node != null)
         {
             node.classList.add("enlightened");
@@ -588,7 +586,6 @@ function confirmNewGame()
 
 function tutorial()
 {
-    console.log("tuto")
     let html = "<p>";
     html += "Greetings, fellow sailor !<br />";
     html += "Do you hear the call of adventure ?<br />";
@@ -709,9 +706,9 @@ function fight(attacker, defender)
     const propAttack = "attackPower"+complement1;
     const propLife = "currentLifeAmountBoat"+complement2;
     const propShield = "shieldArmor"+complement2;
-    const attackPower = localStorage.getItem(propAttack);
-    const shieldArmor = localStorage.getItem(propShield);
-    const currentLifeAmount = localStorage.getItem(propLife);
+    const attackPower = parseInt(localStorage.getItem(propAttack));
+    const shieldArmor = parseInt(localStorage.getItem(propShield));
+    const currentLifeAmount = parseInt(localStorage.getItem(propLife));
     let newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
     localStorage.setItem(propLife, newLifeDefender);
     updateLifeBar(defender)
@@ -722,6 +719,8 @@ function updateLifeBar(boat)
     let complement = (boat.id.includes("2") ? "2" : "");
     let propCurrentLife = "currentLifeAmountBoat"+complement;
     let propMaxLife = "maxLifeAmountBoat"+complement;
-    let percentLifeAmount = localStorage.getItem(propCurrentLife)*100/localStorage.getItem(propMaxLife);
+    let percentLifeAmount = Math.round(parseInt(localStorage.getItem(propCurrentLife))*100/parseInt(localStorage.getItem(propMaxLife)));
+    console.log("percentLifeAmount",percentLifeAmount)
     window["lifebar"+complement].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
+    console.log('window["lifebar"+complement]', window["lifebar"+complement])
 }
