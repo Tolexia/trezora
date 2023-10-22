@@ -136,6 +136,10 @@ blockquote {
 .navresponsive {
     display: none;
 }
+.shopicon
+{
+    filter: invert(1);
+}
 @media screen and (max-width: 990px){
     .navresponsive {
         display: flex;
