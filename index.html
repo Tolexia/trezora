@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="./map.css">
     <script type="text/javascript" src="./libraries/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./libraries/sweetalert2.min.css">
-    <script>
+    <!--<script>
         if(window.location.href.includes("github"))
         {
             document.head.innerHTML += '<base href="/[repo]/">'
         }
-    </script>
+    </script>-->
     <script src="./functions.js"></script>
 </head>
 <body>
@@ -98,7 +98,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" onclick="document.querySelector('.container-fluid').style.display = 'block'">Map</a>
                           <a class="dropdown-item" onclick="document.querySelector('.container-fluid').style.display = 'none'">Credits</a>
-                          <a class="dropdown-item" onclick="location.href = location.href.replace('index.html', 'shop.html')">Shop</a>
+                          <a class="dropdown-item" onclick="location.href = (location.href.includes(index) ? location.href.replace('index.html', 'shop.html') : location.href + '/shop.html')">Shop</a>
                         </div>
                       </div>
                 </div>
