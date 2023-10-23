@@ -29,7 +29,7 @@ h1{
 {
     width: 80%;
     position: absolute;
-    top: 20%;
+    top: 30%;
     display: flex;
     justify-content: space-around;
     left: 50%;
@@ -39,7 +39,7 @@ h1{
 .options button
 {
     padding: .5em 2em;
-    background-color: #000;
+    background-color: #811B34;
     border-radius: 4px;
     font-family: var(--main-font);
     color: var(--light);
@@ -48,6 +48,7 @@ h1{
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
+    box-shadow: 0 5px 25px #1e1d1d, 0px 0px 0px 7px rgba(255,215,0,0.75) inset;
 }
 .chestleft
 {
