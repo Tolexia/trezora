@@ -16,6 +16,7 @@
             document.head.innerHTML += '<base href="/[repo]/">'
         }
     </script>-->
+    <script src="./main.js"></script>
     <script src="./functions.js"></script>
 </head>
 <body>
@@ -237,46 +238,7 @@
     let attackPower2 = localStorage.getItem('attackPower2');
     let shieldArmor = localStorage.getItem('shieldArmor');
     let shieldArmor2 = localStorage.getItem('shieldArmor2');
-    if(maxLifeAmountBoat == null)
-    {
-        maxLifeAmountBoat = 10;
-        localStorage.setItem('maxLifeAmountBoat', maxLifeAmountBoat);
-    }
-    if(maxLifeAmountBoat2 == null)
-    {
-        maxLifeAmountBoat2 = 10;
-        localStorage.setItem('maxLifeAmountBoat2', maxLifeAmountBoat2);
-    }
-    if(currentLifeAmountBoat == null)
-    {
-        currentLifeAmountBoat = maxLifeAmountBoat;
-        localStorage.setItem('currentLifeAmountBoat', currentLifeAmountBoat);
-    }
-    if(currentLifeAmountBoat2 == null)
-    {
-        currentLifeAmountBoat2 = maxLifeAmountBoat2;
-        localStorage.setItem('currentLifeAmountBoat2', currentLifeAmountBoat2);
-    }
-    if(attackPower == null)
-    {
-        attackPower = 3;
-        localStorage.setItem('attackPower', attackPower);
-    }
-    if(attackPower2 == null)
-    {
-        attackPower2 = 3;
-        localStorage.setItem('attackPower2', attackPower2);
-    }
-    if(shieldArmor == null)
-    {
-        shieldArmor = 0;
-        localStorage.setItem('shieldArmor', shieldArmor);
-    }
-    if(shieldArmor2 == null)
-    {
-        shieldArmor2 = 0;
-        localStorage.setItem('shieldArmor2', shieldArmor2);
-    }
+    
     
 
     let boatx = localStorage.getItem('boatCordX');
