@@ -97,3 +97,52 @@ h1{
     border-radius: 12px 12px 12px 0;
     box-shadow: 0 2px 10px grey;
 }
+
+.items
+{
+    position: absolute;
+    visibility: hidden;
+    left: 50%;
+    bottom: 1%;
+    transform: translateX(-50%);
+    background-color: #5b0a2ce8;
+    z-index: 10;
+    border-radius: 12px;
+}
+.itemslist
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.items.open
+{
+    animation-name: openItems;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+@keyframes openItems {
+    0%
+    {
+        visibility: visible;
+        width: 0;
+        height: 0;
+    }
+    20%
+    {
+        visibility: visible;
+        width: 2%;
+        height: 0;
+    }
+    60%{
+        visibility: visible;
+        width: 2%;
+        height: 40%;
+    }
+    100%{
+        visibility: visible;
+        width: 90%;
+        height: 40%;
+    }
+}
