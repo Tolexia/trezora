@@ -51,6 +51,9 @@ h1{
     box-shadow: 0 5px 25px #1e1d1d, 0px 0px 0px 7px rgb(213, 181, 0) inset;
     position: relative;
 }
+.options button.selected{
+    box-shadow: 0 5px 25px rgb(176, 149, 0), 0px 0px 0px 7px rgb(213, 181, 0) inset;
+}
 .options button::before
 {
     content: "";
@@ -108,13 +111,19 @@ h1{
     background-color: #5b0a2ce8;
     z-index: 10;
     border-radius: 12px;
+    padding-top: 2em;
 }
 .itemslist
 {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 0;
+    color: white;
 }
+
 .items.open
 {
     animation-name: openItems;
@@ -124,11 +133,31 @@ h1{
 }
 .items.close
 {
-    animation-name: openItems;
+    animation-name: closeItems;
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
-    animation-direction: reverse;
+}
+.divItem
+{
+    display: flex;
+    flex-direction: column;
+}
+.divItem.bought{
+    opacity: .6;
+    pointer-events: none;
+}
+.divItem .buyButton
+{
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+}
+.buyButton img
+{
+    width: 2em;
+    height: auto;
 }
 @keyframes openItems {
     0%
@@ -152,5 +181,29 @@ h1{
         visibility: visible;
         width: 90%;
         height: 40%;
+    }
+}
+@keyframes closeItems {
+    0%{
+        visibility: visible;
+        width: 90%;
+        height: 40%;
+    }
+    20%{
+        visibility: visible;
+        width: 2%;
+        height: 40%;
+    }
+    60%
+    {
+        visibility: visible;
+        width: 2%;
+        height: 0;
+    }
+    100%
+    {
+        visibility: visible;
+        width: 0;
+        height: 0;
     }
 }

@@ -26,9 +26,9 @@
         <img src="./images/arrows/arrow-shadow.png" width="80" alt="Return to the game">
     </a>
     <div class="container">
-        <div class="options">
-            <button type="button" onclick="showlist('Buy')">Buy</button>
-            <button type="button" onclick="showlist('Sell')">Sell</button>
+        <div class="options" id = "options">
+            <button type="button" data-option = "Buy" onclick="showlist(this.dataset.option)">Buy</button>
+            <button type="button" data-option = "Sell" onclick="showlist(this.dataset.option)">Sell</button>
         </div>
         <img src="./images/tresor.png" alt="chest on the left" class="chestleft">
         <img src="./images/merch.png" alt="Merchant" class="merch">

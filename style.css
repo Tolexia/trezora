@@ -140,6 +140,10 @@ blockquote {
 {
     filter: invert(1);
 }
+button:focus
+{
+    outline: unset;
+}
 @media screen and (max-width: 990px){
     .navresponsive {
         display: flex;

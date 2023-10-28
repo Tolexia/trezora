@@ -1,4 +1,4 @@
-FLATICON
+# FLATICON
 
 * pirate stickers
 
@@ -15,6 +15,8 @@ FLATICON
 <a href="https://www.flaticon.com/fr/icones-gratuites/canon" title="canon icônes">Canon icônes créées par Freepik - Flaticon</a>
 
 <a href="https://www.flaticon.com/fr/icones-gratuites/poitrine" title="poitrine icônes">Poitrine icônes créées par Smashicons - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/piece-de-monnaie" title="pièce de monnaie stickers">Pièce de monnaie stickers créés par vectorsmarket15 - Flaticon</a>
 
 * arrows
 
