@@ -4,33 +4,39 @@ function init()
     {
         const itemsInShop = [
             {
-                name : "update Weapon 1",
+                name : "Upgrade Artillery n°1",
                 cost : 1000,
+                image: "./images/upgrades/lance-pierres.png",
                 bought: false
             },
             {
-                name : "update Armor 1",
+                name : "Upgrade Ship n°1",
                 cost : 1000,
+                image: "./images/upgrades/wood_shield.png",
                 bought: false
             },
             {
-                name : "update Weapon 2",
+                name : "Upgrade Artillery n°2",
                 cost : 5000,
+                image: "./images/upgrades/canon_balls.png",
                 bought: false
             },
             {
-                name : "update Armor 2",
+                name : "Upgrade Ship n°2",
                 cost : 5000,
+                image: "./images/upgrades/bouclier.png",
                 bought: false
             },
             {
-                name : "update Weapon 3",
+                name : "Upgrade Artillery n°3",
                 cost : 20000,
+                image: "./images/upgrades/evil_skull.png",
                 bought: false
             },
             {
-                name : "update Armor 3",
+                name : "Upgrade Ship n°3",
                 cost : 20000,
+                image: "./images/upgrades/ancre_blindage.png",
                 bought: false
             }
         ]

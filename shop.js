@@ -4,11 +4,9 @@ window.options = [...document.getElementById('options').getElementsByTagName("bu
 window.optionChosen = "none"
 function showlist(option, reload = false)
 {
-    console.log("option", option)
     if(window.optionChosen == option && !reload)
         return;
 
-    console.log("window.itemsContainer.classList", window.itemsContainer.classList)    
     window.optionChosen = option
     window.options.forEach(optionButton => optionButton.dataset.option == option ? optionButton.classList.add("selected") : optionButton.classList.remove("selected"))
     window.itemslist.innerHTML = "";
@@ -32,6 +30,8 @@ function showlist(option, reload = false)
             {
                 const divItem = document.createElement('div')
                 const titleItem = document.createElement('span')
+                const cost = document.createElement('span')
+                const illus = document.createElement('img')
 
                 divItem.classList.add("divItem")
                 if(item.bought == true)
@@ -39,10 +39,17 @@ function showlist(option, reload = false)
                     divItem.classList.add("bought")
                 }
 
+                illus.className = "itemIllus"
+                illus.src = item.image
+                divItem.appendChild(illus)
+
                 titleItem.classList.add("titleItem")
                 titleItem.innerText = item.name
-
                 divItem.appendChild(titleItem)
+
+                cost.classList.add("cost")
+                cost.innerText = "cost: "+item.cost
+                divItem.appendChild(cost)
                 if(item.bought == false)
                 {
                     const buyButton = document.createElement('button')
@@ -52,7 +59,7 @@ function showlist(option, reload = false)
                     buyButton.type = "button"
                     buyButton.onclick = () => buy(item)
 
-                    img.src = "./images/coin.png"
+                    img.src = "./images/shop/coin.png"
                     buyButton.appendChild(img)
                     divItem.appendChild(buyButton)
                 }
@@ -70,7 +77,7 @@ function showlist(option, reload = false)
             items = JSON.parse(localStorage.getItem('itemsToSell'));
             if(items.length == 0)
             {
-                window.itemslist.innerHTML = `<p class = "noitem">No item to sell.</p>`
+                window.itemslist.innerHTML = `<p class = "noitem">No item to sell.<br/>Play a few games to get some !</p>`
             }
         }
     }, 1000);
@@ -79,7 +86,19 @@ function showlist(option, reload = false)
 
 function buy(item)
 {
-
+    Swal.fire({
+        html: `
+            Do you confirm purchase this item ?
+        `,
+        confirmButtonText: 'Cool',
+        showConfirmButton: true,
+        customClass: {
+            container: 'swal2-backdrop-show win'
+        }  
+    })
+      .then((result) => {
+        newGame();
+    })
 }
 
 

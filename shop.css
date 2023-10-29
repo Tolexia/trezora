@@ -15,7 +15,7 @@ h1{
     background: #b7b7b77c;
     min-height: 80%;
     padding: 2em;
-    background-image: url(./images/cabine.avif);
+    background-image: url(./images/shop/cabine.avif);
     background-position: left;
     background-size: cover;
     background-repeat: no-repeat;
@@ -145,6 +145,17 @@ h1{
     flex-direction: column;
     margin-right: .5em;
     margin-bottom: .5em;
+    align-items: center;
+}
+.divItem span 
+{
+    text-align: center;
+}
+
+.divItem .itemIllus
+{
+    width: 3em;
+    height: auto;
 }
 .divItem.bought{
     opacity: .6;

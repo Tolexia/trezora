@@ -1,6 +1,6 @@
 # FLATICON
 
-* pirate stickers
+## pirate stickers
 
 <a href="https://www.flaticon.com/fr/stickers-gratuites/conte-de-fee" title="conte de fée stickers">Conte de fée stickers créés par Stickers - Flaticon</a>
 
@@ -18,7 +18,7 @@
 
 <a href="https://www.flaticon.com/fr/stickers-gratuites/piece-de-monnaie" title="pièce de monnaie stickers">Pièce de monnaie stickers créés par vectorsmarket15 - Flaticon</a>
 
-* arrows
+## arrows
 
 <a href="https://www.flaticon.com/fr/icones-gratuites/la-fleche" title="la flèche icônes">La flèche icônes créées par Vitaly Gorbachev - Flaticon</a>
 
@@ -26,7 +26,19 @@
 
 <a href="https://www.flaticon.com/fr/icones-gratuites/la-fleche" title="la flèche icônes">La flèche icônes créées par rang - Flaticon</a>
 
-FREEPIK
+## Upgrades
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/ancre" title="ancre stickers">Ancre stickers créés par vectorsmarket15 - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/lance-pierres" title="lance-pierres stickers">Lance-pierres stickers créés par vectorsmarket15 - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/histoire" title="histoire stickers">Histoire stickers créés par vectorsmarket15 - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/divers" title="divers stickers">Divers stickers créés par vectorsmarket15 - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/stickers-gratuites/bouclier" title="bouclier stickers">Bouclier stickers créés par vectorsmarket15 - Flaticon</a>
+
+# FREEPIK
 
 <a href="https://fr.freepik.com/vecteurs-libre/interieur-chambre-bois-cabine-du-bateau-pirate-capitan_30701210.htm">Image de upklyak</a> sur Freepik
 

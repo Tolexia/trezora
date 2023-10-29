@@ -140,6 +140,9 @@ blockquote {
 {
     filter: invert(1);
 }
+button {
+    cursor: pointer;
+}
 button:focus
 {
     outline: unset;
