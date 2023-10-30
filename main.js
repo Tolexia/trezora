@@ -7,37 +7,49 @@ function init()
                 name : "Upgrade Artillery n°1",
                 cost : 1000,
                 image: "./images/upgrades/lance-pierres.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 1
             },
             {
                 name : "Upgrade Ship n°1",
                 cost : 1000,
                 image: "./images/upgrades/wood_shield.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 1
             },
             {
                 name : "Upgrade Artillery n°2",
                 cost : 5000,
                 image: "./images/upgrades/canon_balls.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 2
             },
             {
                 name : "Upgrade Ship n°2",
                 cost : 5000,
                 image: "./images/upgrades/bouclier.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 2
             },
             {
                 name : "Upgrade Artillery n°3",
                 cost : 20000,
                 image: "./images/upgrades/evil_skull.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 3
             },
             {
                 name : "Upgrade Ship n°3",
                 cost : 20000,
                 image: "./images/upgrades/ancre_blindage.png",
-                bought: false
+                bought: false,
+                stat : "attackPower",
+                buffValue : 3
             }
         ]
         localStorage.setItem("itemsInShop", JSON.stringify(itemsInShop))
@@ -81,6 +93,14 @@ function init()
     if(localStorage.getItem('shieldArmor2') == null)
     {
         localStorage.setItem('shieldArmor2', 0);
+    }
+    if(localStorage.getItem('playerCoins') == null)
+    {
+        localStorage.setItem('playerCoins', 0);
+    }
+    if(localStorage.getItem('playerXp') == null)
+    {
+        localStorage.setItem('playerXp', 0);
     }
 }
 init()

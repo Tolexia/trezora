@@ -192,7 +192,7 @@ function gainXp(hasWon = true)
 function gainCoins(hasWon = true)
 {
     let multiplier = localStorage.getItem('difficulty');
-    multiplier = (multiplier != null ? multiplier : 1);
+    multiplier = (multiplier != null ? parseInt(multiplier) : 1);
     let coins = 0;
     if(parseInt(localStorage.getItem('trycount')) <= 3 || !hasWon)
     {

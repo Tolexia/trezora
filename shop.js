@@ -19,14 +19,14 @@ function showlist(option, reload = false)
         }, 1000);
     }
     let items;
-    console.log("ici")
     window.itemsContainer.classList.remove("close")
     window.itemsContainer.classList.add("open")
     setTimeout(() => {
+        window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: ${localStorage.getItem('playerCoins')}</span>`
         if(option == "Buy")
         {
             items = JSON.parse(localStorage.getItem('itemsInShop'));
-            for(item of items)
+            for(let item of items)
             {
                 const divItem = document.createElement('div')
                 const titleItem = document.createElement('span')
@@ -34,6 +34,7 @@ function showlist(option, reload = false)
                 const illus = document.createElement('img')
 
                 divItem.classList.add("divItem")
+                divItem.dataset.item = item.name
                 if(item.bought == true)
                 {
                     divItem.classList.add("bought")
@@ -90,14 +91,59 @@ function buy(item)
         html: `
             Do you confirm purchase this item ?
         `,
-        confirmButtonText: 'Cool',
+        icon: "question",
+        confirmButtonText: 'Oh yes',
+        denyButtonText: 'Maybe later',
         showConfirmButton: true,
-        customClass: {
-            container: 'swal2-backdrop-show win'
-        }  
+        showDenyButton: true,
     })
       .then((result) => {
-        newGame();
+        if(result.isConfirmed)
+        {
+            let coins = localStorage.getItem('playerCoins')
+            if(coins == null || parseInt(coins) < parseInt(item.cost))
+            {
+                Swal.fire({
+                    html: `
+                        <img src = "./images/human_chest.png" />
+                        <p>
+                            Oh no ! Not enough coins...<br/>
+                            Play a game and come get some 💪
+                        </p>
+                    `,
+                    confirmButtonText: 'Got it!',
+                    showConfirmButton: true,
+                })
+            }
+            else
+            {
+                coins = parseInt(coins) - parseInt(item.cost)
+                localStorage.setItem('playerCoins', coins)
+                const itemsStored = JSON.parse(localStorage.getItem('itemsInShop'));
+                for(let itemStored of itemsStored)
+                {
+                    if(itemStored.name == item.name)
+                    {
+                        itemStored.bought = true
+                    }
+                }
+                localStorage.setItem("itemsInShop", JSON.stringify(itemsStored))
+
+                const currentStat = localStorage.getItem(item.stat)
+                const newStatValue = parseInt(currentStat) + item.buffValue
+                localStorage.setItem(item.stat, newStatValue)
+
+                const sucessImg = (item.name.includes("Artillery") ? "./images/upgrades/artillery.png": "./images/upgrades/nice_ship.png")
+                Swal.fire({
+                    html: `
+                        <img src = "${sucessImg}" />
+                        <p>Congrats, you're getting stronger pal !</p>
+                    `,
+                    confirmButtonText: 'Return to Shop',
+                    showConfirmButton: true,
+                })
+            }
+        }
     })
 }
 
