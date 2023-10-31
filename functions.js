@@ -143,13 +143,13 @@ function moveDirection(direction, boat = null, node = null)
 
 function newGame()
 {
-   for (key in localStorage) 
-    {
-        if(key != "playerXp" && key != "displayTuto")
-        {
-            localStorage.removeItem(key);
-        }
-    }
+//    for (key in localStorage) 
+//     {
+//         if(key != "playerXp" && key != "displayTuto")
+//         {
+//             localStorage.removeItem(key);
+//         }
+//     }
     let minX = 3;
     let maxX = 9;
     let minY = 2;
@@ -166,6 +166,8 @@ function newGame()
     localStorage.setItem('displayType', "1");
     localStorage.setItem('speed', "1");
     localStorage.setItem('goneThere', JSON.stringify(['1-1','6-12']))
+    localStorage.setItem('currentLifeAmountBoat', localStorage.getItem('maxLifeAmountBoat'));
+    localStorage.setItem('currentLifeAmountBoat2', localStorage.getItem('maxLifeAmountBoat2'));
     window.location.reload();
 }
 function gainXp(hasWon = true)

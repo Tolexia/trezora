@@ -42,7 +42,7 @@ function init()
                 bought: false,
                 stat : "attackPower",
                 buffValue : 3
-            },
+            }, 
             {
                 name : "Upgrade Ship n°3",
                 cost : 20000,
