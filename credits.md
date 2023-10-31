@@ -38,6 +38,18 @@
 
 <a href="https://www.flaticon.com/fr/stickers-gratuites/bouclier" title="bouclier stickers">Bouclier stickers créés par vectorsmarket15 - Flaticon</a>
 
+## Fight Design
+
+<a href="https://www.flaticon.com/fr/icones-gratuites/explosion" title="explosion icônes">Explosion icônes créées par Freepik - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/icones-gratuites/explosion" title="explosion icônes">Explosion icônes créées par PIXARTIST - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/icones-gratuites/dommage" title="dommage icônes">Dommage icônes créées par Umeicon - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/icones-gratuites/nuage" title="nuage icônes">Nuage icônes créées par Erifqi Zetiawan - Flaticon</a>
+
+<a href="https://www.flaticon.com/fr/icones-gratuites/nuage" title="nuage icônes">Nuage icônes créées par Vector Stall - Flaticon</a>
+
 # FREEPIK
 
 <a href="https://fr.freepik.com/vecteurs-libre/interieur-chambre-bois-cabine-du-bateau-pirate-capitan_30701210.htm">Image de upklyak</a> sur Freepik
