@@ -592,13 +592,13 @@ function tutorial()
     html += "Greetings, fellow sailor !<br />";
     html += "Do you hear the call of adventure ?<br />";
     html += "Do you feel yourself the soul of a true pirate ?<br />";
-    html += "Go ahead and make your attempt, sail across the sea and find the treasure before your opponent !<br />";
+    html += "Go ahead and sail across the sea to find the treasure before your opponent !<br />";
     html += "In this quick tutorial, you will learn how to optimize your chance to win !";
     html += "</p>";
     Swal.fire({
         title: "Find the treasure !",
         html: html,
-        confirmButtonText: "Yes",
+        confirmButtonText: "Start",
         cancelButtonText: "Skip tutorial",
         showConfirmButton: true,
         showCancelButton: true
@@ -606,8 +606,8 @@ function tutorial()
         if(result.isConfirmed)
         {
             html = "<p>";
-            html += "At the beggining of the game, an hint will teach you on which type of tiles the treasure is hidden<br />";
-            html += "There are 3 types of tile : Sea, Island, and Port<br />";
+            html += "At the beggining of the game, an hint will appear to tell you which type of tile the treasure is hidden on<br />";
+            html += "There are 3 types of tiles : Sea, Island, and Port<br />";
             html += "During the game, if you want to display the hint again, click on the hint logo :<br />";
             html += "<span style = 'font-size:25px;padding:0 10px;border:1px solid black; border-radius:50%;display: inline-block;'>?</span>"
             html += "</p>";
@@ -626,7 +626,7 @@ function tutorial()
                     html = "<p>";
                     html += "To navigate across the sea, click on the first letters of cardinal directions:<br />";
                     html += "N for North, S for South, E for East, and W for West<br />";
-                    html += "If you were to reach out of the map, a nice pop up will tell you and prevent you to fall in a warp zone.<br />";
+                    html += "If you were about to reach out of the map, a nice pop up will appear to tell you and prevent you to fall in a warp zone.<br />";
                     html += "Each time you move, your opponent will do the same. It also knows the hint so beware!<br />";
                     html += "</p>";
                     Swal.fire({
@@ -661,11 +661,12 @@ function tutorial()
                                 if(result.isConfirmed)
                                 {
                                     html = "";
-                                    html += "If you find the treasure, you win the game and gain Xp. <br />";
-                                    html += "In future updates, this xp will be the very ressources that will unlock your powers.<br />";
-                                    html += "If your opponent find the treasure, you lose the game but also gain xp.<br />";
+                                    html += "If you find the treasure, you win the game and gain Xp and coins. <br />";
+                                    html += "If your opponent find the treasure, you lose the game but also gain a bit of xp and coins.<br />";
+                                    html += "Xp makes you level up and will unlock the possibility to buy powers in shop.<br />";
+                                    html += "With coins you'll be able to buy upgrades and powers in shop.<br />";
                                     html += "When the game is over, a new one starts immediately to keep on having fun !<br />";
-                                    html += "<b>You're now ready to sail, so set sail fellow pirate, you've got a treasure to find !</b>";
+                                    html += "<b>You're now ready for adventure, so set sail fellow pirate, you've got a treasure to find !</b>";
                                     Swal.fire({
                                         title: "Ending game",
                                         html: html,

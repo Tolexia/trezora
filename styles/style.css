@@ -22,7 +22,7 @@ html, body
     width: 100vw;
 }
 body {
-    background-image: url('./images/background.jpg');
+    background-image: url('../images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .introduction {
-    background-image: url('./images/papyrus.webp');
+    background-image: url('../images/papyrus.webp');
     background-size: cover;
     background-repeat: no-repeat;
     padding: calc(var(--spacing) * 8) calc(var(--spacing) * 16);
@@ -116,7 +116,7 @@ blockquote {
 
 
 .swal2-container.swal2-backdrop-show.win {
-    background : url("./victory.png")!important;
+    background : url("../images/victory.png")!important;
     background-position: top!important;
     background-size: contain!important;
     background-repeat: no-repeat!important;
@@ -228,7 +228,7 @@ button:focus
     }
 
     .navbar-dark .navbar-toggler-icon {
-        background-image: url('./svg/chevron-down.svg')!important;
+        background-image: url('../svg/chevron-down.svg')!important;
     }
   }
 
