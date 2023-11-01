@@ -141,22 +141,25 @@ function moveDirection(direction, boat = null, node = null)
         const fightButton = document.getElementById('fightButton')
         if( boat.id == "boat" )
         {
-            if(
-                Math.abs(cordx-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
-                Math.abs(cordy-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
-            )
-            {
-                fightButton.classList.remove('disabled')
-            }
-            else 
-            {
-                fightButton.classList.add('disabled')
-            }
+            handleVisibilityFightButton()
         }
         document.body.style.pointerEvents = "";
     }, 1500);
 }
-
+function handleVisibilityFightButton()
+{
+    if(
+        Math.abs(parseInt(getItem('boatCordX'))-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
+        Math.abs(parseInt(getItem('boat2CordY'))-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
+    )
+    {
+        fightButton.classList.remove('disabled')
+    }
+    else 
+    {
+        fightButton.classList.add('disabled')
+    }
+}
 
 function newGame()
 {
@@ -357,55 +360,23 @@ function moveBoatAuto(boat = null)
         boatCordX = parseInt(getItem('boatCordX'));
         boatCordY = parseInt(getItem('boatCordY'));
     }
-    let treasureCordX = parseInt(getItem('treasureCordX'));
-    let treasureCordY = parseInt(getItem('treasureCordY'));
-    let type = getItem(treasureCordY+'-'+treasureCordX);
+    
 
     // Find possible treasure places
-    let allSameTiles = document.querySelectorAll('.'+type);
-    let minX = 13;
-    let minY = 7;
+    
     let distanceX = 0;
     let distanceY = 0;
     let nearestTile = null;
-    let goneThere = JSON.parse(getItem('goneThere'));
+    
     if(getItem('currentTarget2') == null)
     {
-        allSameTiles.forEach(tile => {
-            let tileX = parseInt(tile.dataset.cordX) 
-            let tileY = parseInt(tile.dataset.cordY) 
-            if(
-                tileX != getItem('boat2CordX') && tileY != getItem('boat2CordY')
-                && tileX != getItem('boatCordX') && tileY != getItem('boatCordY')
-            )
-            {
-                if(tileX < (boatCordX))
-                {
-                    distanceX = (boatCordX) -  tileX;
-                }
-                else
-                {
-                    distanceX = tileX - (boatCordX);
-                }
-                if(tileY < (boatCordY))
-                {
-                    distanceY =  (boatCordY) - tileY;
-                }
-                else
-                {
-                    distanceY = tileY - (boatCordY);
-                }
-                let rand = Math.random();
-                // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
-                if( ((distanceX+distanceY == minX + minY && rand <= 0.5) || distanceX+distanceY  < minX + minY) && !goneThere.includes(tile.dataset.cordY+"-"+tile.dataset.cordX))
-                {
-                    minX = distanceX;
-                    minY = distanceY;
-                    nearestTile = tile;
-                    setItem('currentTarget2', JSON.stringify({x:tile.dataset.cordX,y:tile.dataset.cordY}));
-                }
-            }
-        })
+        setCurrentTileTarget()
+    }
+    else
+    {
+        nearestTile = JSON.parse(getItem('currentTarget2'))
+        if(nearestTile.x == getItem('boatCordX') && nearestTile.y == getItem('boatCordY'))
+            setCurrentTileTarget()
     }
 
     // Deduce direction to take
@@ -470,7 +441,51 @@ function moveBoatAuto(boat = null)
     }
     moveDirection(direction, boat)
 }
-
+function setCurrentTileTarget()
+{
+    let treasureCordX = parseInt(getItem('treasureCordX'));
+    let treasureCordY = parseInt(getItem('treasureCordY'));
+    let type = getItem(treasureCordY+'-'+treasureCordX);
+    let allSameTiles = document.querySelectorAll('.'+type);
+    let minX = 13;
+    let minY = 7;
+    let goneThere = JSON.parse(getItem('goneThere'));
+    allSameTiles.forEach(tile => {
+        let tileX = parseInt(tile.dataset.cordX) 
+        let tileY = parseInt(tile.dataset.cordY) 
+        if(
+            tileX != getItem('boat2CordX') && tileY != getItem('boat2CordY')
+            && tileX != getItem('boatCordX') && tileY != getItem('boatCordY')
+        )
+        {
+            if(tileX < (boatCordX))
+            {
+                distanceX = (boatCordX) -  tileX;
+            }
+            else
+            {
+                distanceX = tileX - (boatCordX);
+            }
+            if(tileY < (boatCordY))
+            {
+                distanceY =  (boatCordY) - tileY;
+            }
+            else
+            {
+                distanceY = tileY - (boatCordY);
+            }
+            let rand = Math.random();
+            // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
+            if( ((distanceX+distanceY == minX + minY && rand <= 0.5) || distanceX+distanceY  < minX + minY) && !goneThere.includes(tile.dataset.cordY+"-"+tile.dataset.cordX))
+            {
+                minX = distanceX;
+                minY = distanceY;
+                nearestTile = tile;
+                setItem('currentTarget2', JSON.stringify({x:tile.dataset.cordX,y:tile.dataset.cordY}));
+            }
+        }
+    })
+}
 function compass()
 {
     boatCordX = parseInt(getItem('boatCordX'));
@@ -745,26 +760,38 @@ function fight(attacker, defender)
     const attackPower = parseInt(getItem(propAttack));
     const shieldArmor = parseInt(getItem(propShield));
     const currentLifeAmount = parseInt(getItem(propLife));
-    let newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
-    setItem(propLife, newLifeDefender);
-    updateLifeBar(defender)
-    if(newLifeDefender <= 0)
-    {
-        defender.style.animation = `1s linear death${complement2} 0s normal forwards`
+    let newLifeDefender;
+    if(attackPower > shieldArmor)
+        newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
+    else 
+        newLifeDefender = currentLifeAmount;
+    attacker.classList.add("attack")
+    setTimeout(() => {
+        attacker.classList.remove("attack")
+        defender.classList.add("defend")
         setTimeout(() => {
-            defender.remove()
-            removeItem(`boat${complement2}CordX`)
-            removeItem(`boat${complement2}CordY`)
-            if(attacker.id == "boat2")
+            defender.classList.remove("defend")
+            setItem(propLife, newLifeDefender);
+            updateLifeBar(defender)
+            if(newLifeDefender <= 0)
             {
-                loseAnimation()
+                defender.style.animation = `1s linear death${complement2} 0s normal forwards`
+                setTimeout(() => {
+                    defender.remove()
+                    removeItem(`boat${complement2}CordX`)
+                    removeItem(`boat${complement2}CordY`)
+                    if(attacker.id == "boat2")
+                    {
+                        loseAnimation()
+                    }
+                }, 1000);
+            }
+            else if(attacker.id == "boat")
+            {
+                moveBoatAuto();
             }
         }, 1000);
-    }
-    else if(attacker.id == "boat")
-    {
-        moveBoatAuto();
-    }
+    }, 1000);
 }
 
 function updateLifeBar(boat)
