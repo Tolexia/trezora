@@ -16,13 +16,13 @@ function moveDirection(direction, boat = null, node = null)
         keyX = "boat2CordX";
         keyY = "boat2CordY";
     }
-    let speed = localStorage.getItem('speed');
+    let speed = getItem('speed');
     boat.classList.remove('boat');
     switch (direction) {
         case "N":
-            if(parseInt(localStorage.getItem(keyY)) - 1 >= 1)
+            if(parseInt(getItem(keyY)) - 1 >= 1)
             {
-                localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY))-1);
+                setItem(keyY, parseInt(getItem(keyY))-1);
                 if(boat.id == "boat2")
                 {
                     boat.style = "animation-name:movingNorth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
@@ -38,9 +38,9 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "S":
-            if(parseInt(localStorage.getItem(keyY)) + 1 <= 6)
+            if(parseInt(getItem(keyY)) + 1 <= 6)
             {
-                localStorage.setItem(keyY, parseInt(localStorage.getItem(keyY)) + 1);
+                setItem(keyY, parseInt(getItem(keyY)) + 1);
                 if(boat.id == "boat2")
                 {
                     boat.style = "animation-name:movingSouth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
@@ -56,9 +56,9 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "E":
-            if(parseInt(localStorage.getItem(keyX))+1 <= 12)
+            if(parseInt(getItem(keyX))+1 <= 12)
             {
-                localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX))+1);
+                setItem(keyX, parseInt(getItem(keyX))+1);
                 if(boat.id == "boat2")
                 {
                     boat.style = "animation-name:movingEast2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
@@ -74,9 +74,9 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "W":
-            if(parseInt(localStorage.getItem(keyX)) - 1 >= 1)
+            if(parseInt(getItem(keyX)) - 1 >= 1)
             {
-                localStorage.setItem(keyX, parseInt(localStorage.getItem(keyX)) - 1);
+                setItem(keyX, parseInt(getItem(keyX)) - 1);
                 if(boat.id == "boat2")
                 {
                     boat.style = "animation-name:movingWest2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
@@ -95,8 +95,8 @@ function moveDirection(direction, boat = null, node = null)
         default:
             break;
     }
-    let cordx = localStorage.getItem(keyX)
-    let cordy = localStorage.getItem(keyY)
+    let cordx = getItem(keyX)
+    let cordy = getItem(keyY)
     let tile = document.querySelector(`.tile[data-cord-x="${cordx}"][data-cord-y="${cordy}"]`);
     // Heal boat on ports
     if(tile.classList.contains('port'))
@@ -104,16 +104,16 @@ function moveDirection(direction, boat = null, node = null)
         let complement = (boat.id.includes("2") ? "2" : "");
         const propLife = "currentLifeAmountBoat"+complement;
         const propMaxLife = "maxLifeAmountBoat"+complement;
-        let currentLife = localStorage.getItem(propLife);
-        let maxLife = localStorage.getItem(propMaxLife);
+        let currentLife = getItem(propLife);
+        let maxLife = getItem(propMaxLife);
         if(currentLife < maxLife)
         {
             const heal = (20/100);
             let newLife = Math.ceil(currentLife + (currentLife*heal));
             if(newLife >= maxLife)
-                localStorage.setItem(propLife, maxLife);
+                setItem(propLife, maxLife);
             else
-                localStorage.setItem(propLife, newLife);
+                setItem(propLife, newLife);
 
             updateLifeBar(boat)
         }
@@ -128,22 +128,22 @@ function moveDirection(direction, boat = null, node = null)
         boat.classList.add('boat');
         // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
         boat.style = "";
-        checkIfWon(boat);
+        checkIfWon();
         if (node != null && node.classList.contains("enlightened"))
         {
             node.classList.remove("enlightened");
         }
         if(speed != "1" && boat.id == "boat")
         {
-            localStorage.setItem('speed', "1");
+            setItem('speed', "1");
             moveDirection(direction);
         }
         const fightButton = document.getElementById('fightButton')
         if( boat.id == "boat" )
         {
             if(
-                Math.abs(cordx-parseInt(localStorage.getItem('boat2CordX'))) <= window.fightDistances.x && 
-                Math.abs(cordy-parseInt(localStorage.getItem('boat2CordY'))) <= window.fightDistances.y
+                Math.abs(cordx-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
+                Math.abs(cordy-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
             )
             {
                 fightButton.classList.remove('disabled')
@@ -160,11 +160,11 @@ function moveDirection(direction, boat = null, node = null)
 
 function newGame()
 {
-//    for (key in localStorage) 
+//    for (key in  
 //     {
 //         if(key != "playerXp" && key != "displayTuto")
 //         {
-//             localStorage.removeItem(key);
+//             removeItem(key);
 //         }
 //     }
     let minX = 3;
@@ -173,36 +173,36 @@ function newGame()
     let maxY = 5;
     let randomX = Math.floor(Math.random()*(maxX-minX+1)+minX);
     let randomY = Math.floor(Math.random()*(maxY-minY+1)+minY);
-    localStorage.setItem('boatCordX', 1);
-    localStorage.setItem('boatCordY', 1);
-    localStorage.setItem('boat2CordX', 12);
-    localStorage.setItem('boat2CordY', 6);
-    localStorage.setItem('trycount', 0);
-    localStorage.setItem('treasureCordX', randomX);
-    localStorage.setItem('treasureCordY', randomY);
-    localStorage.setItem('displayType', "1");
-    localStorage.setItem('speed', "1");
-    localStorage.setItem('goneThere', JSON.stringify(['1-1','6-12']))
-    localStorage.setItem('currentLifeAmountBoat', localStorage.getItem('maxLifeAmountBoat'));
-    localStorage.setItem('currentLifeAmountBoat2', localStorage.getItem('maxLifeAmountBoat2'));
+    setItem('boatCordX', 1);
+    setItem('boatCordY', 1);
+    setItem('boat2CordX', 12);
+    setItem('boat2CordY', 6);
+    setItem('trycount', 0);
+    setItem('treasureCordX', randomX);
+    setItem('treasureCordY', randomY);
+    setItem('displayType', "1");
+    setItem('speed', "1");
+    setItem('goneThere', JSON.stringify(['1-1','6-12']))
+    setItem('currentLifeAmountBoat', getItem('maxLifeAmountBoat'));
+    setItem('currentLifeAmountBoat2', getItem('maxLifeAmountBoat2'));
     window.location.reload();
 }
 function gainXp(hasWon = true)
 {
     let xp = 0;
-    if(parseInt(localStorage.getItem('trycount')) <= 3 || !hasWon)
+    if(parseInt(getItem('trycount')) <= 3 || !hasWon)
     {
         xp = 50;
     }
-    else if(parseInt(localStorage.getItem('trycount')) <= 6)
+    else if(parseInt(getItem('trycount')) <= 6)
     {
         xp = 100;
     }
-    else if(parseInt(localStorage.getItem('trycount')) <= 9)
+    else if(parseInt(getItem('trycount')) <= 9)
     {
         xp = 250;
     }
-    else if(parseInt(localStorage.getItem('trycount')) > 9)
+    else if(parseInt(getItem('trycount')) > 9)
     {
         xp = 500;
     }
@@ -210,22 +210,22 @@ function gainXp(hasWon = true)
 }
 function gainCoins(hasWon = true)
 {
-    let multiplier = localStorage.getItem('difficulty');
+    let multiplier = getItem('difficulty');
     multiplier = (multiplier != null ? parseInt(multiplier) : 1);
     let coins = 0;
-    if(parseInt(localStorage.getItem('trycount')) <= 3 || !hasWon)
+    if(parseInt(getItem('trycount')) <= 3 || !hasWon)
     {
         coins = multiplier * 250;
     }
-    else if(parseInt(localStorage.getItem('trycount')) <= 6)
+    else if(parseInt(getItem('trycount')) <= 6)
     {
         coins = multiplier * 500;
     }
-    else if(parseInt(localStorage.getItem('trycount')) <= 9)
+    else if(parseInt(getItem('trycount')) <= 9)
     {
         coins = multiplier * 750;
     }
-    else if(parseInt(localStorage.getItem('trycount')) > 9)
+    else if(parseInt(getItem('trycount')) > 9)
     {
         coins = multiplier * 1000;
     }
@@ -235,27 +235,27 @@ function checkIfWon(boat = null)
 {
     if(boat == null || boat.id == "boat2")
     {
-        if(localStorage.getItem('boatCordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boatCordY') == localStorage.getItem('treasureCordY'))
+        if(getItem('boatCordX') == getItem('treasureCordX') && getItem('boatCordY') == getItem('treasureCordY'))
         {
             let xp = gainXp();
             let coins = gainCoins();
-            localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-            localStorage.setItem('playerCoins', parseInt(localStorage.getItem('playerCoins')) + coins)
+            setItem('playerXp', parseInt(getItem('playerXp')) + xp)
+            setItem('playerCoins', parseInt(getItem('playerCoins')) + coins)
             wonAnimation(xp, coins);
             
         }
-        else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
+        else if(getItem('boat2CordX') == getItem('treasureCordX') && getItem('boat2CordY') == getItem('treasureCordY'))
         {
             loseAnimation();
         }
         else
         {
-            localStorage.setItem('trycount', parseInt(localStorage.getItem('trycount'))+1);
-            boatCordX = localStorage.getItem('boatCordX');
-            boatCordY = localStorage.getItem('boa2CordY');
-            boat2CordX = localStorage.getItem('boat2CordX');
-            boat2CordY = localStorage.getItem('boat2CordY');
-            let data = JSON.parse(localStorage.getItem('goneThere'));
+            setItem('trycount', parseInt(getItem('trycount'))+1);
+            boatCordX = getItem('boatCordX');
+            boatCordY = getItem('boa2CordY');
+            boat2CordX = getItem('boat2CordX');
+            boat2CordY = getItem('boat2CordY');
+            let data = JSON.parse(getItem('goneThere'));
             if(!data.includes(boatCordY+"-"+boatCordX))
             {
                 data.push(boatCordY+"-"+boatCordX)
@@ -264,13 +264,13 @@ function checkIfWon(boat = null)
             {
                 data.push(boat2CordY+"-"+boat2CordX)
             }
-            localStorage.setItem('goneThere', JSON.stringify(data))
-            if(localStorage.getItem('currentTarget2') != null)
+            setItem('goneThere', JSON.stringify(data))
+            if(getItem('currentTarget2') != null)
             {
-                let currentTarget = JSON.parse(localStorage.getItem('currentTarget2'));
+                let currentTarget = JSON.parse(getItem('currentTarget2'));
                 if(currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
                 {
-                    localStorage.removeItem('currentTarget2');
+                    removeItem('currentTarget2');
                 }
             }
         }
@@ -281,7 +281,7 @@ function wonAnimation(xp, coins)
 {
     Swal.fire({
         title: 'You win!',
-        html: `Congrats !<br>Treasure found in ${localStorage.getItem('trycount')}attempts.<br>${xp} xp and ${coins} coins won !`,
+        html: `Congrats !<br>Treasure found in ${getItem('trycount')} attempts.<br>${xp} xp and ${coins} coins won !`,
         confirmButtonText: 'Cool',
         showConfirmButton: true,
         customClass: {
@@ -296,8 +296,8 @@ function loseAnimation()
 {
     let xp = gainXp(false);
     let coins = gainCoins(false);
-    localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-    localStorage.setItem('playerCoins', parseInt(localStorage.getItem('playerCoins')) + coins)
+    setItem('playerXp', parseInt(getItem('playerXp')) + xp)
+    setItem('playerCoins', parseInt(getItem('playerCoins')) + coins)
     Swal.fire({
         title: 'Defeat',
         html: `${xp} xp and ${coins} coins won anyway, keep going!`,
@@ -313,7 +313,7 @@ function loseAnimation()
 }
 
 function hint() {
-    let type = localStorage.getItem(localStorage.getItem('treasureCordY')+"-"+localStorage.getItem('treasureCordX'));
+    let type = getItem(getItem('treasureCordY')+"-"+getItem('treasureCordX'));
     Swal.fire({
         icon:'info',
         html: 'Rumors say that you should search on the '+type+"s",
@@ -336,16 +336,16 @@ function moveBoatAuto(boat = null)
     {
         boat = window.boat2;
     }
-    
-    if(typeof boat == "undefined" || boat == null)
+    console.log("boat", boat)
+    if(typeof boat == "undefined" || boat == null || document.getElementById(boat.id) == null || document.querySelector(`#${boat.id}:not(.notinit)`) == null)
     {
         return;
     }
     if(boat.id.match(/2/))
     {
-        boatCordX = parseInt(localStorage.getItem('boat2CordX'));
-        boatCordY = parseInt(localStorage.getItem('boat2CordY'));
-        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) <=window.fightDistances.x && Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))) <= window.fightDistances.y)
+        boatCordX = parseInt(getItem('boat2CordX'));
+        boatCordY = parseInt(getItem('boat2CordY'));
+        if(Math.abs(boatCordX-parseInt(getItem('boatCordX'))) <=window.fightDistances.x && Math.abs(boatCordY-parseInt(getItem('boatCordY'))) <= window.fightDistances.y)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
@@ -354,12 +354,12 @@ function moveBoatAuto(boat = null)
     }
     else
     {
-        boatCordX = parseInt(localStorage.getItem('boatCordX'));
-        boatCordY = parseInt(localStorage.getItem('boatCordY'));
+        boatCordX = parseInt(getItem('boatCordX'));
+        boatCordY = parseInt(getItem('boatCordY'));
     }
-    let treasureCordX = parseInt(localStorage.getItem('treasureCordX'));
-    let treasureCordY = parseInt(localStorage.getItem('treasureCordY'));
-    let type = localStorage.getItem(treasureCordY+'-'+treasureCordX);
+    let treasureCordX = parseInt(getItem('treasureCordX'));
+    let treasureCordY = parseInt(getItem('treasureCordY'));
+    let type = getItem(treasureCordY+'-'+treasureCordX);
 
     // Find possible treasure places
     let allSameTiles = document.querySelectorAll('.'+type);
@@ -368,15 +368,15 @@ function moveBoatAuto(boat = null)
     let distanceX = 0;
     let distanceY = 0;
     let nearestTile = null;
-    let goneThere = JSON.parse(localStorage.getItem('goneThere'));
-    if(localStorage.getItem('currentTarget2') == null)
+    let goneThere = JSON.parse(getItem('goneThere'));
+    if(getItem('currentTarget2') == null)
     {
         allSameTiles.forEach(tile => {
             let tileX = parseInt(tile.dataset.cordX) 
             let tileY = parseInt(tile.dataset.cordY) 
             if(
-                tileX != localStorage.getItem('boat2CordX') && tileY != localStorage.getItem('boat2CordY')
-                && tileX != localStorage.getItem('boatCordX') && tileY != localStorage.getItem('boatCordY')
+                tileX != getItem('boat2CordX') && tileY != getItem('boat2CordY')
+                && tileX != getItem('boatCordX') && tileY != getItem('boatCordY')
             )
             {
                 if(tileX < (boatCordX))
@@ -402,14 +402,14 @@ function moveBoatAuto(boat = null)
                     minX = distanceX;
                     minY = distanceY;
                     nearestTile = tile;
-                    localStorage.setItem('currentTarget2', JSON.stringify({x:tile.dataset.cordX,y:tile.dataset.cordY}));
+                    setItem('currentTarget2', JSON.stringify({x:tile.dataset.cordX,y:tile.dataset.cordY}));
                 }
             }
         })
     }
 
     // Deduce direction to take
-    nearestTile = JSON.parse(localStorage.getItem('currentTarget2'))
+    nearestTile = JSON.parse(getItem('currentTarget2'))
     direction = "";
     if(nearestTile != null)
     {
@@ -473,10 +473,10 @@ function moveBoatAuto(boat = null)
 
 function compass()
 {
-    boatCordX = parseInt(localStorage.getItem('boatCordX'));
-    boatCordY = parseInt(localStorage.getItem('boatCordY'));
-    let treasureCordX = parseInt(localStorage.getItem('treasureCordX'));
-    let treasureCordY = parseInt(localStorage.getItem('treasureCordY'));
+    boatCordX = parseInt(getItem('boatCordX'));
+    boatCordY = parseInt(getItem('boatCordY'));
+    let treasureCordX = parseInt(getItem('treasureCordX'));
+    let treasureCordY = parseInt(getItem('treasureCordY'));
     let directions = [];
 
     if(treasureCordY < (boatCordY))
@@ -524,7 +524,7 @@ function reveal()
 
 function handleReveal(e)
 {
-    if(e.target.dataset.cordX == localStorage.getItem('treasureCordX') && e.target.dataset.cordY == localStorage.getItem('treasureCordY'))
+    if(e.target.dataset.cordX == getItem('treasureCordX') && e.target.dataset.cordY == getItem('treasureCordY'))
     {
         Swal.fire({
             title: "Congrats!", 
@@ -561,7 +561,7 @@ function doubleSpeedOneTime()
         showConfirmButton: true
     })
     .then(res => {
-        localStorage.setItem('speed', "2");
+        setItem('speed', "2");
     })
 }
 
@@ -590,8 +590,8 @@ function handleTeleport(e)
     boat.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
     setTimeout(() => {
         e.target.appendChild(boat)
-        localStorage.setItem('boatCordX', e.target.dataset.cordX);
-        localStorage.setItem('boatCordY', e.target.dataset.cordY);
+        setItem('boatCordX', e.target.dataset.cordX);
+        setItem('boatCordY', e.target.dataset.cordY);
         boat.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
         setTimeout(() => {
             boat.classList.add('boat');
@@ -732,7 +732,7 @@ function tutorial()
             })
         }
     })
-    localStorage.setItem('displayTuto',"no");
+    setItem('displayTuto',"no");
 }
 
 function fight(attacker, defender)
@@ -742,19 +742,19 @@ function fight(attacker, defender)
     const propAttack = "attackPower"+complement1;
     const propLife = "currentLifeAmountBoat"+complement2;
     const propShield = "shieldArmor"+complement2;
-    const attackPower = parseInt(localStorage.getItem(propAttack));
-    const shieldArmor = parseInt(localStorage.getItem(propShield));
-    const currentLifeAmount = parseInt(localStorage.getItem(propLife));
+    const attackPower = parseInt(getItem(propAttack));
+    const shieldArmor = parseInt(getItem(propShield));
+    const currentLifeAmount = parseInt(getItem(propLife));
     let newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
-    localStorage.setItem(propLife, newLifeDefender);
+    setItem(propLife, newLifeDefender);
     updateLifeBar(defender)
     if(newLifeDefender <= 0)
     {
         defender.style.animation = `1s linear death${complement2} 0s normal forwards`
         setTimeout(() => {
             defender.remove()
-            localStorage.setItem(`boat${complement2}CordX`, 20 )
-            localStorage.setItem(`boat${complement2}CordY`, 20 )
+            removeItem(`boat${complement2}CordX`)
+            removeItem(`boat${complement2}CordY`)
             if(attacker.id == "boat2")
             {
                 loseAnimation()
@@ -772,8 +772,22 @@ function updateLifeBar(boat)
     let complement = (boat.id.includes("2") ? "2" : "");
     let propCurrentLife = "currentLifeAmountBoat"+complement;
     let propMaxLife = "maxLifeAmountBoat"+complement;
-    let percentLifeAmount = Math.round(parseInt(localStorage.getItem(propCurrentLife))*100/parseInt(localStorage.getItem(propMaxLife)));
+    let percentLifeAmount = Math.round(parseInt(getItem(propCurrentLife))*100/parseInt(getItem(propMaxLife)));
     console.log("percentLifeAmount",percentLifeAmount)
     window["lifebar"+complement].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     console.log('window["lifebar"+complement]', window["lifebar"+complement])
+}
+
+function getItem(item)
+{
+    return localStorage.getItem(item);
+}
+
+function setItem(item, value)
+{
+    return localStorage.setItem(item, value);
+}
+function removeItem(item)
+{
+    return localStorage.removeItem(item);
 }

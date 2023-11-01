@@ -180,11 +180,11 @@
             </div>
         </div>
     </div>
-    <div id = "boat" class="boat" style="display: none;">
+    <div id = "boat" class="boat notinit" style="display: none;">
         <img  class="img-fluid" src="./images/boat.png" alt="Black Pearl" />
         <span class="lifebar"></span>
     </div>
-    <div id="boat2" class="boat2" style="display: none;">
+    <div id="boat2" class="boat2 notinit" style="display: none;">
         <img class="img-fluid" src="./images/boat2.png" alt="Silent Mary"/>
         <span class="lifebar"></span>
     </div>
@@ -201,46 +201,44 @@
 </html>
 <script src="./scripts/functions.js"></script>
 <script>
-    if(localStorage.getItem('displayTuto') == "no" && (
-        localStorage.getItem('boatCordX') == null || 
-        localStorage.getItem('boatCordY') == null ||
-        localStorage.getItem('boat2CordX') == null || 
-        localStorage.getItem('boat2CordY') == null
+    if(getItem('displayTuto') == "no" && (
+        getItem('boatCordX') == null || 
+        getItem('boatCordY') == null
         ))
     {
         newGame();
     }
    
-    console.log(localStorage.getItem('treasureCordX'))
-    console.log(localStorage.getItem('treasureCordY'))
+    console.log(getItem('treasureCordX'))
+    console.log(getItem('treasureCordY'))
     const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
     for (let i = 1; i <= 6; i++) 
     {
         for (let j = 1; j <= 12; j++) 
         {
-            if(localStorage.getItem(i+'-'+j) == null || localStorage.getItem(i+'-'+j) == undefined)
+            if(getItem(i+'-'+j) == null || getItem(i+'-'+j) == undefined)
             {
                 let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
-                localStorage.setItem(i+'-'+j, type);
+                setItem(i+'-'+j, type);
             }
         }
     }
     /* STATS */
-    let maxLifeAmountBoat = localStorage.getItem('maxLifeAmountBoat');
-    let maxLifeAmountBoat2 = localStorage.getItem('maxLifeAmountBoat2');
-    let currentLifeAmountBoat = localStorage.getItem('currentLifeAmountBoat');
-    let currentLifeAmountBoat2 = localStorage.getItem('currentLifeAmountBoat2');
-    let attackPower = localStorage.getItem('attackPower');
-    let attackPower2 = localStorage.getItem('attackPower2');
-    let shieldArmor = localStorage.getItem('shieldArmor');
-    let shieldArmor2 = localStorage.getItem('shieldArmor2');
+    let maxLifeAmountBoat = getItem('maxLifeAmountBoat');
+    let maxLifeAmountBoat2 = getItem('maxLifeAmountBoat2');
+    let currentLifeAmountBoat = getItem('currentLifeAmountBoat');
+    let currentLifeAmountBoat2 = getItem('currentLifeAmountBoat2');
+    let attackPower = getItem('attackPower');
+    let attackPower2 = getItem('attackPower2');
+    let shieldArmor = getItem('shieldArmor');
+    let shieldArmor2 = getItem('shieldArmor2');
     
     
 
-    let boatx = localStorage.getItem('boatCordX');
-    let boaty = localStorage.getItem('boatCordY');
-    let boat2x = localStorage.getItem('boat2CordX');
-    let boat2y = localStorage.getItem('boat2CordY');
+    let boatx = getItem('boatCordX');
+    let boaty = getItem('boatCordY');
+    let boat2x = getItem('boat2CordX');
+    let boat2y = getItem('boat2CordY');
     const column = document.querySelector('.row.column');
     const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
@@ -265,22 +263,18 @@
             if(boatx == x && boaty == y)
             {
                 tileClone.appendChild(boat);
+                boat.classList.remove("notinit")
                 boat.style.display = "block";
-                if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
-                {
-                    boat.src = '/treasurefind_js/images/boat.png';
-                }
+                boat.src = './images/boat.png';
             }
             if(boat2x == x && boat2y == y)
             {
                 tileClone.appendChild(boat2);
+                boat2.classList.remove("notinit")
                 boat2.style.display = "block";
-                if(!window.location.href.match(/C:/) && !window.location.href.match(/127/))
-                {
-                    boat2.src = '/treasurefind_js/images/boat2.png';
-                }
+                boat2.src = './images/boat2.png';
             }
-            tileClone.classList.add(localStorage.getItem(y+'-'+x))
+            tileClone.classList.add(getItem(y+'-'+x))
         }
         map.appendChild(col);
         col.style.display = "flex";
@@ -303,17 +297,17 @@
             }
         })
     }
-    if(localStorage.getItem('displayTuto') != "no")
+    if(getItem('displayTuto') != "no")
     {
         tutorial();
     }
     else
     {
         setTimeout(() => {
-            if(localStorage.getItem('displayType') == "1")
+            if(getItem('displayType') == "1")
             {
                 hint();
-                localStorage.setItem('displayType', "0");
+                setItem('displayType', "0");
             }
         }, 2000)
     }
