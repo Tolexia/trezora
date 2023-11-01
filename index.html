@@ -17,7 +17,6 @@
         }
     </script>-->
     <script src="./scripts/main.js"></script>
-    <script src="./scripts/functions.js"></script>
 </head>
 <body>
     <header>
@@ -174,6 +173,9 @@
                     <a onclick="moveDirection('S',null, this)" class="south">S</a>
                     <a onclick="moveDirection('E',null, this)" class="east">E</a>
                     <a onclick="moveDirection('W',null, this)" class="west">W</a>
+                    <button type="button" class="transparent-button disabled" onclick="fight(window.boat,window.boat2);" id="fightButton">
+                        <img src="./images/fight/sabres.png" alt="FIGHT" class="fight-icon">
+                    </button>
                 </div>
             </div>
         </div>
@@ -197,6 +199,7 @@
             crossorigin="anonymous"></script>
 </body>
 </html>
+<script src="./scripts/functions.js"></script>
 <script>
     if(localStorage.getItem('displayTuto') == "no" && (
         localStorage.getItem('boatCordX') == null || 

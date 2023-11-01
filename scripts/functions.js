@@ -1,3 +1,5 @@
+window.fightDistances = {x:2,y:1}
+
 function moveDirection(direction, boat = null, node = null)
 {
     document.body.style.pointerEvents = "none";
@@ -136,6 +138,21 @@ function moveDirection(direction, boat = null, node = null)
             localStorage.setItem('speed', "1");
             moveDirection(direction);
         }
+        const fightButton = document.getElementById('fightButton')
+        if( boat.id == "boat" )
+        {
+            if(
+                Math.abs(cordx-parseInt(localStorage.getItem('boat2CordX'))) <= window.fightDistances.x && 
+                Math.abs(cordy-parseInt(localStorage.getItem('boat2CordY'))) <= window.fightDistances.y
+            )
+            {
+                fightButton.classList.remove('disabled')
+            }
+            else 
+            {
+                fightButton.classList.add('disabled')
+            }
+        }
         document.body.style.pointerEvents = "";
     }, 1500);
 }
@@ -229,11 +246,7 @@ function checkIfWon(boat = null)
         }
         else if(localStorage.getItem('boat2CordX') == localStorage.getItem('treasureCordX') && localStorage.getItem('boat2CordY') == localStorage.getItem('treasureCordY'))
         {
-            let xp = gainXp(false);
-            let coins = gainCoins(false);
-            localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
-            localStorage.setItem('playerCoins', parseInt(localStorage.getItem('playerCoins')) + coins)
-            loseAnimation(xp, coins);
+            loseAnimation();
         }
         else
         {
@@ -279,8 +292,12 @@ function wonAnimation(xp, coins)
         newGame();
       })
 }
-function loseAnimation(xp, coins)
+function loseAnimation()
 {
+    let xp = gainXp(false);
+    let coins = gainCoins(false);
+    localStorage.setItem('playerXp', parseInt(localStorage.getItem('playerXp')) + xp)
+    localStorage.setItem('playerCoins', parseInt(localStorage.getItem('playerCoins')) + coins)
     Swal.fire({
         title: 'Defeat',
         html: `${xp} xp and ${coins} coins won anyway, keep going!`,
@@ -319,11 +336,16 @@ function moveBoatAuto(boat = null)
     {
         boat = window.boat2;
     }
+    
+    if(typeof boat == "undefined" || boat == null)
+    {
+        return;
+    }
     if(boat.id.match(/2/))
     {
         boatCordX = parseInt(localStorage.getItem('boat2CordX'));
         boatCordY = parseInt(localStorage.getItem('boat2CordY'));
-        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) <=2 && Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))) <= 1)
+        if(Math.abs(boatCordX-parseInt(localStorage.getItem('boatCordX'))) <=window.fightDistances.x && Math.abs(boatCordY-parseInt(localStorage.getItem('boatCordY'))) <= window.fightDistances.y)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
@@ -352,7 +374,10 @@ function moveBoatAuto(boat = null)
         allSameTiles.forEach(tile => {
             let tileX = parseInt(tile.dataset.cordX) 
             let tileY = parseInt(tile.dataset.cordY) 
-            if(!(tileX == boatCordX && tileY == boatCordY))
+            if(
+                tileX != localStorage.getItem('boat2CordX') && tileY != localStorage.getItem('boat2CordY')
+                && tileX != localStorage.getItem('boatCordX') && tileY != localStorage.getItem('boatCordY')
+            )
             {
                 if(tileX < (boatCordX))
                 {
@@ -406,28 +431,37 @@ function moveBoatAuto(boat = null)
         {
             distanceY = (nearY) - (boatCordY);
         }
-        if(distanceY == 0 || (distanceX <= distanceY && distanceX != 0))
+        if(distanceY > 0 && distanceX > 0 && distanceX == distanceY)
+        {
+            const goY = Math.random() > 0.5
+            if(goY)
+            {
+                if(nearY < boatCordY)
+                    direction = "N";
+                else
+                    direction = "S";
+            }
+            else 
+            {
+                if(nearX <  boatCordX)
+                    direction = "W";
+                else
+                    direction = "E";
+            }
+        }
+        else if(distanceY == 0 || (distanceX <= distanceY && distanceX != 0))
         {
             if(nearX <  boatCordX)
-            {
                 direction = "W";
-            }
             else
-            {
                 direction = "E";
-            }
         }
         else
         {
-            
             if(nearY < boatCordY)
-            {
                 direction = "N";
-            }
             else
-            {
                 direction = "S";
-            }
         }
     }
     else
@@ -703,7 +737,6 @@ function tutorial()
 
 function fight(attacker, defender)
 {
-    console.log("fight");
     let complement1 = (attacker.id.includes("2") ? "2" : "");
     let complement2 = (defender.id.includes("2") ? "2" : "");
     const propAttack = "attackPower"+complement1;
@@ -715,6 +748,23 @@ function fight(attacker, defender)
     let newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
     localStorage.setItem(propLife, newLifeDefender);
     updateLifeBar(defender)
+    if(newLifeDefender <= 0)
+    {
+        defender.style.animation = `1s linear death${complement2} 0s normal forwards`
+        setTimeout(() => {
+            defender.remove()
+            localStorage.setItem(`boat${complement2}CordX`, 20 )
+            localStorage.setItem(`boat${complement2}CordY`, 20 )
+            if(attacker.id == "boat2")
+            {
+                loseAnimation()
+            }
+        }, 1000);
+    }
+    else if(attacker.id == "boat")
+    {
+        moveBoatAuto();
+    }
 }
 
 function updateLifeBar(boat)
