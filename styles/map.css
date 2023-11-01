@@ -347,7 +347,7 @@ h2 {
 }
 
 /* FIGHT */
-@keyframes impact {
+@keyframes receiveImpact {
     0%{
         scale: 0;
         opacity: 0;
@@ -410,18 +410,20 @@ h2 {
     height: 2em;
     width: 2em;
     position: absolute;
-    animation: 1s linear impact;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     top: 75%;
+    z-index: 3;
 }
 .attack::after
 {
     background-image: url(../images/fight/nuage.png);
+    animation: 1s linear shoot;
 }
 .defend::after{
     background-image: url(../images/fight/explosion.png);
+    animation: 1s linear receiveImpact;
 }
 #boat.attack::after{
     right: 20%;
