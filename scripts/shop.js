@@ -22,10 +22,10 @@ function showlist(option, reload = false)
     window.itemsContainer.classList.remove("close")
     window.itemsContainer.classList.add("open")
     setTimeout(() => {
-        window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: ${localStorage.getItem('playerCoins')}</span>`
+        window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: ${getItem('playerCoins')}</span>`
         if(option == "Buy")
         {
-            items = JSON.parse(localStorage.getItem('itemsInShop'));
+            items = JSON.parse(getItem('itemsInShop'));
             for(let item of items)
             {
                 const divItem = document.createElement('div')
@@ -75,7 +75,7 @@ function showlist(option, reload = false)
         }
         else
         {
-            items = JSON.parse(localStorage.getItem('itemsToSell'));
+            items = JSON.parse(getItem('itemsToSell'));
             if(items.length == 0)
             {
                 window.itemslist.innerHTML = `<p class = "noitem">No item to sell.<br/>Play a few games to get some !</p>`
@@ -100,7 +100,7 @@ function buy(item)
       .then((result) => {
         if(result.isConfirmed)
         {
-            let coins = localStorage.getItem('playerCoins')
+            let coins = getItem('playerCoins')
             if(coins == null || parseInt(coins) < parseInt(item.cost))
             {
                 Swal.fire({
@@ -118,8 +118,8 @@ function buy(item)
             else
             {
                 coins = parseInt(coins) - parseInt(item.cost)
-                localStorage.setItem('playerCoins', coins)
-                const itemsStored = JSON.parse(localStorage.getItem('itemsInShop'));
+                setItem('playerCoins', coins)
+                const itemsStored = JSON.parse(getItem('itemsInShop'));
                 for(let itemStored of itemsStored)
                 {
                     if(itemStored.name == item.name)
@@ -127,11 +127,11 @@ function buy(item)
                         itemStored.bought = true
                     }
                 }
-                localStorage.setItem("itemsInShop", JSON.stringify(itemsStored))
+                setItem("itemsInShop", JSON.stringify(itemsStored))
 
-                const currentStat = localStorage.getItem(item.stat)
+                const currentStat = getItem(item.stat)
                 const newStatValue = parseInt(currentStat) + item.buffValue
-                localStorage.setItem(item.stat, newStatValue)
+                setItem(item.stat, newStatValue)
 
                 const sucessImg = (item.name.includes("Artillery") ? "./images/upgrades/artillery.png": "./images/upgrades/nice_ship.png")
                 Swal.fire({

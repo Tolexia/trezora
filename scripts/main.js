@@ -1,6 +1,19 @@
+function getItem(item)
+{
+    return localStorage.getItem(item);
+}
+
+function setItem(item, value)
+{
+    return localStorage.setItem(item, value);
+}
+function removeItem(item)
+{
+    return localStorage.removeItem(item);
+}
 function init()
 {
-    if(localStorage.getItem('itemsInShop') == null)
+    if(getItem('itemsInShop') == null)
     {
         const itemsInShop = [
             {
@@ -52,55 +65,55 @@ function init()
                 buffValue : 3
             }
         ]
-        localStorage.setItem("itemsInShop", JSON.stringify(itemsInShop))
+        setItem("itemsInShop", JSON.stringify(itemsInShop))
     }
-    if(localStorage.getItem('updatesPossed') == null)
+    if(getItem('updatesPossed') == null)
     {
-        localStorage.setItem("updatesPossed", JSON.stringify([]))
+        setItem("updatesPossed", JSON.stringify([]))
     }
-    if(localStorage.getItem('itemsToSell') == null)
+    if(getItem('itemsToSell') == null)
     {
-        localStorage.setItem("itemsToSell", JSON.stringify([]))
+        setItem("itemsToSell", JSON.stringify([]))
     }
-    if(localStorage.getItem('maxLifeAmountBoat') == null)
+    if(getItem('maxLifeAmountBoat') == null)
     {
-        localStorage.setItem('maxLifeAmountBoat', 10);
+        setItem('maxLifeAmountBoat', 10);
     }
-    if(localStorage.getItem('maxLifeAmountBoat2') == null)
+    if(getItem('maxLifeAmountBoat2') == null)
     {
-        localStorage.setItem('maxLifeAmountBoat2', 10);
+        setItem('maxLifeAmountBoat2', 10);
     }
-    if(localStorage.getItem('currentLifeAmountBoat') == null)
+    if(getItem('currentLifeAmountBoat') == null)
     {
-        localStorage.setItem('currentLifeAmountBoat', 10);
+        setItem('currentLifeAmountBoat', 10);
     }
-    if(localStorage.getItem('currentLifeAmountBoat2') == null)
+    if(getItem('currentLifeAmountBoat2') == null)
     {
-        localStorage.setItem('currentLifeAmountBoat2', 10);
+        setItem('currentLifeAmountBoat2', 10);
     }
-    if(localStorage.getItem('attackPower') == null)
+    if(getItem('attackPower') == null)
     {
-        localStorage.setItem('attackPower', 3);
+        setItem('attackPower', 3);
     }
-    if(localStorage.getItem('attackPower2') == null)
+    if(getItem('attackPower2') == null)
     {
-        localStorage.setItem('attackPower2', 3);
+        setItem('attackPower2', 3);
     }
-    if(localStorage.getItem('shieldArmor') == null)
+    if(getItem('shieldArmor') == null)
     {
-        localStorage.setItem('shieldArmor', 0);
+        setItem('shieldArmor', 0);
     }
-    if(localStorage.getItem('shieldArmor2') == null)
+    if(getItem('shieldArmor2') == null)
     {
-        localStorage.setItem('shieldArmor2', 0);
+        setItem('shieldArmor2', 0);
     }
-    if(localStorage.getItem('playerCoins') == null)
+    if(getItem('playerCoins') == null)
     {
-        localStorage.setItem('playerCoins', 0);
+        setItem('playerCoins', 0);
     }
-    if(localStorage.getItem('playerXp') == null)
+    if(getItem('playerXp') == null)
     {
-        localStorage.setItem('playerXp', 0);
+        setItem('playerXp', 0);
     }
 }
 init()

@@ -777,17 +777,3 @@ function updateLifeBar(boat)
     window["lifebar"+complement].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     console.log('window["lifebar"+complement]', window["lifebar"+complement])
 }
-
-function getItem(item)
-{
-    return localStorage.getItem(item);
-}
-
-function setItem(item, value)
-{
-    return localStorage.setItem(item, value);
-}
-function removeItem(item)
-{
-    return localStorage.removeItem(item);
-}

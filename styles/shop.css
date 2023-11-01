@@ -156,7 +156,7 @@ h1{
     position: absolute;
     visibility: hidden;
     left: 50%;
-    top: 55%;
+    top: 50%;
     transform: translateX(-50%);
     background-color: #5b0a2ce8;
     z-index: 10;
