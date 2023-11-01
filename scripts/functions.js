@@ -138,7 +138,7 @@ function moveDirection(direction, boat = null, node = null)
             setItem('speed', "1");
             moveDirection(direction);
         }
-        const fightButton = document.getElementById('fightButton')
+        
         if( boat.id == "boat" )
         {
             handleVisibilityFightButton()
@@ -148,6 +148,7 @@ function moveDirection(direction, boat = null, node = null)
 }
 function handleVisibilityFightButton()
 {
+    const fightButton = document.getElementById('fightButton')
     if(
         Math.abs(parseInt(getItem('boatCordX'))-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
         Math.abs(parseInt(getItem('boat2CordY'))-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y

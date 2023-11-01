@@ -413,7 +413,7 @@ h2 {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    top: 75%;
+    bottom: 26%;
     z-index: 3;
 }
 .attack::after
