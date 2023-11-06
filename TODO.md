@@ -9,10 +9,10 @@
 * Implementing levels depending on total xp
 * Difficulty system : increasing it at the same time as player levels up, but let the player modify it as they will. More difficulty is, stronger is the opponent and more coins gained
 
-## Fight
-* Animate fights : smoke and kickback on attacker and after delay explosion on defender + screen shaking (smoke and explosion effect : increase scale and opacity)
-* Ability to attack "AI"
-
 # DONE
 
 * Shop : Make it beautiful
+
+## Fight
+* Animate fights : smoke and kickback on attacker and after delay explosion on defender + screen shaking (smoke and explosion effect : increase scale and opacity)
+* Ability to attack "AI"
