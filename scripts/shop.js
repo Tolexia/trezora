@@ -133,6 +133,10 @@ function buy(item)
                 const newStatValue = parseInt(currentStat) + item.buffValue
                 setItem(item.stat, newStatValue)
 
+                const upgradesPossessed = JSON.parse(getItem("upgradesPossessed"))
+                upgradesPossessed.push(item)
+                setItem("upgradesPossessed", JSON.stringify(upgradesPossessed))
+                
                 const sucessImg = (item.name.includes("Artillery") ? "./images/upgrades/artillery.png": "./images/upgrades/nice_ship.png")
                 Swal.fire({
                     html: `

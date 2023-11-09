@@ -67,9 +67,21 @@ function init()
         ]
         setItem("itemsInShop", JSON.stringify(itemsInShop))
     }
-    if(getItem('updatesPossed') == null)
+    if(getItem('upgradesPossessed') == null)
     {
-        setItem("updatesPossed", JSON.stringify([]))
+        setItem("upgradesPossessed", JSON.stringify([]))
+    }
+    if(getItem('playerLvl') == null)
+    {
+        setItem("playerLvl", 1)
+    }
+    if(getItem('opponentLvl') == null)
+    {
+        setItem("opponentLvl", 1)
+    }
+    if(getItem('powersUnlocked') == null)
+    {
+        setItem("powersUnlocked", JSON.stringify([]))
     }
     if(getItem('itemsToSell') == null)
     {

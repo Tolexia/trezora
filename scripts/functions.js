@@ -1,4 +1,17 @@
 window.fightDistances = {x:2,y:1}
+window.levels = [
+    {lvl:1, xp:0},
+    {lvl:2, xp:500},
+    {lvl:3, xp:2000},
+    {lvl:4, xp:5000},
+    {lvl:5, xp:10000}
+]
+window.powerReaches = [
+    {lvl:2, power:"compass"},
+    {lvl:3, power:"reveal"},
+    {lvl:4, power:"doublespeed"},
+    {lvl:5, power:"teleport"}
+]
 
 function moveDirection(direction, boat = null, node = null)
 {
@@ -211,6 +224,15 @@ function gainXp(hasWon = true)
         xp = 500;
     }
     return xp;
+}
+
+function reachLvl()
+{
+    const xp = parseInt(getItem('playerXp'))
+    const lvl = getItem('playerLvl')
+    for(let lvl of window.levels)
+    {
+    }
 }
 function gainCoins(hasWon = true)
 {
