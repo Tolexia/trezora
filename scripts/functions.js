@@ -1,17 +1,17 @@
 window.fightDistances = {x:2,y:1}
-window.levels = [
-    {lvl:1, xp:0},
-    {lvl:2, xp:500},
-    {lvl:3, xp:2000},
-    {lvl:4, xp:5000},
-    {lvl:5, xp:10000}
-]
-window.powerReaches = [
-    {lvl:2, power:"compass"},
-    {lvl:3, power:"reveal"},
-    {lvl:4, power:"doublespeed"},
-    {lvl:5, power:"teleport"}
-]
+window.levels = {
+    1: 0,
+    2: 500,
+    3: 2000,
+    4: 5000,
+    5: 10000
+}
+window.powerReaches = {
+    2:"compass",
+    3:"reveal",
+    4:"doublespeed",
+    5:"teleport"
+}
 
 function moveDirection(direction, boat = null, node = null)
 {
@@ -229,10 +229,42 @@ function gainXp(hasWon = true)
 function reachLvl()
 {
     const xp = parseInt(getItem('playerXp'))
-    const lvl = getItem('playerLvl')
-    for(let lvl of window.levels)
+    const lvl = parseInt(getItem('playerLvl'))
+    const nxtLvlXpReach = window.levels[lvl+1]
+    if(xp >= nxtLvlXpReach)
     {
+        setItem("playerLvl", lvl+1)
+        gainPower(lvl)
     }
+}
+function gainPower(lvl)
+{
+    const newPower = window.powerReaches[lvl]
+    const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
+    if(!powersUnlocked.find(newPower))
+    {
+        powersUnlocked.push(newPower)
+        setItem("powersUnlocked", JSON.stringify(powersUnlocked))
+
+    }
+}
+function gainPowerAnimation(power)
+{
+    Swal.fire({
+        title: 'New Power!',
+        html: `Congrats !<br>You unlocked the power ${power} in the shop!<br/>Go quickly discover it!`,
+        confirmButtonText: "Let's go!",
+        showConfirmButton: true,
+        customClass: {
+            container: 'swal2-backdrop-show win'
+        }  
+    })
+      .then((result) => {
+        if(result.isConfirmed)
+        {
+            window.location.href = "../shop.html"
+        }
+      })
 }
 function gainCoins(hasWon = true)
 {
