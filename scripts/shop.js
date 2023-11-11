@@ -25,7 +25,7 @@ function showlist(option, reload = false)
         window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: ${getItem('playerCoins')}</span>`
         if(option == "Buy")
         {
-            items = JSON.parse(getItem('itemsInShop'));
+            items = JSON.parse(getItem('upradesToBuy'));
             for(let item of items)
             {
                 const divItem = document.createElement('div')
@@ -119,7 +119,7 @@ function buy(item)
             {
                 coins = parseInt(coins) - parseInt(item.cost)
                 setItem('playerCoins', coins)
-                const itemsStored = JSON.parse(getItem('itemsInShop'));
+                const itemsStored = JSON.parse(getItem('upradesToBuy'));
                 for(let itemStored of itemsStored)
                 {
                     if(itemStored.name == item.name)
@@ -127,7 +127,7 @@ function buy(item)
                         itemStored.bought = true
                     }
                 }
-                setItem("itemsInShop", JSON.stringify(itemsStored))
+                setItem("upradesToBuy", JSON.stringify(itemsStored))
 
                 const currentStat = getItem(item.stat)
                 const newStatValue = parseInt(currentStat) + item.buffValue

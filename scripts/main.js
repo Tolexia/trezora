@@ -13,9 +13,9 @@ function removeItem(item)
 }
 function init()
 {
-    if(getItem('itemsInShop') == null)
+    if(getItem('upgradesToBuy') == null)
     {
-        const itemsInShop = [
+        const upgrades = [
             {
                 name : "Upgrade Artillery n°1",
                 cost : 1000,
@@ -65,11 +65,45 @@ function init()
                 buffValue : 3
             }
         ]
-        setItem("itemsInShop", JSON.stringify(itemsInShop))
+        setItem("upgradesToBuy", JSON.stringify(upgrades))
+    }
+    if(getItem('powersToBuy') == null)
+    {
+        const powersToBuy = [
+            {
+                name : "compass",
+                title : "Compass",
+                cost : 1000,
+                image: "./images/upgrades/lance-pierres.png",
+            },
+            {
+                name : "reveal",
+                title : "Reveal",
+                cost : 1000,
+                image: "./images/upgrades/wood_shield.png",
+            },
+            {
+                name : "doublespeed",
+                title : "Double speed",
+                cost : 5000,
+                image: "./images/upgrades/canon_balls.png",
+            },
+            {
+                name : "teleport",
+                title : "Teleport",
+                cost : 5000,
+                image: "./images/upgrades/bouclier.png",
+            },
+        ]
+        setItem("powersToBuy", JSON.stringify(powersToBuy))
     }
     if(getItem('upgradesPossessed') == null)
     {
         setItem("upgradesPossessed", JSON.stringify([]))
+    }
+    if(getItem('powersPossessed') == null)
+    {
+        setItem("powersPossessed", JSON.stringify([]))
     }
     if(getItem('playerLvl') == null)
     {
