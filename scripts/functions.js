@@ -425,13 +425,13 @@ function moveBoatAuto(boat = null)
     
     if(getItem('currentTarget2') == null)
     {
-        setCurrentTileTarget()
+        setCurrentTileTarget(boatCordX, boatCordY)
     }
     else
     {
         nearestTile = JSON.parse(getItem('currentTarget2'))
         if(nearestTile.x == getItem('boatCordX') && nearestTile.y == getItem('boatCordY'))
-            setCurrentTileTarget()
+            setCurrentTileTarget(boatCordX, boatCordY)
     }
 
     // Deduce direction to take
@@ -496,7 +496,7 @@ function moveBoatAuto(boat = null)
     }
     moveDirection(direction, boat)
 }
-function setCurrentTileTarget()
+function setCurrentTileTarget(boatCordX, boatCordY)
 {
     let treasureCordX = parseInt(getItem('treasureCordX'));
     let treasureCordY = parseInt(getItem('treasureCordY'));

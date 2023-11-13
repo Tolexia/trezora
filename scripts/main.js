@@ -13,12 +13,45 @@ function removeItem(item)
 }
 function init()
 {
-    if(getItem('upgradesToBuy') == null)
+    if(getItem('itemsInShop') == null)
     {
-        const upgrades = [
+        const items = [
+            {
+                name : "compass",
+                title : "Compass",
+                cost : 1000,
+                quantity : 0,
+                type : "power",
+                image: "./images/upgrades/lance-pierres.png",
+            },
+            {
+                name : "reveal",
+                title : "Reveal",
+                cost : 1000,
+                quantity : 0,
+                type : "power",
+                image: "./images/upgrades/wood_shield.png",
+            },
+            {
+                name : "doublespeed",
+                title : "Double speed",
+                cost : 5000,
+                quantity : 0,
+                type : "power",
+                image: "./images/upgrades/canon_balls.png",
+            },
+            {
+                name : "teleport",
+                title : "Teleport",
+                cost : 5000,
+                quantity : 0,
+                type : "power",
+                image: "./images/upgrades/bouclier.png",
+            },
             {
                 name : "Upgrade Artillery n°1",
                 cost : 1000,
+                type : "upgrade",
                 image: "./images/upgrades/lance-pierres.png",
                 bought: false,
                 stat : "attackPower",
@@ -27,6 +60,7 @@ function init()
             {
                 name : "Upgrade Ship n°1",
                 cost : 1000,
+                type : "upgrade",
                 image: "./images/upgrades/wood_shield.png",
                 bought: false,
                 stat : "attackPower",
@@ -35,6 +69,7 @@ function init()
             {
                 name : "Upgrade Artillery n°2",
                 cost : 5000,
+                type : "upgrade",
                 image: "./images/upgrades/canon_balls.png",
                 bought: false,
                 stat : "attackPower",
@@ -43,6 +78,7 @@ function init()
             {
                 name : "Upgrade Ship n°2",
                 cost : 5000,
+                type : "upgrade",
                 image: "./images/upgrades/bouclier.png",
                 bought: false,
                 stat : "attackPower",
@@ -51,6 +87,7 @@ function init()
             {
                 name : "Upgrade Artillery n°3",
                 cost : 20000,
+                type : "upgrade",
                 image: "./images/upgrades/evil_skull.png",
                 bought: false,
                 stat : "attackPower",
@@ -59,51 +96,18 @@ function init()
             {
                 name : "Upgrade Ship n°3",
                 cost : 20000,
+                type : "upgrade",
                 image: "./images/upgrades/ancre_blindage.png",
                 bought: false,
                 stat : "attackPower",
                 buffValue : 3
             }
         ]
-        setItem("upgradesToBuy", JSON.stringify(upgrades))
+        setItem("itemsInShop", JSON.stringify(items))
     }
-    if(getItem('powersToBuy') == null)
+    if(getItem('inventory') == null)
     {
-        const powersToBuy = [
-            {
-                name : "compass",
-                title : "Compass",
-                cost : 1000,
-                image: "./images/upgrades/lance-pierres.png",
-            },
-            {
-                name : "reveal",
-                title : "Reveal",
-                cost : 1000,
-                image: "./images/upgrades/wood_shield.png",
-            },
-            {
-                name : "doublespeed",
-                title : "Double speed",
-                cost : 5000,
-                image: "./images/upgrades/canon_balls.png",
-            },
-            {
-                name : "teleport",
-                title : "Teleport",
-                cost : 5000,
-                image: "./images/upgrades/bouclier.png",
-            },
-        ]
-        setItem("powersToBuy", JSON.stringify(powersToBuy))
-    }
-    if(getItem('upgradesPossessed') == null)
-    {
-        setItem("upgradesPossessed", JSON.stringify([]))
-    }
-    if(getItem('powersPossessed') == null)
-    {
-        setItem("powersPossessed", JSON.stringify([]))
+        setItem("inventory", JSON.stringify([]))
     }
     if(getItem('playerLvl') == null)
     {
