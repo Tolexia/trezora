@@ -35,7 +35,10 @@ function showlist(option, reload = false)
 
                 divItem.classList.add("divItem")
                 divItem.dataset.item = item.name
-                if(typeof item.bought != "undefined" && item.bought == true)
+                if(
+                    (typeof item.bought != "undefined" && item.bought == true)
+                    || (item.type == "power" && !JSON.parse(localStorage.getItem("powersUnlocked")).includes(item.name))
+                )
                 {
                     divItem.classList.add("bought")
                 }
