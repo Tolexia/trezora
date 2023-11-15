@@ -25,7 +25,10 @@
     justify-content: center;
     align-items: center;
 }
-
+.disabled {
+    opacity: .6;
+    pointer-events: none;
+}
 
 .tile-name {
     position: absolute;

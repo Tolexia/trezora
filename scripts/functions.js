@@ -241,11 +241,11 @@ function gainPower(lvl)
 {
     const newPower = window.powerReaches[lvl]
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
-    if(!powersUnlocked.find(newPower))
+    if(!powersUnlocked.find(el => el == newPower))
     {
         powersUnlocked.push(newPower)
         setItem("powersUnlocked", JSON.stringify(powersUnlocked))
-
+        gainPowerAnimation(newPower)
     }
 }
 function gainPowerAnimation(power)
@@ -255,6 +255,7 @@ function gainPowerAnimation(power)
         html: `Congrats !<br>You unlocked the power ${power} in the shop!<br/>Go quickly discover it!`,
         confirmButtonText: "Let's go!",
         showConfirmButton: true,
+        showCancelButton: true,
         customClass: {
             container: 'swal2-backdrop-show win'
         }  
@@ -300,7 +301,7 @@ function checkIfWon(boat = null)
             setItem('playerXp', parseInt(getItem('playerXp')) + xp)
             setItem('playerCoins', parseInt(getItem('playerCoins')) + coins)
             wonAnimation(xp, coins);
-            
+            reachLvl()
         }
         else if(getItem('boat2CordX') == getItem('treasureCordX') && getItem('boat2CordY') == getItem('treasureCordY'))
         {
@@ -858,4 +859,21 @@ function updateLifeBar(boat)
     console.log("percentLifeAmount",percentLifeAmount)
     window["lifebar"+complement].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     console.log('window["lifebar"+complement]', window["lifebar"+complement])
+}
+function hidePowersNotUnlocked()
+{
+    const domPowers = document.querySelectorAll('[data-power]')
+    const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
+    for(let domPower of domPowers)
+    {
+        if(!powersUnlocked.find(el => el == domPower.dataset.power))
+        {
+            domPower.removeAttribute("onclick")
+            domPower.classList.add("disabled")
+        }
+    }
+}
+function displayLevel()
+{
+    window.level.innerText = getItem('playerLvl');
 }
