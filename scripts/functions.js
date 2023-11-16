@@ -135,13 +135,15 @@ function moveDirection(direction, boat = null, node = null)
     {
         moveBoatAuto(window.boat2)
     }
-    // window.location.reload();
     setTimeout(() => {
         tile.appendChild(boat)
         boat.classList.add('boat');
-        // boat.style = "animation : 3s linear myBoat 0s infinite alternate;"
         boat.style = "";
-        checkIfWon();
+
+        if(boat.id == "boat"){
+            checkIfWon();
+        }
+
         if (node != null && node.classList.contains("enlightened"))
         {
             node.classList.remove("enlightened");
@@ -164,7 +166,7 @@ function handleVisibilityFightButton()
     const fightButton = document.getElementById('fightButton')
     if(
         Math.abs(parseInt(getItem('boatCordX'))-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
-        Math.abs(parseInt(getItem('boat2CordY'))-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
+        Math.abs(parseInt(getItem('boatCordY'))-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
     )
     {
         fightButton.classList.remove('disabled')
@@ -233,29 +235,43 @@ function reachLvl()
     const nxtLvlXpReach = window.levels[lvl+1]
     if(xp >= nxtLvlXpReach)
     {
-        setItem("playerLvl", lvl+1)
-        gainPower(lvl)
+        const newLvl = lvl+1
+        setItem("playerLvl", newLvl)
+        gainPower(newLvl)
+    }
+    else{
+        newGame()
     }
 }
 function gainPower(lvl)
 {
+    console.log("lvl", lvl)
     const newPower = window.powerReaches[lvl]
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
+    console.log("newPower", newPower)
+    console.log("powersUnlocked", powersUnlocked)
     if(!powersUnlocked.find(el => el == newPower))
     {
         powersUnlocked.push(newPower)
         setItem("powersUnlocked", JSON.stringify(powersUnlocked))
         gainPowerAnimation(newPower)
+    }else{
+        newGame()
     }
 }
 function gainPowerAnimation(power)
 {
     Swal.fire({
         title: 'New Power!',
-        html: `Congrats !<br>You unlocked the power ${power} in the shop!<br/>Go quickly discover it!`,
+        html: `
+        <img src = "./images/powers/livre1.png" /><br/>
+        Congrats, You unlocked the power ${power} in the shop!<br/>
+        Go quickly discover it!
+        `,
         confirmButtonText: "Let's go!",
+        denyButtonText: "Play again",
         showConfirmButton: true,
-        showCancelButton: true,
+        showDenyButton: true,
         customClass: {
             container: 'swal2-backdrop-show win'
         }  
@@ -264,6 +280,9 @@ function gainPowerAnimation(power)
         if(result.isConfirmed)
         {
             window.location.href = "../shop.html"
+        }
+        else{
+            newGame()
         }
       })
 }
@@ -292,6 +311,7 @@ function gainCoins(hasWon = true)
 }
 function checkIfWon(boat = null)
 {
+    console.log("trycount", getItem('trycount'))
     if(boat == null || boat.id == "boat2")
     {
         if(getItem('boatCordX') == getItem('treasureCordX') && getItem('boatCordY') == getItem('treasureCordY'))
@@ -301,7 +321,6 @@ function checkIfWon(boat = null)
             setItem('playerXp', parseInt(getItem('playerXp')) + xp)
             setItem('playerCoins', parseInt(getItem('playerCoins')) + coins)
             wonAnimation(xp, coins);
-            reachLvl()
         }
         else if(getItem('boat2CordX') == getItem('treasureCordX') && getItem('boat2CordY') == getItem('treasureCordY'))
         {
@@ -348,7 +367,7 @@ function wonAnimation(xp, coins)
         }  
     })
       .then((result) => {
-        newGame();
+        reachLvl()
       })
 }
 function loseAnimation()
@@ -367,7 +386,7 @@ function loseAnimation()
         }  
     })
       .then((result) => {
-        newGame();
+        reachLvl()
       })
 }
 
@@ -801,6 +820,10 @@ function tutorial()
                     newGame();
                 }
             })
+        }
+        else
+        {
+            newGame();
         }
     })
     setItem('displayTuto',"no");
