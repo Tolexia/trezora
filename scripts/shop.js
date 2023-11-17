@@ -18,78 +18,94 @@ function showlist(option, reload = false)
             showlist(option, true)
         }, 1000);
     }
-    let items;
+    
     window.itemsContainer.classList.remove("close")
     window.itemsContainer.classList.add("open")
     setTimeout(() => {
-        window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: ${getItem('playerCoins')}</span>`
-        if(option == "Buy")
-        {
-            items = JSON.parse(getItem('itemsInShop'));
-            for(let item of items)
-            {
-                const divItem = document.createElement('div')
-                const titleItem = document.createElement('span')
-                const cost = document.createElement('span')
-                const illus = document.createElement('img')
-
-                divItem.classList.add("divItem")
-                divItem.dataset.item = item.name
-                if(
-                    (typeof item.bought != "undefined" && item.bought == true)
-                    || (item.type == "power" && !JSON.parse(localStorage.getItem("powersUnlocked")).includes(item.name))
-                )
-                {
-                    divItem.classList.add("bought")
-                }
-
-                illus.className = "itemIllus"
-                illus.src = item.image
-                divItem.appendChild(illus)
-
-                titleItem.classList.add("titleItem")
-                titleItem.innerText = item.name
-                divItem.appendChild(titleItem)
-
-                cost.classList.add("cost")
-                cost.innerText = "cost: "+item.cost
-                divItem.appendChild(cost)
-                if(typeof item.bought == "undefined" || item.bought == false)
-                {
-                    const buyButton = document.createElement('button')
-                    const img = document.createElement('img')
-
-                    buyButton.classList.add("buyButton")
-                    buyButton.type = "button"
-                    buyButton.onclick = () => buy(item)
-
-                    img.src = "./images/shop/coin.png"
-                    buyButton.appendChild(img)
-                    divItem.appendChild(buyButton)
-                }
-                else 
-                {
-                    const boughtLabel = document.createElement("span")
-                    boughtLabel.innerText = "Bought"
-                    divItem.appendChild(boughtLabel)
-                }
-                window.itemslist.appendChild(divItem)
-            }
-        }
-        else
-        {
-            items = JSON.parse(getItem('itemsToSell'));
-            if(items.length == 0)
-            {
-                window.itemslist.innerHTML = `<p class = "noitem">No item to sell.<br/>Play a few games to get some !</p>`
-            }
-        }
+        fillShop(option)
     }, 1000);
 
 }
 
+function fillShop(option)
+{
+    let items;
+    window.itemslist.innerHTML = `<span class = "itemsRemaining">Coins: <span id = "coinValue">${getItem('playerCoins')}</span></span>`
+    if(option == "Buy")
+    {
+        items = JSON.parse(getItem('itemsInShop'));
+        for(let item of items)
+        {
+            const divItem = document.createElement('div')
+            const titleItem = document.createElement('span')
+            const cost = document.createElement('span')
+            const illus = document.createElement('img')
+
+            divItem.classList.add("divItem")
+            divItem.dataset.item = item.name
+            if(
+                (typeof item.bought != "undefined" && item.bought == true)
+                || (item.type == "power" && !JSON.parse(localStorage.getItem("powersUnlocked")).includes(item.name))
+            )
+            {
+                divItem.classList.add("bought")
+            }
+
+            illus.className = "itemIllus"
+            illus.src = item.image
+            if(item.image.match("svg")) illus.style = "filter:invert(1)"
+            divItem.appendChild(illus)
+
+            titleItem.classList.add("titleItem")
+            titleItem.innerText = item.title ?  item.title : item.name
+            divItem.appendChild(titleItem)
+
+            cost.classList.add("cost")
+            cost.innerText = "cost: "+item.cost
+            divItem.appendChild(cost)
+
+            if(typeof item.quantity != "undefined")
+            {
+                const possessed = document.createElement('span')
+                possessed.classList.add("possessed")
+                possessed.innerText = "possessed: "+item.quantity
+                divItem.appendChild(possessed)
+            }
+            if(typeof item.bought == "undefined" || item.bought == false)
+            {
+                const buyButton = document.createElement('button')
+                const img = document.createElement('img')
+
+                buyButton.classList.add("buyButton")
+                buyButton.type = "button"
+                buyButton.onclick = () => buy(item)
+
+                img.src = "./images/shop/coin.png"
+                buyButton.appendChild(img)
+                divItem.appendChild(buyButton)
+            }
+            else 
+            {
+                const boughtLabel = document.createElement("span")
+                boughtLabel.innerText = "Bought"
+                divItem.appendChild(boughtLabel)
+            }
+            window.itemslist.appendChild(divItem)
+        }
+    }
+    else
+    {
+        items = JSON.parse(getItem('itemsToSell'));
+        if(items.length == 0)
+        {
+            window.itemslist.innerHTML = `<p class = "noitem">No item to sell.<br/>Play a few games to get some !</p>`
+        }
+    }
+}
+
 function buy(item)
 {
+    console.log("item", item)
     Swal.fire({
         html: `
             Do you confirm purchase this item ?
@@ -130,7 +146,9 @@ function buy(item)
                         if(typeof item.bought != "undefined")
                             itemStored.bought = true
                         else if(typeof item.quantity != "undefined")
-                            item.quantity += 1
+                            itemStored.quantity = parseInt(itemStored.quantity)+1
+
+                        break
                     }
                 }
                 setItem("itemsInShop", JSON.stringify(itemsStored))
@@ -153,7 +171,7 @@ function buy(item)
                 {
                     successImg = "./images/powers/livre1.png"
                 }
-                
+                fillShop("Buy")
                 Swal.fire({
                     html: `
                         <img src = "${successImg}" />

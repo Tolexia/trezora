@@ -264,7 +264,7 @@ function gainPowerAnimation(power)
     Swal.fire({
         title: 'New Power!',
         html: `
-        <img src = "./images/powers/livre1.png" /><br/>
+        <img src = "./images/powers/livre2.png" /><br/>
         Congrats, You unlocked the power ${power} in the shop!<br/>
         Go quickly discover it!
         `,
@@ -593,7 +593,21 @@ function compass()
         }
     })
 }
-
+function usePower(domPower)
+{
+    const power = domPower.dataset.power 
+    console.log("power", power)
+    window[power]()
+    domPower.dataset.quantity = parseInt(domPower.dataset.quantity)-1
+    const itemsInShop = JSON.parse(getItem('itemsInShop'));
+    const powerItem = itemsInShop.find(el => el.name == domPower.dataset.power)
+    if(powerItem)
+    {
+        powerItem.quantity = domPower.dataset.quantity
+        setItem('itemsInShop', JSON.stringify(itemsInShop))
+    }
+    hidePowersNotUnlocked()
+}
 function reveal()
 {
     Swal.fire({
@@ -642,7 +656,7 @@ function handleReveal(e)
     }
 }
 
-function doubleSpeedOneTime()
+function doublespeed()
 {
     Swal.fire({
         text: 'Speed doubled !',
@@ -887,12 +901,21 @@ function hidePowersNotUnlocked()
 {
     const domPowers = document.querySelectorAll('[data-power]')
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
+    const itemsInShop = JSON.parse(getItem('itemsInShop'));
     for(let domPower of domPowers)
     {
-        if(!powersUnlocked.find(el => el == domPower.dataset.power))
+        const isPowerUnlocked = powersUnlocked.find(el => el == domPower.dataset.power)
+        const powerItem = itemsInShop.find(el => el.name == domPower.dataset.power)
+        const isPowerBought = powerItem && powerItem.quantity && powerItem.quantity > 0
+        if(!isPowerUnlocked || !isPowerBought)
         {
+            domPower.dataset.quantity = 0
             domPower.removeAttribute("onclick")
             domPower.classList.add("disabled")
+        }
+        else
+        {
+            domPower.dataset.quantity = powerItem.quantity
         }
     }
 }

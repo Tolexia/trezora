@@ -436,6 +436,13 @@ h2 {
     left: 20%;
     
 }
+[data-power][data-quantity]::after{
+    display: block;
+    content: attr(data-quantity);
+    font-size: 14px;
+    position: absolute;
+    transform: translateY(-50%);
+}
 @media screen and (max-width: 1800px) {
     .tile {
         height: 100px;

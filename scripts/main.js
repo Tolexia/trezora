@@ -22,7 +22,7 @@ function init()
                 cost : 1000,
                 quantity : 0,
                 type : "power",
-                image: "./images/upgrades/lance-pierres.png",
+                image: "./images/powers/compass.svg",
             },
             {
                 name : "reveal",
@@ -30,7 +30,7 @@ function init()
                 cost : 1000,
                 quantity : 0,
                 type : "power",
-                image: "./images/upgrades/wood_shield.png",
+                image: "./images/powers/reveal.svg",
             },
             {
                 name : "doublespeed",
@@ -38,7 +38,7 @@ function init()
                 cost : 5000,
                 quantity : 0,
                 type : "power",
-                image: "./images/upgrades/canon_balls.png",
+                image: "./images/powers/x2.png",
             },
             {
                 name : "teleport",
@@ -46,7 +46,7 @@ function init()
                 cost : 5000,
                 quantity : 0,
                 type : "power",
-                image: "./images/upgrades/bouclier.png",
+                image: "./images/powers/teleport.svg",
             },
             {
                 name : "Upgrade Artillery n°1",
