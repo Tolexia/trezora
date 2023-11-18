@@ -140,26 +140,27 @@ function moveDirection(direction, boat = null, node = null)
         boat.classList.add('boat');
         boat.style = "";
 
-        if(boat.id == "boat"){
-            checkIfWon();
-        }
-
-        if (node != null && node.classList.contains("enlightened"))
-        {
-            node.classList.remove("enlightened");
-        }
+       
         if(speed != "1" && boat.id == "boat")
         {
             setItem('speed', "1");
             moveDirection(direction);
         }
-        
-        if( boat.id == "boat" )
-        {
-            handleVisibilityFightButton()
-        }
-        document.body.style.pointerEvents = "";
+
+        if(boat.id == "boat")
+            callBackAfterTurn(node)
+
     }, 1500);
+}
+function callBackAfterTurn(node = null)
+{
+    if (node != null && node.classList.contains("enlightened"))
+    {
+        node.classList.remove("enlightened");
+    }
+    randLoot()
+    handleVisibilityFightButton()
+    document.body.style.pointerEvents = "";
 }
 function handleVisibilityFightButton()
 {
@@ -929,5 +930,70 @@ function randLoot()
 {
     const dropRate = getItem('dropRate')
     const rand = Math.random()
-    
+    if(rand <= dropRate)
+    {
+        const itemsToLoot = [
+            {
+                name: "Bauble",
+                cost: 130,
+                img: "./images/loot/babiole.png"
+            },
+            {
+                name: "Barrel",
+                cost: 80,
+                img: "./images/loot/baril.png"
+            },
+            {
+                name: "Navigation bar",
+                cost: 100,
+                img: "./images/loot/barre.png"
+            },
+            {
+                name: "Goblet",
+                cost: 120,
+                img: "./images/loot/calice.png"
+            },
+            {
+                name: "Knife",
+                cost: 60,
+                img: "./images/loot/couteau.png"
+            },
+            {
+                name: "Saber",
+                cost: 90,
+                img: "./images/loot/epee.png"
+            },
+            {
+                name: "Pestle",
+                cost: 40,
+                img: "./images/loot/pilon.png"
+            },
+            {
+                name: "Dirk",
+                cost: 50,
+                img: "./images/loot/poignard.png"
+            },
+            {
+                name: "Potion",
+                cost: 70,
+                img: "./images/loot/potion.png"
+            },
+        ]
+        const itemLooted = itemsToLoot[Math.round(rand * (itemsToLoot.length-1))]
+        lootAnimation(itemLooted)
+    }
+}
+function lootAnimation(itemLooted)
+{
+    Swal.fire({
+        html: `
+            <img src = "${itemLooted.img}" />
+            <p>
+                New item looted: ${itemLooted.name} !<br/>
+                Value: ${itemLooted.cost}
+            </p>
+        `,
+        confirmButtonText: 'Nice',
+        showConfirmButton: true,
+    })
 }
