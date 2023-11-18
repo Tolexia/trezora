@@ -165,5 +165,10 @@ function init()
     {
         setItem('playerXp', 0);
     }
+    if(getItem('dropRate') == null)
+    {
+        setItem('dropRate', 0);
+    }
+
 }
 init()

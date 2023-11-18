@@ -245,11 +245,8 @@ function reachLvl()
 }
 function gainPower(lvl)
 {
-    console.log("lvl", lvl)
     const newPower = window.powerReaches[lvl]
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
-    console.log("newPower", newPower)
-    console.log("powersUnlocked", powersUnlocked)
     if(!powersUnlocked.find(el => el == newPower))
     {
         powersUnlocked.push(newPower)
@@ -922,4 +919,15 @@ function hidePowersNotUnlocked()
 function displayLevel()
 {
     window.level.innerText = getItem('playerLvl');
+}
+
+function updateDropRate(dropRate)
+{
+    setItem("dropRate", parseInt(dropRate)+0.15)
+}
+function randLoot()
+{
+    const dropRate = getItem('dropRate')
+    const rand = Math.random()
+    
 }
