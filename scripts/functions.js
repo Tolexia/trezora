@@ -148,19 +148,24 @@ function moveDirection(direction, boat = null, node = null)
         }
 
         if(boat.id == "boat")
+        {
+            checkIfWon()
+            if (node != null && node.classList.contains("enlightened"))
+            {
+                node.classList.remove("enlightened");
+            }
+            randLoot()
+        }
+        else{
             callBackAfterTurn(node)
+        }
 
+        document.body.style.pointerEvents = "";
     }, 1500);
 }
-function callBackAfterTurn(node = null)
+function callBackAfterTurn()
 {
-    if (node != null && node.classList.contains("enlightened"))
-    {
-        node.classList.remove("enlightened");
-    }
-    randLoot()
     handleVisibilityFightButton()
-    document.body.style.pointerEvents = "";
 }
 function handleVisibilityFightButton()
 {
@@ -412,7 +417,6 @@ function moveBoatAuto(boat = null)
     {
         boat = window.boat2;
     }
-    console.log("boat", boat)
     if(typeof boat == "undefined" || boat == null || document.getElementById(boat.id) == null || document.querySelector(`#${boat.id}:not(.notinit)`) == null)
     {
         return;
@@ -594,7 +598,6 @@ function compass()
 function usePower(domPower)
 {
     const power = domPower.dataset.power 
-    console.log("power", power)
     window[power]()
     domPower.dataset.quantity = parseInt(domPower.dataset.quantity)-1
     const itemsInShop = JSON.parse(getItem('itemsInShop'));
@@ -891,9 +894,7 @@ function updateLifeBar(boat)
     let propCurrentLife = "currentLifeAmountBoat"+complement;
     let propMaxLife = "maxLifeAmountBoat"+complement;
     let percentLifeAmount = Math.round(parseInt(getItem(propCurrentLife))*100/parseInt(getItem(propMaxLife)));
-    console.log("percentLifeAmount",percentLifeAmount)
     window["lifebar"+complement].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
-    console.log('window["lifebar"+complement]', window["lifebar"+complement])
 }
 function hidePowersNotUnlocked()
 {
@@ -936,58 +937,72 @@ function randLoot()
             {
                 name: "Bauble",
                 cost: 130,
-                img: "./images/loot/babiole.png"
+                image: "./images/loot/babiole.png"
             },
             {
                 name: "Barrel",
                 cost: 80,
-                img: "./images/loot/baril.png"
+                image: "./images/loot/baril.png"
             },
             {
                 name: "Navigation bar",
                 cost: 100,
-                img: "./images/loot/barre.png"
+                image: "./images/loot/barre.png"
             },
             {
                 name: "Goblet",
                 cost: 120,
-                img: "./images/loot/calice.png"
+                image: "./images/loot/calice.png"
             },
             {
                 name: "Knife",
                 cost: 60,
-                img: "./images/loot/couteau.png"
+                image: "./images/loot/couteau.png"
             },
             {
                 name: "Saber",
                 cost: 90,
-                img: "./images/loot/epee.png"
+                image: "./images/loot/epee.png"
             },
             {
                 name: "Pestle",
                 cost: 40,
-                img: "./images/loot/pilon.png"
+                image: "./images/loot/pilon.png"
             },
             {
                 name: "Dirk",
                 cost: 50,
-                img: "./images/loot/poignard.png"
+                image: "./images/loot/poignard.png"
             },
             {
                 name: "Potion",
                 cost: 70,
-                img: "./images/loot/potion.png"
+                image: "./images/loot/potion.png"
             },
         ]
         const itemLooted = itemsToLoot[Math.round(rand * (itemsToLoot.length-1))]
         lootAnimation(itemLooted)
+        setItem("dropRate", 0)
+        const itemsToSell = JSON.parse(getItem('itemsToSell'))
+        const itemInStorage = itemsToSell.find(el => el.name == itemLooted.name)
+        if(itemInStorage)
+        {
+            itemInStorage.quantity += 1
+        }
+        else{
+            itemLooted.quantity = 1
+            itemsToSell.push(itemLooted)
+        }
+        setItem("itemsToSell", JSON.stringify(itemsToSell))
     }
+    else
+        setItem("dropRate", parseFloat(dropRate)+0.15)
 }
 function lootAnimation(itemLooted)
 {
     Swal.fire({
         html: `
-            <img src = "${itemLooted.img}" />
+            <img src = "${itemLooted.image}" /><br/>
             <p>
                 New item looted: ${itemLooted.name} !<br/>
                 Value: ${itemLooted.cost}
