@@ -234,7 +234,7 @@ function sell(item)
                 fillShop("Sell")
                 Swal.fire({
                     html: `
-                        <img src = "../images/shop/pirate_gold.png" /><br/>
+                        <img src = "./images/shop/pirate_gold.png" /><br/>
                         <p>
                             Sweet gold for ye !<br/>
                             Gold earned : ${item.cost}

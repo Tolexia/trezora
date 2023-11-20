@@ -141,6 +141,7 @@ function moveDirection(direction, boat = null, node = null)
         boat.style = "";
 
        
+        checkIfWon(boat)
         if(speed != "1" && boat.id == "boat")
         {
             setItem('speed', "1");
@@ -149,7 +150,6 @@ function moveDirection(direction, boat = null, node = null)
 
         if(boat.id == "boat")
         {
-            checkIfWon()
             if (node != null && node.classList.contains("enlightened"))
             {
                 node.classList.remove("enlightened");
