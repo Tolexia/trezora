@@ -48,6 +48,25 @@
 .island {
     background-image: url('../images/island.png');
 }
+.sea.kraken::after, .sea.shark::after{
+    content: "";
+    display: block;
+    background-image: url(../images/wildlife/requin.png);
+    position: absolute;
+    z-index: 3;
+    width: 80%;
+    height: 80%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(10px);
+}
+.sea.shark::after{
+    background-image: url('../images/wildlife/requin.png');
+}
+.sea.kraken::after{
+    background-image: url('../images/wildlife/kraken.png');
+}
 
 .north {
     left: 40%;

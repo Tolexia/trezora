@@ -213,18 +213,7 @@
    
     console.log(getItem('treasureCordX'))
     console.log(getItem('treasureCordY'))
-    const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
-    for (let i = 1; i <= 6; i++) 
-    {
-        for (let j = 1; j <= 12; j++) 
-        {
-            if(getItem(i+'-'+j) == null || getItem(i+'-'+j) == undefined)
-            {
-                let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
-                setItem(i+'-'+j, type);
-            }
-        }
-    }
+    
     /* STATS */
     let maxLifeAmountBoat = getItem('maxLifeAmountBoat');
     let maxLifeAmountBoat2 = getItem('maxLifeAmountBoat2');
@@ -254,6 +243,7 @@
 
     updateLifeBar(boat)
     updateLifeBar(boat2)
+    const monstersCoords = JSON.parse(getItem("monstersCoords"))
     for (let y = 1; y <= 6; y++) 
     {
         let col = column.cloneNode();
@@ -278,6 +268,11 @@
                 boat2.src = './images/boat2.png';
             }
             tileClone.classList.add(getItem(y+'-'+x))
+            const randomMonster = monstersCoords.find(el => el.coords == y+'-'+x)
+            if(randomMonster)
+            {
+                tileClone.classList.add(randomMonster.type)
+            }
         }
         map.appendChild(col);
         col.style.display = "flex";

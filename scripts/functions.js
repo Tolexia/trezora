@@ -210,6 +210,31 @@ function newGame()
     setItem('goneThere', JSON.stringify(['1-1','6-12']))
     setItem('currentLifeAmountBoat', getItem('maxLifeAmountBoat'));
     setItem('currentLifeAmountBoat2', getItem('maxLifeAmountBoat2'));
+
+    const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
+    const monstersCoords = []
+    for (let i = 1; i <= 6; i++) 
+    {
+        for (let j = 1; j <= 12; j++) 
+        {
+            let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
+            setItem(i+'-'+j, type);
+            if(type == "sea")
+            {
+                const randForMonster = Math.random()
+                if(randForMonster <= 0.2)
+                {
+                    const monster = (randForMonster <= 0.1 ? "kraken" : "shark")
+                    monstersCoords.push({
+                        coords: i+'-'+j,
+                        type: monster
+                    })
+                }
+            }
+        }
+    }
+    setItem("monstersCoords", JSON.stringify(monstersCoords))
+
     window.location.reload();
 }
 function gainXp(hasWon = true)
