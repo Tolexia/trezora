@@ -243,7 +243,6 @@
 
     updateLifeBar(boat)
     updateLifeBar(boat2)
-    const monstersCoords = JSON.parse(getItem("monstersCoords"))
     for (let y = 1; y <= 6; y++) 
     {
         let col = column.cloneNode();
@@ -268,11 +267,6 @@
                 boat2.src = './images/boat2.png';
             }
             tileClone.classList.add(getItem(y+'-'+x))
-            const randomMonster = monstersCoords.find(el => el.coords == y+'-'+x)
-            if(randomMonster)
-            {
-                tileClone.classList.add(randomMonster.type)
-            }
         }
         map.appendChild(col);
         col.style.display = "flex";
