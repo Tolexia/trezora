@@ -1032,3 +1032,11 @@ function lootAnimation(itemLooted)
         showConfirmButton: true,
     })
 }
+
+function monsterAttack(boat, monster)
+{
+    if(monster == "kraken")
+    {
+        
+    }
+}
