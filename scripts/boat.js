@@ -10,12 +10,15 @@ class Boat
         this.currentLifeAmountBoat = this.get(`currentLifeAmountBoat${comp}`);
         this.attackPower = this.get(`attackPower${comp}`);
         this.shieldArmor = this.get(`shieldArmor${comp}`);
+        this.lifebar = this.domElement.querySelector('.lifebar')
+
+        this.updateLifeBar()
     }
 
      updateLifeBar()
     {
         let percentLifeAmount = Math.round(this.currentLifeAmountBoat*100/this.maxLifeAmountBoat);
-        window["lifebar"+this.comp].style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
+        this.lifebar.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     }
 
     get(property)
