@@ -3,14 +3,20 @@ class Boat
     constructor(domId)
     {
         this.domElement = document.getElementById(domId)
-        this.comp = domId.match("2") ? "2" : ""
-        this.coordX = this.get(`boat${comp}CoordX`)
-        this.coordY = this.get(`boat${comp}CoordY`)
-        this.maxLifeAmountBoat = this.get(`maxLifeAmountBoat${comp}`);
-        this.currentLifeAmountBoat = this.get(`currentLifeAmountBoat${comp}`);
-        this.attackPower = this.get(`attackPower${comp}`);
-        this.shieldArmor = this.get(`shieldArmor${comp}`);
         this.lifebar = this.domElement.querySelector('.lifebar')
+        this.comp = domId.match("2") ? "2" : ""
+
+        this.dbLink = {
+            "coordX" : `boat${this.comp}CoordX`,
+            "coordY" : `boat${this.comp}CoordY`
+        }
+
+        this.coordX = parseInt(this.get(`boat${this.comp}CoordX`))
+        this.coordY = parseInt(this.get(`boat${this.comp}CoordY`))
+        this.maxLifeAmountBoat = parseInt(this.get(`maxLifeAmountBoat${this.comp}`));
+        this.currentLifeAmountBoat = parseInt(this.get(`currentLifeAmountBoat${this.comp}`));
+        this.attackPower = parseInt(this.get(`attackPower${this.comp}`));
+        this.shieldArmor = parseInt(this.get(`shieldArmor${this.comp}`));
 
         this.updateLifeBar()
     }
@@ -30,5 +36,19 @@ class Boat
     {
         this[property] = value
         localStorage.setItem(property, value)
+    }
+
+    goNorth()
+    {
+        this.set()
+        setItem(keyY, boat.coordY-1);
+        if(boat.domElement.id == "boat2")
+        {
+            boat.domElement.style = "animation-name:movingNorth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+        }
+        else
+        {
+            boat.domElement.style = "animation-name:movingNorth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+        }
     }
 }

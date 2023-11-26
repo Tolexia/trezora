@@ -202,6 +202,7 @@
 </body>
 </html>
 <script src="./scripts/functions.js"></script>
+<script src="./scripts/boat.js"></script>
 <script>
     if(getItem('displayTuto') == "no" && (
         getItem('boatCordX') == null || 
@@ -214,35 +215,18 @@
     console.log(getItem('treasureCordX'))
     console.log(getItem('treasureCordY'))
     
-    /* STATS */
-    let maxLifeAmountBoat = getItem('maxLifeAmountBoat');
-    let maxLifeAmountBoat2 = getItem('maxLifeAmountBoat2');
-    let currentLifeAmountBoat = getItem('currentLifeAmountBoat');
-    let currentLifeAmountBoat2 = getItem('currentLifeAmountBoat2');
-    let attackPower = getItem('attackPower');
-    let attackPower2 = getItem('attackPower2');
-    let shieldArmor = getItem('shieldArmor');
-    let shieldArmor2 = getItem('shieldArmor2');
-    
-    
+    var boatObject = new Boat("boat")
+    var boat2Object = new Boat("boat2")
+    window.boat = boatObject
+    window.boat2 = boat2Object
 
-    let boatx = getItem('boatCordX');
-    let boaty = getItem('boatCordY');
-    let boat2x = getItem('boat2CordX');
-    let boat2y = getItem('boat2CordY');
     const column = document.querySelector('.row.column');
     const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
     window.level = document.getElementById('level');
-    window.boat = document.getElementById('boat');
-    window.boat2 = document.getElementById('boat2');
-    const boat = window.boat;
-    const boat2 = window.boat2;
-    window.lifebar = boat.querySelector('.lifebar');
-    window.lifebar2 = boat2.querySelector('.lifebar');
+    const boat = boatObject.domElement;
+    const boat2 = boat2Object.domElement;
 
-    updateLifeBar(boat)
-    updateLifeBar(boat2)
     for (let y = 1; y <= 6; y++) 
     {
         let col = column.cloneNode();
@@ -252,14 +236,14 @@
             tileClone.dataset.cordX = x;
             tileClone.dataset.cordY = y;
             col.appendChild(tileClone);
-            if(boatx == x && boaty == y)
+            if(boatObject.coordX == x && boatObject.coordY == y)
             {
                 tileClone.appendChild(boat);
                 boat.classList.remove("notinit")
                 boat.style.display = "block";
                 boat.src = './images/boat.png';
             }
-            if(boat2x == x && boat2y == y)
+            if(boat2Object.coordX == x && boat2Object.coordY == y)
             {
                 tileClone.appendChild(boat2);
                 boat2.classList.remove("notinit")

@@ -21,29 +21,17 @@ function moveDirection(direction, boat = null, node = null)
     if(boat == null)
     {
         boat = window.boat;
-        keyX = "boatCordX";
-        keyY = "boatCordY";
+        keyX = boat.coordX;
+        keyY = boat.coordY;
     }
-    else
-    {
-        keyX = "boat2CordX";
-        keyY = "boat2CordY";
-    }
+  
     let speed = getItem('speed');
-    boat.classList.remove('boat');
+    boat.domElement.classList.remove('boat');
     switch (direction) {
         case "N":
-            if(parseInt(getItem(keyY)) - 1 >= 1)
+            if(boat.coordY - 1 >= 1)
             {
-                setItem(keyY, parseInt(getItem(keyY))-1);
-                if(boat.id == "boat2")
-                {
-                    boat.style = "animation-name:movingNorth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
-                }
-                else
-                {
-                    boat.style = "animation-name:movingNorth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
-                }
+               boat.goNorth()
             }
             else
             {
@@ -51,16 +39,16 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "S":
-            if(parseInt(getItem(keyY)) + 1 <= 6)
+            if(boat.coordY + 1 <= 6)
             {
-                setItem(keyY, parseInt(getItem(keyY)) + 1);
-                if(boat.id == "boat2")
+                setItem(keyY, boat.coordY + 1);
+                if(boat.domElement.id == "boat2")
                 {
-                    boat.style = "animation-name:movingSouth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingSouth2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
                 else
                 {
-                    boat.style = "animation-name:movingSouth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingSouth;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
             }
             else
@@ -69,16 +57,16 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "E":
-            if(parseInt(getItem(keyX))+1 <= 12)
+            if(boat.coordX+1 <= 12)
             {
-                setItem(keyX, parseInt(getItem(keyX))+1);
-                if(boat.id == "boat2")
+                setItem(keyX, boat.coordX+1);
+                if(boat.domElement.id == "boat2")
                 {
-                    boat.style = "animation-name:movingEast2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingEast2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
                 else
                 {
-                    boat.style = "animation-name:movingEast;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingEast;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
             }
             else
@@ -87,16 +75,16 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "W":
-            if(parseInt(getItem(keyX)) - 1 >= 1)
+            if(boat.coordX - 1 >= 1)
             {
-                setItem(keyX, parseInt(getItem(keyX)) - 1);
-                if(boat.id == "boat2")
+                setItem(keyX, boat.coordX - 1);
+                if(boat.domElement.id == "boat2")
                 {
-                    boat.style = "animation-name:movingWest2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingWest2;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
                 else
                 {
-                    boat.style = "animation-name:movingWest;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+                    boat.domElement.style = "animation-name:movingWest;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
                 }
             }
             else
@@ -171,8 +159,8 @@ function handleVisibilityFightButton()
 {
     const fightButton = document.getElementById('fightButton')
     if(
-        Math.abs(parseInt(getItem('boatCordX'))-parseInt(getItem('boat2CordX'))) <= window.fightDistances.x && 
-        Math.abs(parseInt(getItem('boatCordY'))-parseInt(getItem('boat2CordY'))) <= window.fightDistances.y
+        Math.abs(parseInt(getItem('boatCoordX'))-parseInt(getItem('boat2CoordX'))) <= window.fightDistances.x && 
+        Math.abs(parseInt(getItem('boatCoordY'))-parseInt(getItem('boat2CoordY'))) <= window.fightDistances.y
     )
     {
         fightButton.classList.remove('disabled')
@@ -198,13 +186,13 @@ function newGame()
     let maxY = 5;
     let randomX = Math.floor(Math.random()*(maxX-minX+1)+minX);
     let randomY = Math.floor(Math.random()*(maxY-minY+1)+minY);
-    setItem('boatCordX', 1);
-    setItem('boatCordY', 1);
-    setItem('boat2CordX', 12);
-    setItem('boat2CordY', 6);
+    setItem('boatCoordX', 1);
+    setItem('boatCoordY', 1);
+    setItem('boat2CoordX', 12);
+    setItem('boat2CoordY', 6);
     setItem('trycount', 0);
-    setItem('treasureCordX', randomX);
-    setItem('treasureCordY', randomY);
+    setItem('treasureCoordX', randomX);
+    setItem('treasureCoordY', randomY);
     setItem('displayType', "1");
     setItem('speed', "1");
     setItem('goneThere', JSON.stringify(['1-1','6-12']))
@@ -337,7 +325,7 @@ function checkIfWon(boat = null)
     console.log("trycount", getItem('trycount'))
     if(boat == null || boat.id == "boat2")
     {
-        if(getItem('boatCordX') == getItem('treasureCordX') && getItem('boatCordY') == getItem('treasureCordY'))
+        if(getItem('boatCoordX') == getItem('treasureCoordX') && getItem('boatCoordY') == getItem('treasureCoordY'))
         {
             let xp = gainXp();
             let coins = gainCoins();
@@ -345,31 +333,31 @@ function checkIfWon(boat = null)
             setItem('playerCoins', parseInt(getItem('playerCoins')) + coins)
             wonAnimation(xp, coins);
         }
-        else if(getItem('boat2CordX') == getItem('treasureCordX') && getItem('boat2CordY') == getItem('treasureCordY'))
+        else if(getItem('boat2CoordX') == getItem('treasureCoordX') && getItem('boat2CoordY') == getItem('treasureCoordY'))
         {
             loseAnimation();
         }
         else
         {
             setItem('trycount', parseInt(getItem('trycount'))+1);
-            boatCordX = getItem('boatCordX');
-            boatCordY = getItem('boa2CordY');
-            boat2CordX = getItem('boat2CordX');
-            boat2CordY = getItem('boat2CordY');
+            boatCoordX = getItem('boatCoordX');
+            boatCoordY = getItem('boa2CoordY');
+            boat2CoordX = getItem('boat2CoordX');
+            boat2CoordY = getItem('boat2CoordY');
             let data = JSON.parse(getItem('goneThere'));
-            if(!data.includes(boatCordY+"-"+boatCordX))
+            if(!data.includes(boatCoordY+"-"+boatCoordX))
             {
-                data.push(boatCordY+"-"+boatCordX)
+                data.push(boatCoordY+"-"+boatCoordX)
             }
-            if(!data.includes(boat2CordY+"-"+boat2CordX))
+            if(!data.includes(boat2CoordY+"-"+boat2CoordX))
             {
-                data.push(boat2CordY+"-"+boat2CordX)
+                data.push(boat2CoordY+"-"+boat2CoordX)
             }
             setItem('goneThere', JSON.stringify(data))
             if(getItem('currentTarget2') != null)
             {
                 let currentTarget = JSON.parse(getItem('currentTarget2'));
-                if(currentTarget.x == boat2CordX && currentTarget.y == boat2CordY)
+                if(currentTarget.x == boat2CoordX && currentTarget.y == boat2CoordY)
                 {
                     removeItem('currentTarget2');
                 }
@@ -414,7 +402,7 @@ function loseAnimation()
 }
 
 function hint() {
-    let type = getItem(getItem('treasureCordY')+"-"+getItem('treasureCordX'));
+    let type = getItem(getItem('treasureCoordY')+"-"+getItem('treasureCoordX'));
     Swal.fire({
         icon:'info',
         html: 'Rumors say that you should search on the '+type+"s",
@@ -431,8 +419,8 @@ function hint() {
  */
 function moveBoatAuto(boat = null)
 {
-    let boatCordX = "";
-    let boatCordY = "";
+    let boatCoordX = "";
+    let boatCoordY = "";
     if(boat == null)
     {
         boat = window.boat2;
@@ -443,9 +431,9 @@ function moveBoatAuto(boat = null)
     }
     if(boat.id.match(/2/))
     {
-        boatCordX = parseInt(getItem('boat2CordX'));
-        boatCordY = parseInt(getItem('boat2CordY'));
-        if(Math.abs(boatCordX-parseInt(getItem('boatCordX'))) <=window.fightDistances.x && Math.abs(boatCordY-parseInt(getItem('boatCordY'))) <= window.fightDistances.y)
+        boatCoordX = parseInt(getItem('boat2CoordX'));
+        boatCoordY = parseInt(getItem('boat2CoordY'));
+        if(Math.abs(boatCoordX-parseInt(getItem('boatCoordX'))) <=window.fightDistances.x && Math.abs(boatCoordY-parseInt(getItem('boatCoordY'))) <= window.fightDistances.y)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
@@ -454,8 +442,8 @@ function moveBoatAuto(boat = null)
     }
     else
     {
-        boatCordX = parseInt(getItem('boatCordX'));
-        boatCordY = parseInt(getItem('boatCordY'));
+        boatCoordX = parseInt(getItem('boatCoordX'));
+        boatCoordY = parseInt(getItem('boatCoordY'));
     }
     
 
@@ -467,13 +455,13 @@ function moveBoatAuto(boat = null)
     
     if(getItem('currentTarget2') == null)
     {
-        setCurrentTileTarget(boatCordX, boatCordY)
+        setCurrentTileTarget(boatCoordX, boatCoordY)
     }
     else
     {
         nearestTile = JSON.parse(getItem('currentTarget2'))
-        if(nearestTile.x == getItem('boatCordX') && nearestTile.y == getItem('boatCordY'))
-            setCurrentTileTarget(boatCordX, boatCordY)
+        if(nearestTile.x == getItem('boatCoordX') && nearestTile.y == getItem('boatCoordY'))
+            setCurrentTileTarget(boatCoordX, boatCoordY)
     }
 
     // Deduce direction to take
@@ -483,35 +471,35 @@ function moveBoatAuto(boat = null)
     {
         let nearX = parseInt(nearestTile.x)
         let nearY = parseInt(nearestTile.y)
-        if((nearX) < (boatCordX))
+        if((nearX) < (boatCoordX))
         {
-            distanceX = (boatCordX) -  (nearX);
+            distanceX = (boatCoordX) -  (nearX);
         }
         else
         {
-            distanceX = (nearX) - (boatCordX);
+            distanceX = (nearX) - (boatCoordX);
         }
-        if((nearY) < (boatCordY))
+        if((nearY) < (boatCoordY))
         {
-            distanceY =  (boatCordY) - (nearY);
+            distanceY =  (boatCoordY) - (nearY);
         }
         else
         {
-            distanceY = (nearY) - (boatCordY);
+            distanceY = (nearY) - (boatCoordY);
         }
         if(distanceY > 0 && distanceX > 0 && distanceX == distanceY)
         {
             const goY = Math.random() > 0.5
             if(goY)
             {
-                if(nearY < boatCordY)
+                if(nearY < boatCoordY)
                     direction = "N";
                 else
                     direction = "S";
             }
             else 
             {
-                if(nearX <  boatCordX)
+                if(nearX <  boatCoordX)
                     direction = "W";
                 else
                     direction = "E";
@@ -519,14 +507,14 @@ function moveBoatAuto(boat = null)
         }
         else if(distanceY == 0 || (distanceX <= distanceY && distanceX != 0))
         {
-            if(nearX <  boatCordX)
+            if(nearX <  boatCoordX)
                 direction = "W";
             else
                 direction = "E";
         }
         else
         {
-            if(nearY < boatCordY)
+            if(nearY < boatCoordY)
                 direction = "N";
             else
                 direction = "S";
@@ -538,11 +526,11 @@ function moveBoatAuto(boat = null)
     }
     moveDirection(direction, boat)
 }
-function setCurrentTileTarget(boatCordX, boatCordY)
+function setCurrentTileTarget(boatCoordX, boatCoordY)
 {
-    let treasureCordX = parseInt(getItem('treasureCordX'));
-    let treasureCordY = parseInt(getItem('treasureCordY'));
-    let type = getItem(treasureCordY+'-'+treasureCordX);
+    let treasureCoordX = parseInt(getItem('treasureCoordX'));
+    let treasureCoordY = parseInt(getItem('treasureCoordY'));
+    let type = getItem(treasureCoordY+'-'+treasureCoordX);
     let allSameTiles = document.querySelectorAll('.'+type);
     let minX = 13;
     let minY = 7;
@@ -551,25 +539,25 @@ function setCurrentTileTarget(boatCordX, boatCordY)
         let tileX = parseInt(tile.dataset.cordX) 
         let tileY = parseInt(tile.dataset.cordY) 
         if(
-            tileX != getItem('boat2CordX') && tileY != getItem('boat2CordY')
-            && tileX != getItem('boatCordX') && tileY != getItem('boatCordY')
+            tileX != getItem('boat2CoordX') && tileY != getItem('boat2CoordY')
+            && tileX != getItem('boatCoordX') && tileY != getItem('boatCoordY')
         )
         {
-            if(tileX < (boatCordX))
+            if(tileX < (boatCoordX))
             {
-                distanceX = (boatCordX) -  tileX;
+                distanceX = (boatCoordX) -  tileX;
             }
             else
             {
-                distanceX = tileX - (boatCordX);
+                distanceX = tileX - (boatCoordX);
             }
-            if(tileY < (boatCordY))
+            if(tileY < (boatCoordY))
             {
-                distanceY =  (boatCordY) - tileY;
+                distanceY =  (boatCoordY) - tileY;
             }
             else
             {
-                distanceY = tileY - (boatCordY);
+                distanceY = tileY - (boatCoordY);
             }
             let rand = Math.random();
             // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
@@ -585,25 +573,25 @@ function setCurrentTileTarget(boatCordX, boatCordY)
 }
 function compass()
 {
-    boatCordX = parseInt(getItem('boatCordX'));
-    boatCordY = parseInt(getItem('boatCordY'));
-    let treasureCordX = parseInt(getItem('treasureCordX'));
-    let treasureCordY = parseInt(getItem('treasureCordY'));
+    boatCoordX = parseInt(getItem('boatCoordX'));
+    boatCoordY = parseInt(getItem('boatCoordY'));
+    let treasureCoordX = parseInt(getItem('treasureCoordX'));
+    let treasureCoordY = parseInt(getItem('treasureCoordY'));
     let directions = [];
 
-    if(treasureCordY < (boatCordY))
+    if(treasureCoordY < (boatCoordY))
     {
         directions.push("north");
     }
-    else if(treasureCordY > (boatCordY))
+    else if(treasureCoordY > (boatCoordY))
     {
         directions.push("south");
     }
-    if(treasureCordX < (boatCordX))
+    if(treasureCoordX < (boatCoordX))
     {
         directions.push("west");
     }
-    else if(treasureCordX > (boatCordX))
+    else if(treasureCoordX > (boatCoordX))
     {
         directions.push("east");
     }
@@ -649,7 +637,7 @@ function reveal()
 
 function handleReveal(e)
 {
-    if(e.target.dataset.cordX == getItem('treasureCordX') && e.target.dataset.cordY == getItem('treasureCordY'))
+    if(e.target.dataset.cordX == getItem('treasureCoordX') && e.target.dataset.cordY == getItem('treasureCoordY'))
     {
         Swal.fire({
             title: "Congrats!", 
@@ -715,8 +703,8 @@ function handleTeleport(e)
     boat.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
     setTimeout(() => {
         e.target.appendChild(boat)
-        setItem('boatCordX', e.target.dataset.cordX);
-        setItem('boatCordY', e.target.dataset.cordY);
+        setItem('boatCoordX', e.target.dataset.cordX);
+        setItem('boatCoordY', e.target.dataset.cordY);
         boat.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
         setTimeout(() => {
             boat.classList.add('boat');
@@ -892,8 +880,8 @@ function fight(attacker, defender)
                 defender.style.animation = `1s linear death${complement2} 0s normal forwards`
                 setTimeout(() => {
                     defender.remove()
-                    removeItem(`boat${complement2}CordX`)
-                    removeItem(`boat${complement2}CordY`)
+                    removeItem(`boat${complement2}CoordX`)
+                    removeItem(`boat${complement2}CoordY`)
                     if(attacker.id == "boat2")
                     {
                         loseAnimation()
