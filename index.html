@@ -205,18 +205,18 @@
 <script src="./scripts/boat.js"></script>
 <script>
     if(getItem('displayTuto') == "no" && (
-        getItem('boatCordX') == null || 
-        getItem('boatCordY') == null
+        getItem('boatCoordX') == null || 
+        getItem('boatCoordY') == null
         ))
     {
         newGame();
     }
    
-    console.log(getItem('treasureCordX'))
-    console.log(getItem('treasureCordY'))
+    console.log(getItem('treasureCoordX'))
+    console.log(getItem('treasureCoordY'))
     
-    var boatObject = new Boat("boat")
-    var boat2Object = new Boat("boat2")
+    var boatObject = new Boat("boat", "human")
+    var boat2Object = new Boat("boat2", "AI")
     window.boat = boatObject
     window.boat2 = boat2Object
 
