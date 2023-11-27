@@ -75,6 +75,11 @@
     top: 44%;
     left: 70%;
 }
+.sailing{
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    filter: drop-shadow(3px 3px 5px var(--dark));
+}
 #fightButton.disabled{
     display: none;
 }

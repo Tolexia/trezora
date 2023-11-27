@@ -33,7 +33,7 @@ class Boat
 
     updateLifeBar()
     {
-        let percentLifeAmount = Math.round(this.currentLifeAmountBoat*100/this.maxLifeAmountBoat);
+        let percentLifeAmount = Math.round(this.currentLifeAmount*100/this.maxLifeAmount);
         this.lifebar.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     }
 
@@ -58,21 +58,25 @@ class Boat
     goNorth()
     {
         this.set("coordY", this.coordY-1)
-        this.domElement.style = `animation-name:movingNorth${this.comp};animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));`;
+        this.domElement.classList.add("sailing")
+        this.domElement.style = `animation-name:movingNorth${this.comp};`;
     }
     goSouth()
     {
         this.set("coordY", this.coordY+1)
-        this.domElement.style = `animation-name:movingSouth${this.comp};animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));`;
+        this.domElement.classList.add("sailing")
+        this.domElement.style = `animation-name:movingSouth${this.comp};`;
     }
     goEast()
     {
         this.set("coordX", this.coordX+1)
-        this.domElement.style = `animation-name:movingEast${this.comp};animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));`;
+        this.domElement.classList.add("sailing")
+        this.domElement.style = `animation-name:movingEast${this.comp};`;
     }
     goWest()
     {
         this.set("coordX", this.coordX-1)
-        this.domElement.style = `animation-name:movingWest${this.comp};animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));`;
+        this.domElement.classList.add("sailing")
+        this.domElement.style = `animation-name:movingWest${this.comp};`;
     }
 }

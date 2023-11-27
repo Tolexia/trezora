@@ -93,6 +93,7 @@ function moveDirection(direction, boat = null, node = null)
     }
     setTimeout(() => {
         tile.appendChild(boat.domElement)
+        boat.domElement.classList.remove('sailing');
         boat.domElement.classList.add('boat');
         boat.domElement.style = "";
 
@@ -537,8 +538,8 @@ function setCurrentTileTarget(boat)
 }
 function compass()
 {
-    boatCoordX = boat.coordX;
-    boatCoordY = boat.coordY;
+    boatCoordX = window.boat.coordX;
+    boatCoordY = window.boat.coordY;
     let treasureCoordX = parseInt(getItem('treasureCoordX'));
     let treasureCoordY = parseInt(getItem('treasureCoordY'));
     let directions = [];
@@ -827,6 +828,7 @@ function fight(attacker, defender)
         newLifeDefender = currentLifeAmount - attackPower + shieldArmor;
     else 
         newLifeDefender = currentLifeAmount;
+
     attacker.domElement.classList.add("attack")
     setTimeout(() => {
         attacker.domElement.classList.remove("attack")
@@ -836,7 +838,7 @@ function fight(attacker, defender)
             defender.set("currentLifeAmount", newLifeDefender);
             if(newLifeDefender <= 0)
             {
-                defender.domElement.style.animation = `1s linear death${complement2} 0s normal forwards`
+                defender.domElement.style.animation = `1s linear death${defender.comp} 0s normal forwards`
                 setTimeout(() => {
                     defender.domElement.remove()
                     removeItem(`boat${defender.comp}CoordX`)

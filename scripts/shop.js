@@ -227,7 +227,6 @@ function sell(item)
                     if(itemPossessed.quantity <= 0)
                     {
                         itemsStored.splice(itemsStored.indexOf(itemPossessed), 1)
-                        setItem("itemsToSell", JSON.stringify(itemsStored))
                     }
                 }
                 setItem("itemsToSell", JSON.stringify(itemsStored))
