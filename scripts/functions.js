@@ -160,11 +160,13 @@ function newGame()
     setItem('boat2CoordX', 12);
     setItem('boat2CoordY', 6);
     setItem('trycount', 0);
+    setItem('currentTarget', null);
+    setItem('currentTarget2', null);
     setItem('treasureCoordX', randomX);
     setItem('treasureCoordY', randomY);
     setItem('displayType', "1");
     setItem('speed', "1");
-    setItem('goneThere', JSON.stringify(['1-1','6-12']))
+    setItem('goneThere', JSON.stringify(['1-1','12-6']))
     setItem('currentLifeAmountBoat', getItem('maxLifeAmountBoat'));
     setItem('currentLifeAmountBoat2', getItem('maxLifeAmountBoat2'));
 
@@ -183,7 +185,7 @@ function newGame()
                     type = monster
                 }
             }
-            setItem(i+'-'+j, type);
+            setItem(j+'-'+i, type);
         }
     }
 
@@ -292,6 +294,8 @@ function gainCoins(hasWon = true)
 function checkIfWon(boat = null)
 {
     console.log("trycount", getItem('trycount'))
+    if(boat == null)
+        boat = window.boat
     // if(boat == null || boat.player == "AI")
     // {
         if(boat.player == "human" && boat.coordX == getItem('treasureCoordX') && boat.coordY == getItem('treasureCoordY'))
@@ -308,27 +312,22 @@ function checkIfWon(boat = null)
         }
         else
         {
+            const coordX = boat.coordX;
+            const coordY = boat.coordY;
+            const goneThere = JSON.parse(getItem('goneThere'));
+            if(!goneThere.includes(coordX+"-"+coordY))
+            {
+                goneThere.push(coordX+"-"+coordY)
+            }
+            setItem('goneThere', JSON.stringify(goneThere))
             if(boat.player == "AI")
             {
+                console.log("boat.currentTarget", boat.currentTarget)
                 setItem('trycount', parseInt(getItem('trycount'))+1);
-                boatCoordX = window.boat.coordX;
-                boatCoordY = window.boat2.coordY;
-                boat2CoordX = boat.CoordX;
-                boat2CoordY = boat.CoordY;
-                let data = JSON.parse(getItem('goneThere'));
-                if(!data.includes(boatCoordY+"-"+boatCoordX))
-                {
-                    data.push(boatCoordY+"-"+boatCoordX)
-                }
-                if(!data.includes(boat2CoordY+"-"+boat2CoordX))
-                {
-                    data.push(boat2CoordY+"-"+boat2CoordX)
-                }
-                setItem('goneThere', JSON.stringify(data))
                 if(boat.currentTarget != null)
                 {
                     let currentTarget = (boat.currentTarget);
-                    if(currentTarget.x == boat2CoordX && currentTarget.y == boat2CoordY)
+                    if(currentTarget.x == coordX && currentTarget.y == coordY)
                     {
                         boat.currentTarget = null
                         removeItem('currentTarget2');
@@ -375,7 +374,7 @@ function loseAnimation()
 }
 
 function hint() {
-    let type = getItem(getItem('treasureCoordY')+"-"+getItem('treasureCoordX'));
+    let type = getItem(getItem('treasureCoordX')+"-"+getItem('treasureCoordY'));
     Swal.fire({
         icon:'info',
         html: 'Rumors say that you should search on the '+type+"s",
@@ -491,50 +490,45 @@ function moveBoatAuto(boat = null)
 }
 function setCurrentTileTarget(boat)
 {
+    console.log("setCurrentTileTarget")
     let boatCoordX = boat.coordX
     let boatCoordY = boat.coordY
     let treasureCoordX = parseInt(getItem('treasureCoordX'));
     let treasureCoordY = parseInt(getItem('treasureCoordY'));
-    let type = getItem(treasureCoordY+'-'+treasureCoordX);
+    let type = getItem(treasureCoordX+'-'+treasureCoordY);
     let allSameTiles = document.querySelectorAll('.'+type);
     let minX = 13;
     let minY = 7;
     let goneThere = JSON.parse(getItem('goneThere'));
-    allSameTiles.forEach(tile => {
+    let nearestTile;
+
+    for(let tile of allSameTiles) {
         let tileX = parseInt(tile.dataset.cordX) 
         let tileY = parseInt(tile.dataset.cordY) 
         if(
-            tileX != window.boat.coordX && tileY != window.boat.coordY
-            && tileX != window.boat2.coordX && tileY != window.boat2.coordY
+            // tileX != window.boat.coordX && tileY != window.boat.coordY
+            // && tileX != window.boat2.coordX && tileY != window.boat2.coordY
+            // && 
+            !goneThere.includes(tileX+"-"+tileY)
         )
         {
-            if(tileX < (boatCoordX))
-            {
-                distanceX = (boatCoordX) -  tileX;
-            }
-            else
-            {
-                distanceX = tileX - (boatCoordX);
-            }
-            if(tileY < (boatCoordY))
-            {
-                distanceY =  (boatCoordY) - tileY;
-            }
-            else
-            {
-                distanceY = tileY - (boatCoordY);
-            }
+            distanceX = Math.abs(tileX - boatCoordX);
+            distanceY = Math.abs(tileY - boatCoordY);
             let rand = Math.random();
             // If next tile is as far as the previous one, setting a bit of random behaviour to avoid heading only north or only west
-            if( ((distanceX+distanceY == minX + minY && rand <= 0.5) || distanceX+distanceY  < minX + minY) && !goneThere.includes(tile.dataset.cordY+"-"+tile.dataset.cordX))
+            if( 
+                (distanceX+distanceY == (minX + minY) && (rand <= 0.5))
+                || (distanceX+distanceY)  < (minX + minY)
+                )
             {
                 minX = distanceX;
                 minY = distanceY;
                 nearestTile = tile;
+                console.log("nearestTile", nearestTile)
                 boat.set("currentTarget", {x:tile.dataset.cordX,y:tile.dataset.cordY})
             }
         }
-    })
+    }
 }
 function compass()
 {
