@@ -51,7 +51,7 @@ class Boat
         else
             localStorage.setItem(this.dbFieldsInt[property], value)
 
-        if(property.match("LifeAmount"))
+        if(property.includes("LifeAmount"))
             this.updateLifeBar()
     }
 
