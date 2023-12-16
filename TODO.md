@@ -3,7 +3,7 @@
 ## Explore & Shop
 
 ### Creatures
-* Put monsters on map that could drop rare items
+* Put creatures on map that could drop rare items
 * When 1 block far from a shark or a kraken, possibility to attack them
 * Displaying a ::after on creature to show the player this possibility
 * For now, attacking creature kills it instantly, in future it could have a lifebar
