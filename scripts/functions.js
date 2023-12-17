@@ -12,6 +12,7 @@ window.powerReaches = {
     4:"doublespeed",
     5:"teleport"
 }
+var creatures = ["shark", "kraken"]
 var itemsToLoot = [
     {
         name: "Bauble",
@@ -161,8 +162,18 @@ function moveDirection(direction, boat = null, node = null)
         boat.domElement.classList.add('boat');
         boat.domElement.style = "";
 
-       
+        // Handle going on a creature block
+        for(let creature of creatures)
+        {
+            if(tile.classList.contains(creature))
+            {
+                creatureAttack(boat, creature, tile)
+                break;
+            }
+        }
+
         checkIfWon(boat)
+
         if(speed != "1" && boat.player == "human")
         {
             setItem('speed', "1");
@@ -176,6 +187,8 @@ function moveDirection(direction, boat = null, node = null)
                 node.classList.remove("enlightened");
             }
             randLoot()
+            // Let player attack nearby creatures
+            boat.refreshNearbyTargets()
         }
         else{
             callBackAfterTurn(node)
@@ -469,7 +482,7 @@ function moveBoatAuto(boat = null)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
-                return boatFight(boat, window.boat);
+                return fight(boat, window.boat);
         }
     }
 
@@ -569,7 +582,7 @@ function moveBoatAuto(boat = null)
             break;
     }
     const nextTileType = getItem(nextTile.x + "-" + nextTile.y)
-    if(nextTileType && ["shark", "krakeb"].includes(nextTileType))
+    if(nextTileType && creatures.includes(nextTileType))
         fightCreature(boat, nextTile, nextTileType)
     else
         moveDirection(direction, boat)
@@ -928,7 +941,7 @@ function tutorial()
     setItem('displayTuto',"no");
 }
 
-function boatFight(attacker, defender)
+function fight(attacker, defender)
 {
     const attackPower = attacker.attackPower;
     const currentLifeAmount = defender.currentLifeAmount;
@@ -953,7 +966,7 @@ function boatFight(attacker, defender)
                     defender.domElement.remove()
                     removeItem(`boat${defender.comp}CoordX`)
                     removeItem(`boat${defender.comp}CoordY`)
-                    if(attacker.player == "AI")
+                    if(defender.player == "human")
                     {
                         loseAnimation()
                     }
@@ -1038,10 +1051,26 @@ function lootAnimation(itemLooted)
     })
 }
 
-function monsterAttack(boat, monster)
+function creatureAttack(boat, creature, tile)
 {
-    if(monster == "kraken")
+    let creatureStats
+    if(creature == "kraken")
     {
-        
+        creatureStats = {
+            attackPower: 10,
+            currentLifeAmount: 8,
+            shieldArmor: 0,
+            domElement: tile
+        }
     }
+    else if(creature == "shark")
+    {
+        creatureStats = {
+            attackPower: 4,
+            currentLifeAmount: 2,
+            shieldArmor: 0,
+            domElement: tile
+        }
+    }
+    fight(creatureStats, boat)
 }

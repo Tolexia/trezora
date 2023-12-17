@@ -48,12 +48,12 @@
 .island {
     background-image: url('../images/island.png');
 }
-.shark{
+.shark:empty{
     background-image: url('../images/wildlife/requin.png');
     background-size: 70%;
     filter: invert(1) brightness(0.3) sepia(1);
 }
-.kraken{
+.kraken:empty{
     background-image: url('../images/wildlife/kraken.png');
     background-size: 75%;
     filter: invert(1) brightness(0.3) sepia(1);
@@ -451,6 +451,9 @@ h2 {
 #boat2.attack::after{
     left: 20%;
     
+}
+.shark.attack, .kraken.attack{
+    background: red;
 }
 [data-power][data-quantity]::after{
     display: block;

@@ -7,26 +7,20 @@ class Boat
         this.lifebar = this.domElement.querySelector('.lifebar')
         this.comp = domId.match("2") ? "2" : ""
 
-        this.dbFieldsInt = {
+        this.dbMap = {
             coordX : `boat${this.comp}CoordX`,
             coordY : `boat${this.comp}CoordY`,
             maxLifeAmount : `maxLifeAmountBoat${this.comp}`,
             currentLifeAmount : `currentLifeAmountBoat${this.comp}`,
             attackPower : `attackPower${this.comp}`,
             shieldArmor : `shieldArmor${this.comp}`,
-        }
-        for(let prop in this.dbFieldsInt)
-        {
-            this[prop] = parseInt(this.get(this.dbFieldsInt[prop]))
-        }
-
-        this.dbFieldsObjects = {
             currentTarget : `currentTarget${this.comp}`,
         }
-        for(let prop in this.dbFieldsObjects)
+        for(key in dbMap)
         {
-            this[prop] = JSON.parse(this.get(this.dbFieldsObjects[prop]))
+            this[key] = this.get(this.dbMap[key])
         }
+
 
         this.updateLifeBar()
     }
@@ -39,17 +33,24 @@ class Boat
 
     get(property)
     {
-        return localStorage.getItem(property)
+        let value = localStorage.getItem(property)
+        try {
+            value = JSON.parse(value)
+        } catch (error) {
+            value = ( !isNaN(parseInt(value)) ? parseInt(value) : value )
+        }
+        return value
     }
 
     set(property, value)
     {
         this[property] = value
 
-        if(typeof this.dbFieldsObjects[property] != "undefined")
-            localStorage.setItem(this.dbFieldsObjects[property], JSON.stringify(value))
-        else
-            localStorage.setItem(this.dbFieldsInt[property], value)
+        try {
+            localStorage.setItem(this.dbMap[property], JSON.stringify(value))
+        } catch (error) {
+            localStorage.setItem(this.dbMap[property], value)
+        }
 
         if(property.includes("LifeAmount"))
             this.updateLifeBar()
@@ -78,5 +79,27 @@ class Boat
         this.set("coordX", this.coordX-1)
         this.domElement.classList.add("sailing")
         this.domElement.style = `animation-name:movingWest${this.comp};`;
+    }
+    refreshNearbyTargets()
+    {
+        // Reset
+        document.querySelectorAll('.tile.clickable').forEach(tile => tile.classList.remove('clickable'))
+        const selector = `
+            .tile[data-cord-x="${this.coordX - 1}"][data-cord-y="${this.coordY - 1}"],
+            .tile[data-cord-x="${this.coordX - 1}"][data-cord-y="${this.coordY + 1}"],
+            .tile[data-cord-x="${this.coordX + 1}"][data-cord-y="${this.coordY - 1}"],
+            .tile[data-cord-x="${this.coordX + 1}"][data-cord-y="${this.coordY + 1}"],
+            .tile[data-cord-x="${this.coordX - 1}"][data-cord-y="${this.coordY}"],
+            .tile[data-cord-x="${this.coordX + 1}"][data-cord-y="${this.coordY}"],
+            .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY - 1}"],
+            .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY + 1}"],
+        `
+        const nearbyTiles = document.querySelectorAll(selector)
+        nearbyTiles.forEach(tile => {
+            if(tile.classList.contains('shark') || tile.classList.contains('kraken'))
+            {
+                tile.classList.add('clickable')
+            }
+        })
     }
 }
