@@ -9,7 +9,9 @@
     background-position: center;
     padding: 0 5px;
 }
-
+[onclick]{
+    cursor: pointer;
+}
 .tile:hover {
     box-shadow: 0 0 1px var(--dark);
 }
@@ -51,14 +53,19 @@
 .shark:empty{
     background-image: url('../images/wildlife/requin.png');
     background-size: 70%;
+}
+.shark:not(.clickable),.kraken:not(.clickable)
+{
     filter: invert(1) brightness(0.3) sepia(1);
 }
 .kraken:empty{
     background-image: url('../images/wildlife/kraken.png');
     background-size: 75%;
-    filter: invert(1) brightness(0.3) sepia(1);
 }
+.shark.clickable,.kraken.clickable
+{
 
+}
 .north {
     left: 40%;
     top:25%;
@@ -453,7 +460,23 @@ h2 {
     
 }
 .shark.attack, .kraken.attack{
-    background: red;
+    background: rgba(150, 0, 0, 0.567);
+}
+.shark.attack::after, .kraken.attack:after{
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    background-image: url(../images/fight/claw.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 [data-power][data-quantity]::after{
     display: block;
@@ -461,6 +484,39 @@ h2 {
     font-size: 14px;
     position: absolute;
     transform: translateY(-50%);
+}
+
+.clickable::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 3em;
+    width: 2em;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    z-index: 20;
+    background-image: url(../images/map/fight_creature.svg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 4px 6px grey);
+    animation-name: rotateMarker;
+    animation: rotateMarker 5s linear infinite forwards;
+}
+@keyframes rotateMarker {
+    0%{
+        transform:translateX(-50%) rotateY(0) translateY(0);
+    }
+    25%{
+        transform:translateX(-50%) rotateY(90deg) translateY(-0.5em);
+    }
+    75%{
+        transform:translateX(-50%) rotateY(270deg) translateY(.5em);
+    }
+    100%{
+        transform:translateX(-50%) rotateY(360deg) translateY(0);
+    }
 }
 @media screen and (max-width: 1800px) {
     .tile {

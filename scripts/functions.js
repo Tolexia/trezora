@@ -597,7 +597,7 @@ function fightCreature(boat, tileObject, creatureType) {
         // Some other action
     }
     boat.domElement.classList.add("attack")
-    const tileNode = document.querySelector(`.tile[data-cord-x="${tileObject.x}"][data-cord-y="${tileObject.y}"]`);
+    const tileNode = tileObject.classList ? tileObject : document.querySelector(`.tile[data-cord-x="${tileObject.x}"][data-cord-y="${tileObject.y}"]`);
     setTimeout(() => {
         boat.domElement.classList.remove("attack")
         tileNode.classList.add("defend")
@@ -610,8 +610,10 @@ function fightCreature(boat, tileObject, creatureType) {
             if(tileNode != null)
             {
                 tileNode.classList.remove(creatureType)
+                tileNode.classList.remove("clickable")
                 tileNode.classList.add("sea")
-                setItem(tileObject.x + "-" + tileObject.y, "sea")
+                console.log('tileNode.dataset.cordX + "-" + tileNode.dataset.cordY', tileNode.dataset.cordX + "-" + tileNode.dataset.cordY)
+                setItem(tileNode.dataset.cordY + "-" + tileNode.dataset.cordX, "sea")
                 randLoot(true)
             }
         }, 1000)

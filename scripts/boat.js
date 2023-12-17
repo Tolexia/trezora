@@ -16,7 +16,7 @@ class Boat
             shieldArmor : `shieldArmor${this.comp}`,
             currentTarget : `currentTarget${this.comp}`,
         }
-        for(key in dbMap)
+        for(let key in this.dbMap)
         {
             this[key] = this.get(this.dbMap[key])
         }
@@ -92,13 +92,15 @@ class Boat
             .tile[data-cord-x="${this.coordX - 1}"][data-cord-y="${this.coordY}"],
             .tile[data-cord-x="${this.coordX + 1}"][data-cord-y="${this.coordY}"],
             .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY - 1}"],
-            .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY + 1}"],
+            .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY + 1}"]
         `
         const nearbyTiles = document.querySelectorAll(selector)
+        console.log("nearbyTiles", nearbyTiles)
         nearbyTiles.forEach(tile => {
             if(tile.classList.contains('shark') || tile.classList.contains('kraken'))
             {
                 tile.classList.add('clickable')
+                tile.setAttribute("onclick", `fightCreature(boatObject, this, '${tile.classList.contains('shark') ? "shark" : "kraken"}')`)
             }
         })
     }
