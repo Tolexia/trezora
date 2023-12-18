@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+@font-face {
+    font-family: Battlesbridge;
+    src: url(./Battlesbridge.ttf);
+}
 
 :root {
     --light: #fcfafa;
     --dark: #0e0000;
     --dark-transparent: #0e0000dd;
 
-    --main-font: 'Pirata One', cursive;
+    --main-font: 'Pirata One', Arial, cursive;
     --text-size: 14pt;
 
     --navbar-size:70px;
@@ -40,6 +44,19 @@ nav {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--main-font);
     color: var(--light);
+}
+.logo, a.navbar-brand.logo{
+    font-family: Battlesbridge;
+    letter-spacing: 2px;
+    color: #f1e200;
+    text-shadow: 0 0 white;
+}
+a.navbar-brand.logo:hover, a.navbar-brand.logo:focus{
+    color: white;
+    text-shadow: 0 0 #f1e200;
+}
+.btn:hover{
+    color: #f1e200;
 }
 
 .introduction {

@@ -95,7 +95,6 @@ class Boat
             .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY + 1}"]
         `
         const nearbyTiles = document.querySelectorAll(selector)
-        console.log("nearbyTiles", nearbyTiles)
         nearbyTiles.forEach(tile => {
             if(tile.classList.contains('shark') || tile.classList.contains('kraken'))
             {

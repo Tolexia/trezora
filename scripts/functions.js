@@ -248,9 +248,9 @@ function newGame()
     setItem('currentLifeAmountBoat2', getItem('maxLifeAmountBoat2'));
 
     const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
-    for (let i = 1; i <= 6; i++) 
+    for (let y = 1; y <= 6; y++) 
     {
-        for (let j = 1; j <= 12; j++) 
+        for (let x = 1; x <= 12; x++) 
         {
             let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
             if(type == "sea")
@@ -262,7 +262,7 @@ function newGame()
                     type = creature
                 }
             }
-            setItem(i+'-'+j, type);
+            setItem(x+'-'+y, type);
         }
     }
 
@@ -373,6 +373,7 @@ function checkIfWon(boat = null)
     console.log("trycount", getItem('trycount'))
     if(boat == null)
         boat = window.boat
+    console.log("boat.player", boat.player)
     // if(boat == null || boat.player == "AI")
     // {
         if(boat.player == "human" && boat.coordX == getItem('treasureCoordX') && boat.coordY == getItem('treasureCoordY'))
@@ -567,10 +568,10 @@ function moveBoatAuto(boat = null)
     let nextTile = {x:0,y:0}
     switch (direction) {
         case "N":
-            nextTile = {x: boat.coordX , y: boat.coordY + 1} 
+            nextTile = {x: boat.coordX , y: boat.coordY - 1} 
             break;
         case "S":
-            nextTile = {x: boat.coordX , y: boat.coordY - 1} 
+            nextTile = {x: boat.coordX , y: boat.coordY + 1} 
             break;
         case "E":
             nextTile = {x: boat.coordX + 1 , y: boat.coordY} 
@@ -581,7 +582,10 @@ function moveBoatAuto(boat = null)
         default:
             break;
     }
+    console.log("direction", direction)
+    console.log("nextTile", nextTile)
     const nextTileType = getItem(nextTile.x + "-" + nextTile.y)
+    console.log("nextTileType", nextTileType)
     if(nextTileType && creatures.includes(nextTileType))
         fightCreature(boat, nextTile, nextTileType)
     else
@@ -613,8 +617,9 @@ function fightCreature(boat, tileObject, creatureType) {
                 tileNode.classList.remove("clickable")
                 tileNode.classList.add("sea")
                 console.log('tileNode.dataset.cordX + "-" + tileNode.dataset.cordY', tileNode.dataset.cordX + "-" + tileNode.dataset.cordY)
-                setItem(tileNode.dataset.cordY + "-" + tileNode.dataset.cordX, "sea")
-                randLoot(true)
+                setItem(tileNode.dataset.cordX + "-" + tileNode.dataset.cordY, "sea")
+                if(boat.player == "human")
+                    randLoot(true)
             }
         }, 1000)
     }, 1000)
@@ -633,6 +638,7 @@ function setCurrentTileTarget(boat)
     let goneThere = JSON.parse(getItem('goneThere'));
     let nearestTile;
 
+    console.log("allSameTiles", allSameTiles)
     for(let tile of allSameTiles) {
         let tileX = parseInt(tile.dataset.cordX) 
         let tileY = parseInt(tile.dataset.cordY) 
@@ -957,7 +963,11 @@ function fight(attacker, defender)
     attacker.domElement.classList.add("attack")
     setTimeout(() => {
         attacker.domElement.classList.remove("attack")
-        defender.domElement.classList.add("defend")
+        if(!attacker.player)
+            defender.domElement.classList.add("shaken")
+        else
+            defender.domElement.classList.add("defend")
+            
         setTimeout(() => {
             defender.domElement.classList.remove("defend")
             defender.set("currentLifeAmount", newLifeDefender);
