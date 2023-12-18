@@ -262,7 +262,7 @@ function newGame()
                     type = creature
                 }
             }
-            setItem(j+'-'+i, type);
+            setItem(i+'-'+j, type);
         }
     }
 
