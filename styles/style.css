@@ -19,6 +19,10 @@
     --spacing-2: calc(var(--spacing) * 2);
     --spacing-3: calc(var(--spacing) * 3);
     --spacing-4: calc(var(--spacing) * 4);
+
+    --gold:#ffd438;
+    --light-shadow: #9e8422;
+    --dark-shadow: #3e2904;
 }
 html, body
 {
@@ -36,6 +40,9 @@ body {
 nav {
     font-family: var(--main-font);
 }
+nav.navbar{
+    padding:1em;
+}
 
 .dropdown, .nav-item {
     margin-right: 10px;
@@ -47,14 +54,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .logo, a.navbar-brand.logo{
     font-family: Battlesbridge;
-    letter-spacing: 2px;
-    color: #f1e200;
-    text-shadow: 0 0 white;
+    letter-spacing: 3px;
+    color: transparent;
+    height:2.25em;
+    font-weight: bold;
+    /* color: #f1e200; */
+    /* text-shadow: 0 0 white;  */
+    background-clip: text;
+    background-image: repeating-linear-gradient(5deg, var(--gold)0%, var(--light-shadow)23%, var(--gold)31%);
+    transform: scale(1);
+    margin-right: 2em;
+    margin-left: 1em;
+    transition: all .4s;
 }
 a.navbar-brand.logo:hover, a.navbar-brand.logo:focus{
-    color: white;
-    text-shadow: 0 0 #f1e200;
+    background-image: repeating-linear-gradient(15deg, var(--gold)0%, var(--light-shadow)15%, var(--gold)22%);
+    background-position: 50px;
+    color: transparent;
 }
+
 .btn:hover{
     color: #f1e200;
 }
@@ -143,9 +161,14 @@ blockquote {
     background: rgb(130,9,9);
     background: radial-gradient(circle, rgba(130,9,9,0.9724264705882353) 0%, rgba(0,0,0,0.9136029411764706) 100%);
 }
-
+.dropdown{
+    margin-right:1em;
+}
 .dropdown-item, .nav-item {
     cursor: pointer;
+}
+.dropdown-toggle{
+    letter-spacing: 1px;
 }
 .nav-item {
     color:var(--light)!important;
