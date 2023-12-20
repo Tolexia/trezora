@@ -1,18 +1,3 @@
-window.fightDistances = {x:2,y:1}
-window.levels = {
-    1: 0,
-    2: 500,
-    3: 2000,
-    4: 5000,
-    5: 10000
-}
-window.powerReaches = {
-    2:"compass",
-    3:"reveal",
-    4:"doublespeed",
-    5:"teleport"
-}
-var creatures = ["shark", "kraken"]
 var itemsToLoot = [
     {
         name: "Bauble",
@@ -104,7 +89,7 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "S":
-            if(boat.coordY + 1 <= 6)
+            if(boat.coordY + 1 <= gamesystem.rowCount)
             {
                 boat.goSouth()
             }
@@ -114,7 +99,7 @@ function moveDirection(direction, boat = null, node = null)
             }
         break;
         case "E":
-            if(boat.coordX+1 <= 12)
+            if(boat.coordX+1 <= gamesystem.columnCount)
             {
                 boat.goEast()
             }
@@ -163,7 +148,7 @@ function moveDirection(direction, boat = null, node = null)
         boat.domElement.style = "";
 
         // Handle going on a creature block
-        for(let creature of creatures)
+        for(let creature in gamesystem.creatures)
         {
             if(tile.classList.contains(creature))
             {
@@ -205,8 +190,8 @@ function handleVisibilityFightButton()
 {
     const fightButton = document.getElementById('fightButton')
     if(
-        Math.abs(parseInt(getItem('boatCoordX'))-parseInt(getItem('boat2CoordX'))) <= window.fightDistances.x && 
-        Math.abs(parseInt(getItem('boatCoordY'))-parseInt(getItem('boat2CoordY'))) <= window.fightDistances.y
+        Math.abs(parseInt(getItem('boatCoordX'))-parseInt(getItem('boat2CoordX'))) <= gamesystem.fightDistances.x && 
+        Math.abs(parseInt(getItem('boatCoordY'))-parseInt(getItem('boat2CoordY'))) <= gamesystem.fightDistances.y
     )
     {
         fightButton.classList.remove('disabled')
@@ -234,8 +219,8 @@ function newGame()
     let randomY = Math.floor(Math.random()*(maxY-minY+1)+minY);
     setItem('boatCoordX', 1);
     setItem('boatCoordY', 1);
-    setItem('boat2CoordX', 12);
-    setItem('boat2CoordY', 6);
+    setItem('boat2CoordX', gamesystem.columnCount);
+    setItem('boat2CoordY', gamesystem.rowCount);
     setItem('trycount', 0);
     setItem('currentTarget', null);
     setItem('currentTarget2', null);
@@ -243,14 +228,14 @@ function newGame()
     setItem('treasureCoordY', randomY);
     setItem('displayType', "1");
     setItem('speed', "1");
-    setItem('goneThere', JSON.stringify(['1-1','12-6']))
+    setItem('goneThere', JSON.stringify(['1-1',`${gamesystem.columnCount}-${gamesystem.rowCount}`]))
     setItem('currentLifeAmountBoat', getItem('maxLifeAmountBoat'));
     setItem('currentLifeAmountBoat2', getItem('maxLifeAmountBoat2'));
 
     const possibleValues = ['sea', 'island', 'sea', 'port', 'sea', 'sea', 'sea'];
-    for (let y = 1; y <= 6; y++) 
+    for (let y = 1; y <= gamesystem.rowCount; y++) 
     {
-        for (let x = 1; x <= 12; x++) 
+        for (let x = 1; x <= gamesystem.columnCount; x++) 
         {
             let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
             if(type == "sea")
@@ -294,7 +279,7 @@ function reachLvl()
 {
     const xp = parseInt(getItem('playerXp'))
     const lvl = parseInt(getItem('playerLvl'))
-    const nxtLvlXpReach = window.levels[lvl+1]
+    const nxtLvlXpReach = gamesystem.levels[lvl+1]
     if(xp >= nxtLvlXpReach)
     {
         const newLvl = lvl+1
@@ -307,7 +292,7 @@ function reachLvl()
 }
 function gainPower(lvl)
 {
-    const newPower = window.powerReaches[lvl]
+    const newPower = gamesystem.powerReaches[lvl]
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
     if(!powersUnlocked.find(el => el == newPower))
     {
@@ -479,7 +464,7 @@ function moveBoatAuto(boat = null)
     }
     if(boat.player == "AI")
     {
-        if(Math.abs(boat.coordX-window.boat.coordX) <=window.fightDistances.x && Math.abs(boat.coordY-window.boat.coordY) <= window.fightDistances.y)
+        if(Math.abs(boat.coordX-window.boat.coordX) <=gamesystem.fightDistances.x && Math.abs(boat.coordY-window.boat.coordY) <= gamesystem.fightDistances.y)
         {
             let goFight = Math.random() > 0.5;
             if(goFight == true)
@@ -586,7 +571,7 @@ function moveBoatAuto(boat = null)
     console.log("nextTile", nextTile)
     const nextTileType = getItem(nextTile.x + "-" + nextTile.y)
     console.log("nextTileType", nextTileType)
-    if(nextTileType && creatures.includes(nextTileType))
+    if(nextTileType && Object.keys(gamesystem.creatures).includes(nextTileType))
         fightCreature(boat, nextTile, nextTileType)
     else
         moveDirection(direction, boat)
@@ -1065,24 +1050,13 @@ function lootAnimation(itemLooted)
 
 function creatureAttack(boat, creature, tile)
 {
-    let creatureStats
-    if(creature == "kraken")
+    let creatureStats = gamesystem.creatures[creature]
+    if(!creatureStats)
     {
-        creatureStats = {
-            attackPower: 10,
-            currentLifeAmount: 8,
-            shieldArmor: 0,
-            domElement: tile
-        }
+        console.error("No stat found for creature : "+creature)
+        return 
     }
-    else if(creature == "shark")
-    {
-        creatureStats = {
-            attackPower: 4,
-            currentLifeAmount: 2,
-            shieldArmor: 0,
-            domElement: tile
-        }
-    }
+    creatureStats.domElement = tile
+    
     fight(creatureStats, boat)
 }

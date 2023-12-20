@@ -157,7 +157,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10">
-                <div class="map" style="max-height:100vh;">
+                <div class="map" id = "map" style="max-height:100vh;">
                     <div class="row column" style="display: none;">
                         <div class="tile col-1">
                             <div class="tile-name"></div>
@@ -168,7 +168,7 @@
             </div>
             <div class="col-md-2">
                 <div class="navigation">
-                    <h2>lvl: <span id = "level"></span></h2>
+                    <h2 class="levelTitle">lvl: <span id = "level"></span></h2>
                     <a onclick="moveDirection('N',null, this);" class="north">N</a>
                     <a onclick="moveDirection('S',null, this)" class="south">S</a>
                     <a onclick="moveDirection('E',null, this)" class="east">E</a>
@@ -201,6 +201,7 @@
             crossorigin="anonymous"></script>
 </body>
 </html>
+<script src="./scripts/Gamesystem.js"></script>
 <script src="./scripts/functions.js"></script>
 <script src="./scripts/boat.js"></script>
 <script>
@@ -227,10 +228,10 @@
     const boat = boatObject.domElement;
     const boat2 = boat2Object.domElement;
 
-    for (let y = 1; y <= 6; y++) 
+    for (let y = 1; y <= gamesystem.rowCount; y++) 
     {
         let col = column.cloneNode();
-        for (let x = 1; x <= 12; x++) 
+        for (let x = 1; x <= gamesystem.columnCount; x++) 
         {
             let tileClone = tile.cloneNode() 
             tileClone.dataset.cordX = x;

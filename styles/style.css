@@ -72,7 +72,7 @@ _::-webkit-full-page-media, _:future, :root a.navbar-brand.logo {
 }
 
 a.navbar-brand.logo:hover, a.navbar-brand.logo:focus{
-    background-image: repeating-linear-gradient(15deg, var(--gold)0%, var(--light-shadow)15%, var(--gold)22%);
+    background-image: repeating-linear-gradient(5deg, var(--gold)0%, var(--light-shadow)10%, var(--gold)20%);
     background-position: 50px;
     color: transparent;
 }

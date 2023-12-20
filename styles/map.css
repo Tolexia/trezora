@@ -353,6 +353,7 @@ a.enlightened {
 h2 {
     font-size: 1.3em;
 }
+
 .doublespeed {
     font-size: 25px;
 }
@@ -602,32 +603,49 @@ h2 {
 }
 
 
-@media screen and (max-width: 1475px) {
+/* @media screen and (max-width: 1475px) {
     .tile {
         height: 80px;
         width: 80px;
     }
-}
+} */
 
 @media screen and (max-width: 1200px) {
     .tile {
-        height: 60px;
-        width: 60px;
+        height: calc(75vh / var(--rowCount));
+        width: calc(98vw / var(--columnCount));
     }
     h1 {
         display: none;
     }
-}
-
-@media screen and (max-width: 768px) {
     .navigation {
         display: flex;
         justify-content: space-around;
+        align-items: flex-start;
     }
     .navigation .south , .navigation .north,  .navigation .east, .navigation .west
     {
       position: initial;
     }
+    .col-md-10{
+        max-width: 100%;
+        flex: auto;
+    }
+    .col-md-2{
+        width: 100%;
+        max-width: 100%;
+        flex: auto;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1200px){
+    .container-fluid > .row{
+        flex-direction: column;
+    }
+    h2.levelTitle{
+        margin-top: .25em;
+    }
+}
+@media screen and (max-width: 768px) {
 
     h2 {
         margin-top: 5px;
@@ -635,5 +653,10 @@ h2 {
     .tile, .boat {
         height: 16vw;
         width: auto;
+    }
+}
+@media screen and (min-width: 1201px) {
+    h2.levelTitle{
+        margin-top: 1.5em;
     }
 }
