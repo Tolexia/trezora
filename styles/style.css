@@ -67,6 +67,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-left: 1em;
     transition: all .4s;
 }
+@supports (overflow:-webkit-marquee) and (justify-content:inherit) {
+    a.navbar-brand.logo{
+        padding-top: 2.5em;
+    }
+}
 a.navbar-brand.logo:hover, a.navbar-brand.logo:focus{
     background-image: repeating-linear-gradient(15deg, var(--gold)0%, var(--light-shadow)15%, var(--gold)22%);
     background-position: 50px;
