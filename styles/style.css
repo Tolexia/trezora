@@ -215,6 +215,11 @@ button:focus
         width: 33px;
     }
 }
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+    a.navbar-brand.logo{
+        padding-top: 1.25em;
+    }
+}
 @media screen and (max-width: 767px) and (orientation: portrait) {
    
     .container-fluid {
