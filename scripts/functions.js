@@ -590,6 +590,7 @@ function fightCreature(boat, tileObject, creatureType) {
     setTimeout(() => {
         boat.domElement.classList.remove("attack")
         tileNode.classList.add("defend")
+        console.log("tileNode", tileNode)
         setTimeout(() => {
             tileNode.classList.remove("defend")
 
@@ -600,13 +601,18 @@ function fightCreature(boat, tileObject, creatureType) {
             {
                 tileNode.classList.remove(creatureType)
                 tileNode.classList.remove("clickable")
+                tileNode.removeAttribute('onclick')
                 tileNode.classList.add("sea")
                 console.log('tileNode.dataset.cordX + "-" + tileNode.dataset.cordY', tileNode.dataset.cordX + "-" + tileNode.dataset.cordY)
                 setItem(tileNode.dataset.cordX + "-" + tileNode.dataset.cordY, "sea")
                 if(boat.player == "human")
-                    randLoot(true)
+                {
+                    setTimeout(() => {
+                        randLoot(true)
+                    }, 200);
+                }
             }
-        }, 1000)
+        }, 1100)
     }, 1000)
 }
 function setCurrentTileTarget(boat)

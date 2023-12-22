@@ -1,3 +1,9 @@
+html, body{
+    overflow: hidden;
+}
+.col-md-2{
+    height: 100%;
+}
 .tile {
     height: 120px;
     width: 120px;
@@ -66,21 +72,22 @@
 {
 
 }
+
 .north {
-    left: 40%;
+    left: 50%;
     top:25%;
 }
 .south {
-    left: 40%;
+    left: 50%;
     top:65%;
 }
 .west {
-    left: 5%;
+    left: 20%;
     top: 44%;
 }
 .east {
     top: 44%;
-    left: 70%;
+    left: 80%;
 }
 .sailing{
     animation-duration: 2s;
@@ -380,11 +387,11 @@ h2 {
         opacity: 0;
     }
     20%{
-        scale: 3;
+        scale: 2;
         opacity: 1;
     }
     100%{
-        scale: 3;
+        scale: 2;
         opacity: 0;
     }
 }
@@ -491,7 +498,7 @@ h2 {
     transform: translateY(-50%);
 }
 
-.clickable::after {
+.clickable::before {
     content: "";
     display: block;
     position: absolute;
@@ -595,7 +602,7 @@ h2 {
     }
 }
   
-@media screen and (max-width: 1800px) {
+@media screen and (max-width: 1200px) {
     .tile {
         height: 100px;
         width: 100px;
@@ -658,5 +665,24 @@ h2 {
 @media screen and (min-width: 1201px) {
     h2.levelTitle{
         margin-top: 1.5em;
+    }
+    .container-fluid{
+        height: 100%;
+        margin-top: 1.25em;
+    }
+    .container-fluid > .row, .col-md-10{
+        height: 100%;
+        align-items: center;
+        display: flex;
+    }
+    .tile{
+        width: calc(83.33vw / var(--columnCount));
+        height: calc(80vh / var(--rowCount));
+    }
+    .north, .south, .west, .east{
+        transform: translate(-50%, -50%);
+    }
+    .col-md-2{
+        height: 90vh;
     }
 }
