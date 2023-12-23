@@ -1,0 +1,72 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container 
+{
+    max-height: 100vh;
+    max-width: 100vw;
+    min-height: 80%;
+    min-width: 80%;
+    width: 1575px;
+    background-image: url(../images/settings/sunset_UHD.avif);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.options
+{
+    position: absolute;
+    visibility: hidden;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #5b0a2cc3;
+    z-index: 10;
+    border-radius: 12px;
+    padding: 2em 0.5em;
+    padding-top: 0;
+    max-width: 80vw;
+}
+.options.open
+{
+    animation-name: openDisplay;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+.boat-helm{
+    position: absolute;
+    filter: invert(1) brightness(0.9);
+    animation: settings-entrance 2s ease-in-out forwards;
+    transform-origin: center;
+}
+@keyframes settings-entrance {
+    0%{
+        top: 0;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    30%{
+        top: 3%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    45%{
+        top: 1%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    60%{
+        top: 2%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    100%{
+        top: 2%;
+        right:calc(10% + 6em);
+        transform: translateX(-50%) rotate(720deg);
+    }
+}

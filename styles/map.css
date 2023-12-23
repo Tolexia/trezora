@@ -1,6 +1,9 @@
 html, body{
     overflow: hidden;
 }
+body{
+    padding-top: var(--navbar-size);
+}
 .col-md-2{
     height: 100%;
 }
