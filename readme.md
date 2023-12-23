@@ -37,4 +37,4 @@ The purpose of this game is not to be developped further, just to train javascri
 However, I'm fully open to any suggestion or improvement idea.
 
 Hope you will enjoy it :) 
-[here is the link of the github page](https://tolexia.github.io/treasurefind_js/) 
+[here is the link of the github page](https://tolexia.github.io/trezora/) 
