@@ -179,7 +179,7 @@
         </div>
     </div>
     <div id = "boat" class="boat notinit" style="display: none;">
-        <img  class="img-fluid" src="./images/boat.png" alt="Black Pearl" />
+        <img  class="img-fluid" alt="Black Pearl" />
         <span class="lifebar"></span>
     </div>
     <div id="boat2" class="boat notinit" style="display: none;">
@@ -240,7 +240,7 @@
                 tileClone.appendChild(boat);
                 boat.classList.remove("notinit")
                 boat.style.display = "block";
-                boat.src = './images/boat.png';
+                boat.src = !getItem('boat-skin') || getItem('boat-skin') == "default" ?  './images/skins/boat.png' : getItem('boat-skin');
             }
             if(boat2Object.coordX == x && boat2Object.coordY == y)
             {

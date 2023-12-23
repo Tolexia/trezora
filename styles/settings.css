@@ -2,6 +2,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .container 
@@ -42,6 +43,38 @@ body{
     filter: invert(1) brightness(0.9);
     animation: settings-entrance 2s ease-in-out forwards;
     transform-origin: center;
+}
+.options > ul {
+    display: flex;
+    justify-content: space-around;
+    padding-inline-start: 0;
+    padding-top: 10px;
+}
+.options > ul > li, .options > ul > li > label{
+    cursor: pointer;
+}
+.options > ul label {
+    position: relative;
+}
+.options > ul label::before{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    text-align: center;
+    top: 100%;
+    background-color: white;
+    width: 0;
+    height: 0;
+    transition: all .4s;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+.options > ul input:checked + label::before {
+    width: 100%;
+    height: 2px;
+    
 }
 @keyframes settings-entrance {
     0%{

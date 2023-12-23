@@ -169,6 +169,10 @@ function init()
     {
         setItem('dropRate', 0);
     }
+    if(getItem('boat-skin') == null)
+    {
+        setItem('boat-skin', "default");
+    }
 
 }
 init()
