@@ -171,7 +171,7 @@ function init()
     }
     if(getItem('boat-skin') == null)
     {
-        setItem('boat-skin', "default");
+        setItem('boat-skin', "./images/skins/boat.png");
     }
 
 }

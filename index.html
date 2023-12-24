@@ -240,7 +240,7 @@
                 tileClone.appendChild(boat);
                 boat.classList.remove("notinit")
                 boat.style.display = "block";
-                boat.src = !getItem('boat-skin') || getItem('boat-skin') == "default" ?  './images/skins/boat.png' : getItem('boat-skin');
+                boat.src = !getItem('boat-skin')  ?  './images/skins/boat.png' : getItem('boat-skin');
             }
             if(boat2Object.coordX == x && boat2Object.coordY == y)
             {

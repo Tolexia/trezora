@@ -34,34 +34,40 @@ body{
 .options.open
 {
     animation-name: openDisplay;
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
+.options.open > div {
+    visibility: hidden;
+    animation: display .1s linear 2s forwards;
+    min-height: var(--minHeightContainer);
+}
 .boat-helm{
+    visibility: hidden;
     position: absolute;
     filter: invert(1) brightness(0.9);
-    animation: settings-entrance 2s ease-in-out forwards;
+    animation: settings-entrance 2s ease-in-out 2s forwards ;
     transform-origin: center;
 }
-.options > ul {
+.options  ul {
     display: flex;
     justify-content: space-around;
     padding-inline-start: 0;
-    padding-top: 10px;
+    padding-top: 2em;
 }
-.options > ul > li, .options > ul > li > label{
+.options ul > li, .options ul > li > label{
     cursor: pointer;
 }
-.options > ul label {
+.options ul label {
     position: relative;
 }
-.options > ul label::before{
+.options ul label::before{
     position: absolute;
     content: "";
     display: inline-block;
     text-align: center;
-    top: 100%;
+    top: 102%;
     background-color: white;
     width: 0;
     height: 0;
@@ -71,35 +77,68 @@ body{
     right: 0;
 }
 
-.options > ul input:checked + label::before {
+.options ul input:checked + label::before {
     width: 100%;
-    height: 2px;
+    height: 1px;
     
+}
+.options-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: calc(var(--minHeightContainer) - 5em);
+    align-items: center;
 }
 @keyframes settings-entrance {
     0%{
+        visibility: visible;
         top: 0;
         right:50%;
         transform: translateX(-50%) rotate(0);
     }
     30%{
+        visibility: visible;
         top: 3%;
         right:50%;
         transform: translateX(-50%) rotate(0);
     }
     45%{
+        visibility: visible;
         top: 1%;
         right:50%;
         transform: translateX(-50%) rotate(0);
     }
     60%{
+        visibility: visible;
         top: 2%;
         right:50%;
         transform: translateX(-50%) rotate(0);
     }
     100%{
+        visibility: visible;
         top: 2%;
         right:calc(10% + 6em);
         transform: translateX(-50%) rotate(720deg);
     }
+}
+@keyframes display {
+    0%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: visible;
+    }
+}
+
+/* SKINS */
+.skinContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 70%;
+}
+
+.skinPicture{
+    max-width: 256px;
 }

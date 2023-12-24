@@ -20,6 +20,8 @@
     --spacing-3: calc(var(--spacing) * 3);
     --spacing-4: calc(var(--spacing) * 4);
 
+    --minHeightContainer: 70vh;
+
     --gold:#ffd438;
     --light-shadow: #9e8422;
     --dark-shadow: #3e2904;
@@ -227,12 +229,12 @@ button:focus
     60%{
         visibility: visible;
         width: 2%;
-        min-height: 70%;
+        min-height: var(--minHeightContainer);
     }
     100%{
         visibility: visible;
         width: 90%;
-        min-height: 70%;
+        min-height: var(--minHeightContainer);
     }
 }
 @media screen and (max-width: 990px){
