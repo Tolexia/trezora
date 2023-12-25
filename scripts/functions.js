@@ -3,13 +3,9 @@
 function moveDirection(direction, boat = null, node = null)
 {
     document.body.style.pointerEvents = "none";
-    let keyX;
-    let keyY;
     if(boat == null)
     {
         boat = window.boat;
-        keyX = boat.coordX;
-        keyY = boat.coordY;
     }
   
     let speed = getItem('speed');
@@ -549,7 +545,7 @@ function fightCreature(boat, tileObject, creatureType) {
                     }, 200);
                 }
             }
-        }, 1100)
+        }, 1000)
     }, 1000)
 }
 function setCurrentTileTarget(boat)

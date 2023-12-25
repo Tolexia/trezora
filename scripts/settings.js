@@ -1,27 +1,27 @@
 window.optionsContent = document.getElementById('optionsContent')
 var basePath = "./images/skins/"
+var skins = [
+    {
+        title: "Default",
+        file: "boat.png"
+    },
+    {
+        title: "Minimalist",
+        file: "mini-boat.png"
+    },
+    {
+        title: "AC Black Flag",
+        file: "black_flag.png"
+    },
+    {
+        title: "Thousand Sunny",
+        file: "thousand_sunny.png"
+    }
+]
 function displaySkins()
 {
     window.optionsContent.innerHTML = ""
     
-    const skins = [
-        {
-            title: "Default",
-            file: "boat.png"
-        },
-        {
-            title: "Mini",
-            file: "mini-boat.png"
-        },
-        {
-            title: "AC Black Flag",
-            file: "black_flag.png"
-        },
-        {
-            title: "Thousand Sunny",
-            file: "thousand_sunny.png"
-        }
-    ]
     for(let skin of skins)
     {
         const skinContainer = document.createElement('div')
@@ -57,19 +57,22 @@ function displaySkins()
 }
 
 function chooseSkin(skin){
-    window.optionsContent.querySelectorAll(`selectButton`).forEach(button => {
+    console.log("chooseSkin")
+    console.log("skin", skin)
+    window.optionsContent.querySelectorAll('.selectButton').forEach(button => {
+        console.log("button", button)
         if(button.dataset.skintitle == skin.title)
         {
             button.innerText = "Selected"
-            selectButton.classList.add("selected")
+            button.classList.add("selected")
             button.onclick = ""
             setItem('boat-skin', basePath + skin.file)
 
         }
         else{
             button.innerText = "Select"
-            selectButton.classList.remove("selected")
-            button.onclick = () => chooseSkin(skin)
+            button.classList.remove("selected")
+            button.onclick = () => chooseSkin(skins.find(el => el.title == button.dataset.skintitle))
         }
     });
 }

@@ -226,6 +226,8 @@
     const boat = boatObject.domElement;
     const boat2 = boat2Object.domElement;
 
+    console.log("boat", boat)
+
     for (let y = 1; y <= gamesystem.rowCount; y++) 
     {
         let col = column.cloneNode();
@@ -240,14 +242,13 @@
                 tileClone.appendChild(boat);
                 boat.classList.remove("notinit")
                 boat.style.display = "block";
-                boat.src = !getItem('boat-skin')  ?  './images/skins/boat.png' : getItem('boat-skin');
+                boat.getElementsByTagName('img')[0].src = !getItem('boat-skin')  ?  './images/skins/boat.png' : getItem('boat-skin');
             }
             if(boat2Object.coordX == x && boat2Object.coordY == y)
             {
                 tileClone.appendChild(boat2);
                 boat2.classList.remove("notinit")
                 boat2.style.display = "block";
-                boat2.src = './images/boat2.png';
             }
             tileClone.classList.add(getItem(x+'-'+y))
         }

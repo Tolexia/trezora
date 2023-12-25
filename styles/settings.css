@@ -88,6 +88,7 @@ body{
     justify-content: space-around;
     height: calc(var(--minHeightContainer) - 5em);
     align-items: center;
+    overflow-y: auto;
 }
 @keyframes settings-entrance {
     0%{
@@ -137,8 +138,37 @@ body{
     align-items: center;
     justify-content: space-between;
     height: 70%;
+    width: 270px;
 }
 
 .skinPicture{
     max-width: 256px;
+    max-height: 100%;
+}
+
+.selectButton {
+    display:block;
+    background-image: url(../images/settings/wood_texture.avif);
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: relative;
+    color: white;
+    padding: .5rem 1.225rem  ;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 25px #1e1d1d, 0px 0px 0px 6px rgb(213, 181, 0) inset;
+    border: none;
+}
+.selectButton.selected{
+    box-shadow: 0 5px 25px rgb(176, 149, 0), 0px 0px 0px 6px rgb(213, 181, 0) inset;
+}
+.selectButton::before
+{
+    content: "";
+    display: block;
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    bottom: 1px;
+    box-shadow: rgb(241, 242, 243) 1px 1px 1px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
