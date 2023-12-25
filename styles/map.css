@@ -104,18 +104,7 @@ body{
 {
     filter: invert(1) drop-shadow(0px 0px 20px white);
 }
-@keyframes myBoat {
-    0% {
-        transform: rotate(5deg)
-        translate(0 px, 0 px);
-    }
-    50% {
-        transform: translate(5px, 5px);
-    }
-    100% {
-        transform: rotate(-5deg) translate(0px, 0px);
-    }
-}
+
 @keyframes myBoat2 {
     0% {
         transform: rotate(-5deg)

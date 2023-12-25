@@ -84,11 +84,43 @@ body{
 }
 .options-content{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
+    height: calc(var(--minHeightContainer) - 5em);
+    align-items: center;
+    width: 350px;
+    max-width: 100vw;
+    margin: auto;
+    position: relative;
+}
+.skins{
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: flex-start;
     height: calc(var(--minHeightContainer) - 5em);
     align-items: center;
     overflow-y: auto;
+    min-width: 300px;
+    width: 300px;
+    max-width: 100vw;
+    margin: auto;
+    position: relative;
+    scroll-behavior: smooth;
+}
+.chevronLeft,.chevronRight{
+    display: block;
+    height: 3em;
+    width: 1.5em;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+.chevronLeft{
+    background-image: url(../images/arrows/chevron-left.svg);
+}
+.chevronRight{
+    background-image: url(../images/arrows/chevron-right.svg);
 }
 @keyframes settings-entrance {
     0%{
@@ -138,12 +170,16 @@ body{
     align-items: center;
     justify-content: space-between;
     height: 70%;
-    width: 270px;
+    width: 300px;
+    min-width: 300px;
+    max-width: 100vw;
 }
 
 .skinPicture{
     max-width: 256px;
     max-height: 100%;
+    animation: 3s linear myBoat 0s infinite alternate;
+    
 }
 
 .selectButton {
