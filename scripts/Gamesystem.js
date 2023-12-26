@@ -3,8 +3,8 @@ class Gamesystem
 {
     constructor()
     {
-        this.columnCount = 12
-        this.rowCount = 6
+        this.columnCount = getItem("trezora-columnCount") ? parseInt(getItem("trezora-columnCount")) : 12
+        this.rowCount = getItem("trezora-rowCount") ? parseInt(getItem("trezora-rowCount")) : 6
         this.fightDistances = {x:2,y:1}
         this.levels = {
             1: 0,
@@ -97,8 +97,26 @@ class Gamesystem
                 image: "./images/loot/diamants.png"
             },
         ]
+        this.skins = [
+            {
+                title: "Default",
+                file: "boat.png"
+            },
+            {
+                title: "Minimalist",
+                file: "mini-boat.png"
+            },
+            {
+                title: "AC Black Flag",
+                file: "black_flag.png"
+            },
+            {
+                title: "Thousand Sunny",
+                file: "thousand_sunny.png"
+            }
+        ]
     }
 }
 
 var gamesystem = new Gamesystem()
-document.getElementById('map').style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};`
+document.getElementById('map')?.style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};`

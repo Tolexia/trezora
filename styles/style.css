@@ -21,6 +21,7 @@
     --spacing-4: calc(var(--spacing) * 4);
 
     --minHeightContainer: 70vh;
+    --widthOpenDisplay:90%;
 
     --gold:#ffd438;
     --light-shadow: #9e8422;
@@ -84,7 +85,7 @@ _::-webkit-full-page-media, _:future, :root a.navbar-brand.logo {
 {
     filter: invert(1);
     position: absolute;
-    left: 10%;
+    left: 5%;
     top: 2%;
     transform:  rotate(180deg);
     z-index: 1;
@@ -245,7 +246,7 @@ button:focus
     }
     100%{
         visibility: visible;
-        width: 90%;
+        width: var(--widthOpenDisplay);
         min-height: var(--minHeightContainer);
     }
 }

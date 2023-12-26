@@ -1,25 +1,16 @@
 window.optionsContent = document.getElementById('optionsContent')
-var basePath = "./images/skins/"
-var skins = [
-    {
-        title: "Default",
-        file: "boat.png"
-    },
-    {
-        title: "Minimalist",
-        file: "mini-boat.png"
-    },
-    {
-        title: "AC Black Flag",
-        file: "black_flag.png"
-    },
-    {
-        title: "Thousand Sunny",
-        file: "thousand_sunny.png"
-    }
-]
+var skinsBasePath = "./images/skins/"
+var settingChosen 
+/******************
+ * SKINS SETTINGS *
+ *****************/
 function displaySkins()
 {
+    if(settingChosen == "skins")
+        return;
+    else
+        settingChosen = "skins"
+    
     window.optionsContent.innerHTML = ""
     
     const chevronLeft = document.createElement('button')
@@ -29,7 +20,7 @@ function displaySkins()
     const skinsDiv = document.createElement('div')
     skinsDiv.classList.add('skins')
     window.optionsContent.appendChild(skinsDiv)
-    for(let skin of skins)
+    for(let skin of gamesystem.skins)
     {
         const skinContainer = document.createElement('div')
         const skinLabel = document.createElement('span')
@@ -42,12 +33,12 @@ function displaySkins()
         selectButton.classList.add('selectButton')
 
         skinLabel.innerText = skin.title
-        skinPicture.src = basePath + skin.file
+        skinPicture.src = skinsBasePath + skin.file
         skinPicture.draggable = false
         
         selectButton.type = "button"
         selectButton.dataset.skintitle = skin.title
-        if( (!getItem('boat-skin') && skin.title == "Default") || getItem('boat-skin') == (basePath + skin.file) )
+        if( (!getItem('boat-skin') && skin.title == "Default") || getItem('boat-skin') == (skinsBasePath + skin.file) )
         {
             selectButton.innerText = "Selected"
             selectButton.classList.add("selected")
@@ -73,6 +64,12 @@ function displaySkins()
     skinsDiv.addEventListener('mousedown', e => {
         window.mouseX = e.clientX
     })
+    skinsDiv.addEventListener('touchstart', e => {
+        window.mouseX = e.targetTouches[0].clientX
+    })
+    skinsDiv.addEventListener('touchmove', e => {
+        e.preventDefault()
+    })
     skinsDiv.addEventListener('mouseup', e => {
         if(e.clientX - window.mouseX < 0 && isBlocked == false)
         {
@@ -80,6 +77,18 @@ function displaySkins()
             sliderArrow("right", skinsDiv)
         }
         else if(e.clientX - window.mouseX > 0 && isBlocked == false)
+        {
+            isBlocked = true;
+            sliderArrow("left", skinsDiv)
+        }
+    })
+    skinsDiv.addEventListener('touchend', e => {
+        if(e.changedTouches[0].clientX - window.mouseX < 0 && isBlocked == false)
+        {
+            isBlocked = true;
+            sliderArrow("right", skinsDiv)
+        }
+        else if(e.changedTouches[0].clientX - window.mouseX > 0 && isBlocked == false)
         {
             isBlocked = true;
             sliderArrow("left", skinsDiv)
@@ -114,7 +123,6 @@ function sliderArrow(direction, container)
     }
     if(!target)
     {
-        console.error("No target found")
         window.isBlocked = false;
         return;
     }
@@ -133,7 +141,7 @@ function chooseSkin(skin){
             button.innerText = "Selected"
             button.classList.add("selected")
             button.onclick = ""
-            setItem('boat-skin', basePath + skin.file)
+            setItem('boat-skin', skinsBasePath + skin.file)
 
         }
         else{
@@ -146,5 +154,4 @@ function chooseSkin(skin){
 
 setTimeout(() => {
     displaySkins()
-    
 }, 2000);
