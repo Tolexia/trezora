@@ -307,11 +307,12 @@ button:focus
     }
 
     .map {
-        width: 90vh;
+        width: 88vh;
         height: 98vw;
         left: 0;
         position: absolute;
         margin-top: 5px;
+        margin-left: 40px;
     }
 
     .dropdown{

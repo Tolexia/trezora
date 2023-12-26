@@ -15,95 +15,7 @@ function init()
 {
     if(getItem('itemsInShop') == null)
     {
-        const items = [
-            {
-                name : "compass",
-                title : "Compass",
-                cost : 1000,
-                quantity : 0,
-                type : "power",
-                image: "./images/powers/compass.svg",
-            },
-            {
-                name : "reveal",
-                title : "Reveal",
-                cost : 1000,
-                quantity : 0,
-                type : "power",
-                image: "./images/powers/reveal.svg",
-            },
-            {
-                name : "doublespeed",
-                title : "Double speed",
-                cost : 5000,
-                quantity : 0,
-                type : "power",
-                image: "./images/powers/x2.png",
-            },
-            {
-                name : "teleport",
-                title : "Teleport",
-                cost : 5000,
-                quantity : 0,
-                type : "power",
-                image: "./images/powers/teleport.svg",
-            },
-            {
-                name : "Upgrade Artillery n°1",
-                cost : 1000,
-                type : "upgrade",
-                image: "./images/upgrades/lance-pierres.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 1
-            },
-            {
-                name : "Upgrade Ship n°1",
-                cost : 1000,
-                type : "upgrade",
-                image: "./images/upgrades/wood_shield.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 1
-            },
-            {
-                name : "Upgrade Artillery n°2",
-                cost : 5000,
-                type : "upgrade",
-                image: "./images/upgrades/canon_balls.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 2
-            },
-            {
-                name : "Upgrade Ship n°2",
-                cost : 5000,
-                type : "upgrade",
-                image: "./images/upgrades/bouclier.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 2
-            },
-            {
-                name : "Upgrade Artillery n°3",
-                cost : 20000,
-                type : "upgrade",
-                image: "./images/upgrades/evil_skull.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 3
-            }, 
-            {
-                name : "Upgrade Ship n°3",
-                cost : 20000,
-                type : "upgrade",
-                image: "./images/upgrades/ancre_blindage.png",
-                bought: false,
-                stat : "attackPower",
-                buffValue : 3
-            }
-        ]
-        setItem("itemsInShop", JSON.stringify(items))
+        setItem("itemsInShop", JSON.stringify(gamesystem.shopItems))
     }
     if(getItem('inventory') == null)
     {
@@ -120,6 +32,10 @@ function init()
     if(getItem('powersUnlocked') == null)
     {
         setItem("powersUnlocked", JSON.stringify([]))
+    }
+    if(getItem('upgradesPossessed') == null)
+    {
+        setItem("upgradesPossessed", JSON.stringify([]))
     }
     if(getItem('itemsToSell') == null)
     {
@@ -173,6 +89,9 @@ function init()
     {
         setItem('boat-skin', "./images/skins/boat.png");
     }
-
+    if(getItem('ennemy_strength') == null)
+    {
+        setItem("ennemy_strength", JSON.stringify(gamesystem.ennemyStrengths[0]))
+    }
 }
 init()

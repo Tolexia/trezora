@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./styles/map.css">
     <script type="text/javascript" src="./libraries/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./libraries/sweetalert2.min.css">
+    <script src="./scripts/Gamesystem.js"></script>
     <script src="./scripts/main.js"></script>
 </head>
 <body>
@@ -199,10 +200,10 @@
             crossorigin="anonymous"></script>
 </body>
 </html>
-<script src="./scripts/Gamesystem.js"></script>
 <script src="./scripts/functions.js"></script>
 <script src="./scripts/Boat.js"></script>
 <script>
+    document.getElementById('map').style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};`
     if(getItem('displayTuto') == "no" && (
         getItem('boatCoordX') == null || 
         getItem('boatCoordY') == null
@@ -228,6 +229,7 @@
 
     console.log("boat", boat)
 
+    // Init Map
     for (let y = 1; y <= gamesystem.rowCount; y++) 
     {
         let col = column.cloneNode();
@@ -256,6 +258,8 @@
         col.style.display = "flex";
     }
     boatObject.refreshNearbyTargets()
+
+    // Mobile menu
     const chevron = document.querySelector('.navbar-toggler-icon');
     if(chevron != null)
     {

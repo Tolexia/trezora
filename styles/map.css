@@ -7,6 +7,9 @@ body{
 .col-md-2{
     height: 100%;
 }
+.row.column{
+    flex-wrap: nowrap;
+}
 .tile {
     height: 120px;
     width: 120px;
@@ -647,9 +650,10 @@ h2 {
     h2 {
         margin-top: 5px;
     }
-    .tile, .boat {
-        height: 16vw;
-        width: auto;
+    .tile {
+        width: calc(100% / var(--columnCount));
+        flex: 0 0 calc(100% / var(--columnCount));
+        height: calc(52vh / var(--rowCount));
     }
 }
 @media screen and (min-width: 1201px) {

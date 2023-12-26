@@ -12,6 +12,7 @@ function displaySkins()
         settingChosen = "skins"
     
     window.optionsContent.innerHTML = ""
+    window.optionsContent.dataset.choice = "skins"
     
     const chevronLeft = document.createElement('button')
     chevronLeft.classList.add('chevronLeft')
@@ -60,17 +61,19 @@ function displaySkins()
     chevronLeft.onclick = () => sliderArrow("left", skinsDiv)
     chevronRight.onclick = () => sliderArrow("right", skinsDiv)
 
-    window.isBlocked = false;
+    window.isBlocked = undefined;
     skinsDiv.addEventListener('mousedown', e => {
         window.mouseX = e.clientX
+        window.isBlocked = false;
     })
     skinsDiv.addEventListener('touchstart', e => {
         window.mouseX = e.targetTouches[0].clientX
+        window.isBlocked = false;
     })
     skinsDiv.addEventListener('touchmove', e => {
         e.preventDefault()
     })
-    skinsDiv.addEventListener('mouseup', e => {
+    skinsDiv.closest('body').addEventListener('mouseup', e => {
         if(e.clientX - window.mouseX < 0 && isBlocked == false)
         {
             isBlocked = true;
@@ -109,7 +112,7 @@ function sliderArrow(direction, container)
     if(!targetted)
     {
         console.error("No current target")
-        window.isBlocked = false;
+        window.isBlocked = undefined;
         return;
     }
     let target
@@ -123,13 +126,13 @@ function sliderArrow(direction, container)
     }
     if(!target)
     {
-        window.isBlocked = false;
+        window.isBlocked = undefined;
         return;
     }
     target.scrollIntoView({
         behavior: "smooth"
     })
-    window.isBlocked = false;
+    window.isBlocked = undefined;
 }
 function chooseSkin(skin){
     console.log("chooseSkin")
@@ -155,3 +158,78 @@ function chooseSkin(skin){
 setTimeout(() => {
     displaySkins()
 }, 2000);
+
+function displayEnnemyStrength()
+{
+    if(settingChosen == "ennemy_strength")
+        return;
+    else
+        settingChosen = "ennemy_strength"
+
+    window.optionsContent.innerHTML = ""
+    window.optionsContent.dataset.choice = "ennemy_strength"
+
+    const container = document.createElement('div')
+    const ennemy_strength = getItem("ennemy_strength") ? JSON.parse(getItem("ennemy_strength")) : gamesystem.ennemyStrengths[0]
+
+    for(let strength_choice of gamesystem.ennemyStrengths)
+    {
+        const item = document.createElement('div')
+        const label = document.createElement('span')
+        const legend = document.createElement('p')
+
+        label.innerText = strength_choice.title
+        legend.innerText = strength_choice.legend
+
+        item.classList.add('strengthItem')
+        label.classList.add('optionsLabel')
+        legend.classList.add('strengthLegend')
+
+        if(JSON.stringify(strength_choice) == JSON.stringify(ennemy_strength))
+        {
+            label.classList.add("strengthChosen")
+        }
+            
+        label.onclick = (e) => handleChangeEnnemyStrength(e) 
+
+        container.appendChild(item)
+        item.appendChild(label)
+        item.appendChild(legend)
+    }
+
+    window.optionsContent.appendChild(container)
+    container.classList.add('optionsContainer')
+  
+}
+
+function handleChangeEnnemyStrength(event){
+    const value = event.target.innerText
+    const ennemy_strength =  gamesystem.ennemyStrengths.find(el => el.title == value)
+    if(!ennemy_strength)
+    {
+        console.error("ennemy_strength not found")
+        return;
+    }
+
+    setItem("ennemy_strength", JSON.stringify(ennemy_strength))
+    for(let stat in ennemy_strength.stats)
+    {
+        setItem(stat, ennemy_strength.stats[stat])
+    }
+
+    const optionsContainer = event.target.closest('.optionsContainer')
+    const items = optionsContainer.getElementsByTagName('div')
+
+    for(let item of items)
+    {
+        const title = item.getElementsByTagName('span')[0]
+        if(title.innerText == ennemy_strength.title)
+        {
+            title.classList.add('strengthChosen')
+        }
+        else{
+            title.classList.remove('strengthChosen')
+        }
+
+    }
+}

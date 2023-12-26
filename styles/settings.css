@@ -92,13 +92,16 @@ body{
 }
 .options-content{
     display: flex;
-    justify-content: center;
-    height: calc(var(--minHeightContainer) - 3em);
     align-items: center;
-    width: 350px;
-    max-width: 70%;
+    height: calc(var(--minHeightContainer) - 3em);
     margin: auto;
     position: relative;
+}
+.options-content[data-choice="skins"]{
+   
+    justify-content: center;
+    width: 350px;
+    max-width: 70%;
 }
 .skins{
     display: flex;
@@ -170,8 +173,11 @@ body{
         visibility: visible;
     }
 }
-
 /* SKINS */
+.skinLabel {
+    font-style: oblique;
+    font-size: 1.225rem;
+}
 .skinContainer{
     display: flex;
     flex-direction: column;
@@ -184,10 +190,7 @@ body{
     overflow-y: hidden;
     height: 90%;
 }
-.skinLabel {
-    font-style: oblique;
-    font-size: 1.225rem;
-}
+
 .skinPicture{
     max-width: 256px;
     max-height: 100%;
@@ -222,6 +225,34 @@ body{
     box-shadow: rgb(241, 242, 243) 1px 1px 1px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
 }
 
+/* ENNEMY STRENGTHS */
+.options-content[data-choice="ennemy_strength"]
+{
+    justify-content: center;
+}
+.optionsContainer{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 100%;
+}
+.optionsLabel{
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+}
+.strengthItem{
+    text-align: center;
+}
+.strengthChosen, .optionsLabel:hover{
+    border-top: 1px solid white;
+    border: 1px solid white;
+    padding: 7px 15px;
+}
+.strengthLegend{
+    font-style: italic;
+    margin-top: 10px;
+}
 @media screen and (max-width:960px) {
     .options.open
     {
