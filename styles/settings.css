@@ -29,7 +29,7 @@ body{
     border-radius: 12px;
     padding: 2em 0.5em;
     padding-top: 0;
-    max-width: 80vw;
+    max-width: 100vw;
 }
 .options.open
 {
@@ -59,8 +59,12 @@ body{
 .options ul > li, .options ul > li > label{
     cursor: pointer;
 }
+.options ul > li{
+    margin-right: 10px;
+}
 .options ul label {
     position: relative;
+    text-align: center;
 }
 .options ul label::before{
     position: absolute;
@@ -88,7 +92,7 @@ body{
     height: calc(var(--minHeightContainer) - 5em);
     align-items: center;
     width: 350px;
-    max-width: 100vw;
+    max-width: 70%;
     margin: auto;
     position: relative;
 }
@@ -101,7 +105,7 @@ body{
     overflow-y: auto;
     min-width: 300px;
     width: 300px;
-    max-width: 100vw;
+    max-width: 70vw;
     margin: auto;
     position: relative;
     scroll-behavior: smooth;
@@ -173,6 +177,7 @@ body{
     width: 300px;
     min-width: 300px;
     max-width: 100vw;
+    overflow-y: hidden;
 }
 
 .skinPicture{
