@@ -259,6 +259,14 @@ body{
         --widthOpenDisplay:100%;
     }
 }
+@media screen and (max-width:361px) {
+    body{
+        padding-top: 1em;
+    }
+    .options{
+        top: 55%;
+    }
+}
 @media screen and (max-width:359px) {
     .boat-helm{
         display: none;

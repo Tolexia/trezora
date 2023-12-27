@@ -130,7 +130,8 @@ function sliderArrow(direction, container)
         return;
     }
     target.scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
+        block: 'nearest'
     })
     window.isBlocked = undefined;
 }

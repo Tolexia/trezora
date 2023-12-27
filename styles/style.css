@@ -312,7 +312,7 @@ button:focus
         left: 0;
         position: absolute;
         margin-top: 5px;
-        margin-left: 40px;
+        /* margin-left: 40px; */
     }
 
     .dropdown{

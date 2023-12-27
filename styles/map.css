@@ -670,7 +670,7 @@ h2 {
         display: flex;
     }
     .tile{
-        width: calc(83.33vw / var(--columnCount));
+        width: calc(80vw / var(--columnCount));
         height: calc(80vh / var(--rowCount));
     }
     .north, .south, .west, .east{
