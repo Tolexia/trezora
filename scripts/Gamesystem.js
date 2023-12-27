@@ -207,6 +207,7 @@ class Gamesystem
             {
                 title: "Default",
                 legend: "Basic stats, no upgrade",
+                goldMultiplier: 1,
                 stats: {
                     attackPower2: 3,
                     shieldArmor2: 0,
@@ -217,6 +218,7 @@ class Gamesystem
             {
                 title: "Strong",
                 legend: "Just a bit buffed",
+                goldMultiplier: 1.25,
                 stats: {
                     attackPower2: 4,
                     shieldArmor2: 1,
@@ -227,6 +229,7 @@ class Gamesystem
             {
                 title: "Badass",
                 legend: "You should think twice before attack it",
+                goldMultiplier: 1.5,
                 stats: {
                     attackPower2: 5,
                     shieldArmor2: 2,

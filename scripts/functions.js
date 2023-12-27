@@ -265,8 +265,8 @@ function gainPowerAnimation(power)
 }
 function gainCoins(hasWon = true)
 {
-    let multiplier = getItem('difficulty');
-    multiplier = (multiplier != null ? parseInt(multiplier) : 1);
+    const ennemy_strength = getItem('ennemy_strength') ? JSON.parse(getItem('ennemy_strength')) : undefined
+    let multiplier = (ennemy_strength && ennemy_strength.goldMultiplier ? ennemy_strength.goldMultiplier : 1);
     let coins = 0;
     if(parseInt(getItem('trycount')) <= 3 || !hasWon)
     {

@@ -157,6 +157,7 @@ function chooseSkin(skin){
             button.onclick = () => chooseSkin(skins.find(el => el.title == button.dataset.skintitle))
         }
     });
+    confirmModifOK()
 }
 
 setTimeout(() => {
@@ -243,8 +244,9 @@ function handleChangeEnnemyStrength(event){
         else{
             title.classList.remove('clickChosen')
         }
-
     }
+
+    confirmModifOK()
 }
 
 
@@ -323,7 +325,13 @@ function handleChangeMapSize(event){
         else{
             title.classList.remove('clickChosen')
         }
-
     }
+    confirmModifOK()
 }
-
+function confirmModifOK()
+{
+    iziToast.success({
+        title: 'All good',
+        message: 'Modifications saved',
+    });
+}
