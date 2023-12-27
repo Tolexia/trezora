@@ -12,6 +12,8 @@ function displaySkins()
         settingChosen = "skins"
     
     window.optionsContent.innerHTML = ""
+    window.optionsContent.classList.add("sliderChoice")
+    window.optionsContent.classList.remove("clickChoice")
     window.optionsContent.dataset.choice = "skins"
     
     const chevronLeft = document.createElement('button')
@@ -172,10 +174,16 @@ function displayEnnemyStrength()
         settingChosen = "ennemy_strength"
 
     window.optionsContent.innerHTML = ""
+    window.optionsContent.classList.remove("sliderChoice")
+    window.optionsContent.classList.add("clickChoice")
     window.optionsContent.dataset.choice = "ennemy_strength"
 
     const container = document.createElement('div')
     const ennemy_strength = getItem("ennemy_strength") ? JSON.parse(getItem("ennemy_strength")) : gamesystem.ennemyStrengths[0]
+
+    const paragraph = document.createElement('p')
+    paragraph.innerText = "The stronger the ennemy is, the more gold is earned"
+    container.appendChild(paragraph)
 
     for(let strength_choice of gamesystem.ennemyStrengths)
     {
@@ -186,13 +194,13 @@ function displayEnnemyStrength()
         label.innerText = strength_choice.title
         legend.innerText = strength_choice.legend
 
-        item.classList.add('strengthItem')
+        item.classList.add('clickItem')
         label.classList.add('optionsLabel')
-        legend.classList.add('strengthLegend')
+        legend.classList.add('clickLegend')
 
         if(JSON.stringify(strength_choice) == JSON.stringify(ennemy_strength))
         {
-            label.classList.add("strengthChosen")
+            label.classList.add("clickChosen")
         }
             
         label.onclick = (e) => handleChangeEnnemyStrength(e) 
@@ -230,10 +238,10 @@ function handleChangeEnnemyStrength(event){
         const title = item.getElementsByTagName('span')[0]
         if(title.innerText == ennemy_strength.title)
         {
-            title.classList.add('strengthChosen')
+            title.classList.add('clickChosen')
         }
         else{
-            title.classList.remove('strengthChosen')
+            title.classList.remove('clickChosen')
         }
 
     }
@@ -251,6 +259,8 @@ function displayMapSize()
         settingChosen = "map_size"
 
     window.optionsContent.innerHTML = ""
+    window.optionsContent.classList.remove("sliderChoice")
+    window.optionsContent.classList.add("clickChoice")
     window.optionsContent.dataset.choice = "map_size"
 
     const container = document.createElement('div')
@@ -263,12 +273,12 @@ function displayMapSize()
 
         label.innerText = map_chosen.title
 
-        item.classList.add('strengthItem')
+        item.classList.add('clickItem')
         label.classList.add('optionsLabel')
 
         if(JSON.stringify(map_chosen) == JSON.stringify(map_size))
         {
-            label.classList.add("strengthChosen")
+            label.classList.add("clickChosen")
         }
             
         label.onclick = (e) => handleChangeMapSize(e) 
@@ -308,10 +318,10 @@ function handleChangeMapSize(event){
         const title = item.getElementsByTagName('span')[0]
         if(title.innerText == map_size.title)
         {
-            title.classList.add('strengthChosen')
+            title.classList.add('clickChosen')
         }
         else{
-            title.classList.remove('strengthChosen')
+            title.classList.remove('clickChosen')
         }
 
     }

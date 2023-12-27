@@ -226,7 +226,7 @@ body{
 }
 
 /* ENNEMY STRENGTHS */
-.options-content[data-choice="ennemy_strength"], .options-content[data-choice="map_size"]
+.options-content.clickChoice
 {
     justify-content: center;
 }
@@ -241,20 +241,44 @@ body{
     cursor: pointer;
     position: relative;
 }
-.strengthItem{
+.clickItem{
     text-align: center;
 }
-.strengthChosen, .optionsLabel:hover{
+.clickChosen, .optionsLabel:hover{
     border-top: 1px solid white;
     border: 1px solid white;
     padding: 7px 15px;
 }
-.strengthLegend{
+.clickChosen::after{
+    position: absolute;
+    right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    display: block;
+    height: 1.25em;
+    width: 1.25em;
+    background-image: url(../images/icons/cannon.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: invert(1);
+    animation: selectionCannonAnimation 1s ease-out infinite alternate;
+}
+.clickLegend{
     font-style: italic;
     margin-top: 10px;
 }
-.optionsContainer i {
+.optionsContainer i,.optionsContainer p {
     text-align: center;
+}
+@keyframes selectionCannonAnimation {
+    0%{
+        right: 110%;
+    }
+    100%{
+        right: 120%;
+    }
 }
 @media screen and (max-width:960px) {
     .options.open
