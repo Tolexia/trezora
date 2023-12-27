@@ -235,6 +235,23 @@ class Gamesystem
                 }
             }
         ]
+        this.mapSizes = [
+            {
+                title: "12 x 6",
+                columns:12,
+                rows:6
+            },
+            {
+                title: "14 x 7",
+                columns:14,
+                rows:7
+            },
+            {
+                title: "16 x 8",
+                columns:16,
+                rows:8
+            }
+        ]
     }
 }
 

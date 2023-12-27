@@ -226,7 +226,7 @@ body{
 }
 
 /* ENNEMY STRENGTHS */
-.options-content[data-choice="ennemy_strength"]
+.options-content[data-choice="ennemy_strength"], .options-content[data-choice="map_size"]
 {
     justify-content: center;
 }
@@ -252,6 +252,9 @@ body{
 .strengthLegend{
     font-style: italic;
     margin-top: 10px;
+}
+.optionsContainer i {
+    text-align: center;
 }
 @media screen and (max-width:960px) {
     .options.open

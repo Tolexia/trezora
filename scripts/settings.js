@@ -68,38 +68,39 @@ function displaySkins()
     })
     skinsDiv.addEventListener('touchstart', e => {
         window.mouseX = e.targetTouches[0].clientX
-        // alert("touchstart : " + window.mouseX)
         window.isBlocked = false;
     })
+    var isTouching = false
     skinsDiv.addEventListener('touchmove', e => {
-        window.mouseX = e.targetTouches[0].clientX
+        if(!isTouching)
+        {
+            window.mouseX = e.targetTouches[0].clientX
+            isTouching = true
+            setTimeout(() => {
+                handleEndMoveSlider(window.mouseX, skinsDiv) 
+                isTouching = false
+            }, 500)
+        }
         e.preventDefault()
     })
     skinsDiv.closest('body').addEventListener('mouseup', e => {
-        if(e.clientX - window.mouseX < 0 && isBlocked == false)
-        {
-            isBlocked = true;
-            sliderArrow("right", skinsDiv)
-        }
-        else if(e.clientX - window.mouseX > 0 && isBlocked == false)
-        {
-            isBlocked = true;
-            sliderArrow("left", skinsDiv)
-        }
+        handleEndMoveSlider(e.clientX, skinsDiv)   
     })
     skinsDiv.addEventListener('touchend', e => {
-        
-        if(e.changedTouches[0].clientX - window.mouseX < 0 && isBlocked == false)
-        {
-            isBlocked = true;
-            sliderArrow("right", skinsDiv)
-        }
-        else if(e.changedTouches[0].clientX - window.mouseX > 0 && isBlocked == false)
-        {
-            isBlocked = true;
-            sliderArrow("left", skinsDiv)
-        }
+        handleEndMoveSlider(e.changedTouches[0].clientX, skinsDiv)       
     })
+}
+function handleEndMoveSlider(clientX, container){
+    if(clientX - window.mouseX < 0 && isBlocked == false)
+    {
+        isBlocked = true;
+        sliderArrow("right", container)
+    }
+    else if(clientX - window.mouseX > 0 && isBlocked == false)
+    {
+        isBlocked = true;
+        sliderArrow("left", container)
+    }
 }
 function sliderArrow(direction, container)
 {
@@ -139,10 +140,7 @@ function sliderArrow(direction, container)
     window.isBlocked = undefined;
 }
 function chooseSkin(skin){
-    console.log("chooseSkin")
-    console.log("skin", skin)
     window.optionsContent.querySelectorAll('.selectButton').forEach(button => {
-        console.log("button", button)
         if(button.dataset.skintitle == skin.title)
         {
             button.innerText = "Selected"
@@ -240,3 +238,82 @@ function handleChangeEnnemyStrength(event){
 
     }
 }
+
+
+/*********************
+ * MAP SIZE SETTINGS *
+ ********************/
+function displayMapSize()
+{
+    if(settingChosen == "map_size")
+        return;
+    else
+        settingChosen = "map_size"
+
+    window.optionsContent.innerHTML = ""
+    window.optionsContent.dataset.choice = "map_size"
+
+    const container = document.createElement('div')
+    const map_size = getItem("map_size") ? JSON.parse(getItem("map_size")) : gamesystem.mapSizes[0]
+
+    for(let map_chosen of gamesystem.mapSizes)
+    {
+        const item = document.createElement('div')
+        const label = document.createElement('span')
+
+        label.innerText = map_chosen.title
+
+        item.classList.add('strengthItem')
+        label.classList.add('optionsLabel')
+
+        if(JSON.stringify(map_chosen) == JSON.stringify(map_size))
+        {
+            label.classList.add("strengthChosen")
+        }
+            
+        label.onclick = (e) => handleChangeMapSize(e) 
+
+        container.appendChild(item)
+        item.appendChild(label)
+    }
+
+    const paragraph = document.createElement('i')
+    paragraph.innerText = "Change map size will reset the current game"
+    container.appendChild(paragraph)
+
+    window.optionsContent.appendChild(container)
+    container.classList.add('optionsContainer')
+  
+}
+
+function handleChangeMapSize(event){
+    const value = event.target.innerText
+    const map_size =  gamesystem.mapSizes.find(el => el.title == value)
+    if(!map_size)
+    {
+        console.error("map_size not found")
+        return;
+    }
+
+    setItem("map_size", JSON.stringify(map_size))
+    setItem("trezora-columnCount", map_size.columns)
+    setItem("trezora-rowCount", map_size.rows)
+    setItem("boatCoordX", null)
+
+    const optionsContainer = event.target.closest('.optionsContainer')
+    const items = optionsContainer.getElementsByTagName('div')
+
+    for(let item of items)
+    {
+        const title = item.getElementsByTagName('span')[0]
+        if(title.innerText == map_size.title)
+        {
+            title.classList.add('strengthChosen')
+        }
+        else{
+            title.classList.remove('strengthChosen')
+        }
+
+    }
+}
+
