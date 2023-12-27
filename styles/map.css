@@ -9,6 +9,7 @@ body{
 }
 .row.column{
     flex-wrap: nowrap;
+    justify-content: flex-end;
 }
 .tile {
     height: 120px;
@@ -632,9 +633,9 @@ h2 {
         flex: auto;
     }
     .col-md-2{
-        width: 100%;
-        max-width: 100%;
-        flex: auto;
+        width: 90%;
+        max-width: unset;
+        flex: unset;
     }
 }
 @media screen and (min-width: 769px) and (max-width: 1200px){
@@ -651,9 +652,8 @@ h2 {
         margin-top: 5px;
     }
     .tile {
-        width: calc(100% / var(--columnCount));
-        flex: 0 0 calc(100% / var(--columnCount));
-        height: calc(52vh / var(--rowCount));
+        flex: 0 0 calc(81vh / var(--columnCount));
+        height: calc(92vw / var(--rowCount));
     }
 }
 @media screen and (min-width: 1201px) {
