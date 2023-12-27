@@ -87,7 +87,7 @@ function displaySkins()
             sliderArrow("left", skinsDiv)
         }
     })
-    skinsDiv.addEventListener('touchend', e => {
+    skinsDiv.addEventListener('touchend touchcancel', e => {
         alert("touchend : " + window.mouseX)
         if(e.changedTouches[0].clientX - window.mouseX < 0 && isBlocked == false)
         {
