@@ -75,6 +75,9 @@ function displaySkins()
         window.mouseX = e.targetTouches[0].clientX
         e.preventDefault()
     })
+    skinsDiv.addEventListener('touchcancel', e => {
+        alert("touchcancel : ")
+    })
     skinsDiv.closest('body').addEventListener('mouseup', e => {
         if(e.clientX - window.mouseX < 0 && isBlocked == false)
         {
