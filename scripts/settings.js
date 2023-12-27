@@ -68,7 +68,7 @@ function displaySkins()
     })
     skinsDiv.addEventListener('touchstart', e => {
         window.mouseX = e.targetTouches[0].clientX
-        alert("touchstart : " + window.mouseX)
+        // alert("touchstart : " + window.mouseX)
         window.isBlocked = false;
     })
     skinsDiv.addEventListener('touchmove', e => {
