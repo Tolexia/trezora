@@ -257,13 +257,18 @@ body{
     {
         --widthOpenDisplay:100%;
     }
+    .options{
+        top: calc(50% + 2em);
+    }
 }
-@media screen and (max-width:361px) {
+@media screen and (max-height:800px),
+       screen and (max-width:960px)
+{
     body{
         padding-top: 1em;
     }
     .options{
-        top: 55%;
+        top: calc(50% + 1em);
     }
 }
 @media screen and (max-width:359px) {
@@ -271,18 +276,17 @@ body{
         display: none;
     }
 }
-@media screen and (max-width:299px) {
+@media screen and (max-height:699px),
+       screen and (max-width:359px)
+{
+    .options{
+        top: calc(50% + 2em);
+    }
+}
+@media screen and (max-width:325px) {
     .skins, .skinContainer{
-        width: 250px;
-        min-width: 250px;
+        width: calc(100vw - 2em);
+        min-width: calc(100vw - 2em);
     }
 
-}
-@media screen and (max-height:699px) {
-    body{
-        padding-top: 1em;
-    }
-    .options{
-        top: 60%;
-    }
 }
