@@ -90,8 +90,8 @@ function displaySkins()
             sliderArrow("left", skinsDiv)
         }
     })
-    skinsDiv.addEventListener('touchend touchcancel', e => {
-        alert("touchend : " + window.mouseX)
+    skinsDiv.addEventListener('touchend', e => {
+        alert("touchend : ")
         if(e.changedTouches[0].clientX - window.mouseX < 0 && isBlocked == false)
         {
             isBlocked = true;
@@ -166,6 +166,9 @@ setTimeout(() => {
     displaySkins()
 }, 2000);
 
+/****************************
+ * ENNEMY STRENGTH SETTINGS *
+ ***************************/
 function displayEnnemyStrength()
 {
     if(settingChosen == "ennemy_strength")
