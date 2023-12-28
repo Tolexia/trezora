@@ -48,11 +48,39 @@ nav {
 nav.navbar{
     padding:1em;
 }
-
-.dropdown, .nav-item {
-    margin-right: 10px;
+.navdesktop{
+    justify-content: flex-end;
+    width: 90%;
 }
-
+.dropdown, .nav-item {
+    margin-right: 5%;
+    cursor: pointer;
+}
+.dropdown-toggle, .dropdown-item{
+    letter-spacing: 1px;
+    font-size: 21px;
+}
+.nav-item {
+    color:var(--light)!important;
+}
+.navresponsive {
+    display: none;
+}
+.shopicon
+{
+    filter: invert(1);
+}
+.transparent-button{
+    border: none;
+    background: transparent;
+}
+button {
+    cursor: pointer;
+}
+button:focus
+{
+    outline: unset;
+}
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--main-font);
     color: var(--light);
@@ -137,36 +165,8 @@ blockquote {
     background: rgb(130,9,9);
     background: radial-gradient(circle, rgba(130,9,9,0.9724264705882353) 0%, rgba(0,0,0,0.9136029411764706) 100%);
 }
-.dropdown{
-    margin-right:1em;
-}
-.dropdown-item, .nav-item {
-    cursor: pointer;
-}
-.dropdown-toggle{
-    letter-spacing: 1px;
-}
-.nav-item {
-    color:var(--light)!important;
-}
-.navresponsive {
-    display: none;
-}
-.shopicon
-{
-    filter: invert(1);
-}
-.transparent-button{
-    border: none;
-    background: transparent;
-}
-button {
-    cursor: pointer;
-}
-button:focus
-{
-    outline: unset;
-}
+
+
 @keyframes myBoat {
     0% {
         transform: rotate(5deg)
@@ -203,6 +203,8 @@ button:focus
         min-height: var(--minHeightContainer);
     }
 }
+
+
 @media screen and (max-width: 990px){
     .navresponsive {
         display: flex;
@@ -227,70 +229,5 @@ button:focus
         padding-top: 1.25em;
     }
 }
-@media screen and (max-width: 767px) and (orientation: portrait) {
-   
-    .page-container {
-        width: 100vh;
-        height: 100vw;
-        position: absolute;
-        top: 100%;
-        margin-top: 50px;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        overflow: hidden;
-    }
 
-    body {
-        overflow: hidden;
-    }
-
-    .swal2-container.swal2-backdrop-show {
-        width: 97vh;
-        height: 100vw;
-        position: absolute;
-        top: 100%;
-        margin-top: 50px;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        overflow-x: hidden;
-    }
-    .swal2-popup {
-        width: fit-content;
-        transform: translate(4%,0);
-    }
-
-    .map {
-        width: 88vh;
-        height: 98vw;
-        left: 0;
-        position: absolute;
-        margin-top: 5px;
-        /* margin-left: 40px; */
-    }
-
-    .dropdown{
-        cursor: pointer;
-    }
- 
-    .nav-item{
-        transform: rotate(-90deg) translateX(30px); 
-        transform-origin: right top; 
-        cursor: pointer;
-    }
-
-    .navigation {
-        opacity:0.8;
-    }
-    .navbar-toggler {
-        margin: auto;
-        border-color: transparent!important;
-    }
-    .navbar-brand {
-        display: none;
-    }
-
-    .navbar-dark .navbar-toggler-icon {
-        background-image: url('../svg/chevron-down.svg')!important;
-    }
-  }
 

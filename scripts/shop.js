@@ -1,11 +1,15 @@
 window.itemsContainer = document.getElementById('items')
 window.itemslist = document.getElementById('itemslist')
-window.options = [...document.getElementById('options').getElementsByTagName("button")]
+window.optionsContainer = document.getElementById('options')
+window.options = [...window.optionsContainer.getElementsByTagName("button")]
 window.optionChosen = "none"
 function showlist(option, reload = false)
 {
     if(window.optionChosen == option && !reload)
         return;
+
+    if(!window.optionsContainer.classList.contains('itemsOpened'))
+        window.optionsContainer.classList.add('itemsOpened')
 
     window.optionChosen = option
     window.options.forEach(optionButton => optionButton.dataset.option == option ? optionButton.classList.add("selected") : optionButton.classList.remove("selected"))
@@ -113,17 +117,44 @@ function putItemInList(option, item)
     }
     window.itemslist.appendChild(divItem)
 }
+function alertNotEnoughMoney()
+{
+    Swal.fire({
+        html: `
+            <img src = "./images/human_chest.png" />
+            <p>
+                Oh no ! Not enough coins...<br/>
+                Play a game and come get some 💪
+            </p>
+        `,
+        confirmButtonText: 'Got it!',
+        showConfirmButton: true,
+    })
+}
 
 function buy(item)
 {
     console.log("item", item)
+    if(!isNaN(parseInt(item.quantity)))
+    {
+        purchaseMultipleItems(item)
+    }
+    else
+    {
+        purchaseUniqueItem(item)
+    }
+}
+
+function purchaseUniqueItem(item){
     Swal.fire({
         html: `
             Do you confirm purchase this item ?
         `,
         icon: "question",
-        confirmButtonText: 'Oh yes',
+        confirmButtonText: 'Yes',
         denyButtonText: 'Maybe later',
+        confirmButtonColor: "#4CAF50",
+        denyButtonColor: "grey",
         showConfirmButton: true,
         showDenyButton: true,
     })
@@ -133,17 +164,7 @@ function buy(item)
             let coins = getItem('playerCoins')
             if(coins == null || parseInt(coins) < parseInt(item.cost))
             {
-                Swal.fire({
-                    html: `
-                        <img src = "./images/human_chest.png" />
-                        <p>
-                            Oh no ! Not enough coins...<br/>
-                            Play a game and come get some 💪
-                        </p>
-                    `,
-                    confirmButtonText: 'Got it!',
-                    showConfirmButton: true,
-                })
+                alertNotEnoughMoney()
             }
             else
             {
@@ -154,11 +175,7 @@ function buy(item)
                 {
                     if(itemStored.name == item.name)
                     {
-                        if(typeof item.bought != "undefined")
-                            itemStored.bought = true
-                        else if(typeof item.quantity != "undefined")
-                            itemStored.quantity = parseInt(itemStored.quantity)+1
-
+                        itemStored.bought = true
                         break
                     }
                 }
@@ -178,10 +195,7 @@ function buy(item)
                     setItem("upgradesPossessed", JSON.stringify(upgradesPossessed))
                     successImg = (item.name.includes("Artillery") ? "./images/upgrades/artillery.png": "./images/upgrades/nice_ship.png")
                 }
-                else if(item.type == "power")
-                {
-                    successImg = "./images/powers/livre1.png"
-                }
+                
                 fillShop("Buy")
                 Swal.fire({
                     html: `
@@ -195,17 +209,81 @@ function buy(item)
         }
     })
 }
+async function purchaseMultipleItems(item){
+    let coins = parseInt(getItem('playerCoins'))
+    if(coins == null || coins < parseInt(item.cost))
+    {
+        return alertNotEnoughMoney()
+    }
+    const max = Math.floor(parseInt(coins) / item.cost)
+    const result = await Swal.fire({
+        icon: "question",
+        input: "range",
+        inputLabel: "How many do you need ?",
+        inputAttributes: {
+          min: "0",
+          max: max,
+          step: "1"
+        },
+        inputValue: 1,
+        confirmButtonText: 'Purchase',
+        denyButtonText: 'Maybe later',
+        confirmButtonColor: "#4CAF50",
+        denyButtonColor: "grey",
+        showConfirmButton: true,
+        showDenyButton: true,
+    })
+    if(result && result.value > 0)
+    {
+        const quantity = parseInt(result.value)
+        if( coins < (item.cost * quantity))
+        {
+            alertNotEnoughMoney()
+        }
+        else
+        {
+            coins = (coins - (item.cost * quantity))
+            setItem('playerCoins', coins)
+            const itemsStored = JSON.parse(getItem('itemsInShop'));
+            for(let itemStored of itemsStored)
+            {
+                if(itemStored.name == item.name)
+                {
+                    itemStored.quantity = ( itemStored.quantity + quantity )
+                    break
+                }
+            }
+            setItem("itemsInShop", JSON.stringify(itemsStored))
 
+            confirmTransaction()
+
+            fillShop("Buy")
+        }
+    }
+}
 
 function sell(item)
+{
+    if(item.quantity)
+    {
+        sellMultipleItems(item)
+    }
+    else
+    {
+        sellUniqueItem(item)
+    }
+}
+function sellUniqueItem(item)
 {
     Swal.fire({
         html: `
             Do you confirm sell this item ?
         `,
         icon: "question",
-        confirmButtonText: 'I do',
+        confirmButtonText: 'Yes',
         denyButtonText: 'Maybe later',
+        confirmButtonColor: "#4CAF50",
+        denyButtonColor: "grey",
         showConfirmButton: true,
         showDenyButton: true,
     })
@@ -231,17 +309,7 @@ function sell(item)
                 }
                 setItem("itemsToSell", JSON.stringify(itemsStored))
                 fillShop("Sell")
-                Swal.fire({
-                    html: `
-                        <img src = "./images/shop/pirate_gold.png" /><br/>
-                        <p>
-                            Sweet gold for ye !<br/>
-                            Gold earned : ${item.cost}
-                        </p>
-                    `,
-                    confirmButtonText: 'Return to Shop',
-                    showConfirmButton: true,
-                })
+                confirmTransaction()
             }
             else{
                 alert("Error in shop")
@@ -250,4 +318,64 @@ function sell(item)
             
         }
     })
+}
+
+async function sellMultipleItems(item)
+{
+    let coins = parseInt(getItem('playerCoins'))
+    
+    const max = item.quantity
+    const result = await Swal.fire({
+        icon: "question",
+        input: "range",
+        inputLabel: "How many do you wish to sell ?",
+        inputAttributes: {
+          min: "0",
+          max: max,
+          step: "1"
+        },
+        inputValue: 1,
+        confirmButtonText: 'Sell',
+        denyButtonText: 'Maybe later',
+        confirmButtonColor: "#4CAF50",
+        denyButtonColor: "grey",
+        showConfirmButton: true,
+        showDenyButton: true,
+    })
+    if(result && result.value > 0)
+    {
+        const quantity = parseInt(result.value)
+        if( coins < (item.cost * quantity))
+        {
+            alertNotEnoughMoney()
+        }
+        else
+        {
+            coins = (coins + (item.cost * quantity))
+            setItem('playerCoins', coins)
+            const itemsStored = JSON.parse(getItem('itemsToSell'));
+            for(let itemStored of itemsStored)
+            {
+                if(itemStored.name == item.name)
+                {
+                    itemStored.quantity = ( itemStored.quantity - quantity )
+                    break
+                }
+            }
+            setItem("itemsToSell", JSON.stringify(itemsStored))
+
+            confirmTransaction()
+
+            fillShop("Sell")
+        }
+    }
+}
+
+function confirmTransaction()
+{
+    iziToast.success({
+        title: 'Transaction Confirmed',
+        message: 'Your money and items have been updated',
+        layout:2
+    });
 }

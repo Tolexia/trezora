@@ -604,80 +604,81 @@ h2 {
                 transform: rotate(2deg);
     }
 }
-  
-@media screen and (max-width: 1200px) {
-    .tile {
-        height: 100px;
-        width: 100px;
-    }
-}
 
+/* MEDIA QUERIES */
 
-/* @media screen and (max-width: 1475px) {
-    .tile {
-        height: 80px;
-        width: 80px;
+/* Force landscape display */
+@media screen and (max-width: 767px) and (orientation: portrait) {
+   
+    body {
+        overflow: hidden;
     }
-} */
 
-@media screen and (max-width: 1200px) {
-    .tile {
-        height: calc(75vh / var(--rowCount));
-        width: calc(98vw / var(--columnCount));
+    .navbar-toggler {
+        margin: auto;
+        border-color: transparent!important;
     }
-    h1 {
+    .navbar-brand {
         display: none;
     }
-    .navigation {
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
+
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url('../svg/chevron-down.svg')!important;
     }
-    .navigation .south , .navigation .north,  .navigation .east, .navigation .west
-    {
-      position: initial;
+    
+    .dropdown{
+        cursor: pointer;
     }
-    .map-container{
-        max-width: 100%;
-        flex: auto;
+ 
+    .nav-item{
+        transform: rotate(-90deg) translateX(30px); 
+        transform-origin: right top; 
+        cursor: pointer;
     }
-    .navigation-container{
-        width: 90%;
-        max-width: unset;
-        flex: unset;
+
+    .page-container {
+        width: 100vh;
+        height: 100vw;
+        position: absolute;
+        top: 100%;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow: hidden;
     }
-}
-@media screen and (min-width: 769px) and (max-width: 1200px){
-    .page-container{
-        margin-top: 1.5em;
-    }
-    .page-container > .row{
-        flex-direction: column;
-    }
-    h2.levelTitle{
-        margin-top: .25em;
-    }
-    .boat-skin{
-        max-width: 100%;
-        max-height: 100%;
-    }
-}
-@media screen and (max-width: 768px) {
-    .page-container > .row{
-        width: 90%;
-    }
-    h2 {
+
+
+    .map {
+        width: 88vh;
+        height: 98vw;
+        left: 1em;
+        position: absolute;
         margin-top: 5px;
+        /* margin-left: 40px; */
     }
-    .tile {
-        width: calc(81vh / var(--columnCount));
-        height: calc(92vw / var(--rowCount));
+
+
+    .navigation {
+        opacity:0.8;
     }
-    .boat-skin{
-        max-width: calc(81vh / var(--columnCount));
-        max-height: calc(92vw / var(--rowCount));
+
+    .swal2-container.swal2-backdrop-show {
+        width: 97vh;
+        height: 100vw;
+        position: absolute;
+        top: 100%;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
     }
+    .swal2-popup {
+        width: fit-content;
+        transform: translate(4%,0);
+    }
+    
 }
+
 @media screen and (min-width: 1201px) {
     .map{
         justify-content: flex-start;
@@ -713,3 +714,65 @@ h2 {
         width: 9vw;
     }
 }
+
+@media screen and (max-width: 1200px) {
+    .tile {
+        height: calc(75vh / var(--rowCount));
+        width: calc(98vw / var(--columnCount));
+    }
+    h1 {
+        display: none;
+    }
+    .navigation {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    .navigation .south , .navigation .north,  .navigation .east, .navigation .west
+    {
+      position: initial;
+    }
+    .map-container{
+        max-width: 100%;
+        flex: auto;
+    }
+    .navigation-container{
+        width: 90%;
+        max-width: unset;
+        flex: unset;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1200px){
+    .page-container{
+        margin-top: 1.5em;
+    }
+    .page-container > .row{
+        flex-direction: column;
+    }
+    h2.levelTitle{
+        margin-top: .25em;
+    }
+    .boat-skin{
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-container > .row{
+        width: 90%;
+    }
+    h2 {
+        margin-top: 5px;
+    }
+    .tile {
+        width: calc(81vh / var(--columnCount));
+        height: calc(92vw / var(--rowCount));
+    }
+    .boat-skin{
+        max-width: calc(81vh / var(--columnCount));
+        max-height: calc(92vw / var(--rowCount));
+    }
+}
+

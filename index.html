@@ -260,7 +260,7 @@
     boatObject.refreshNearbyTargets()
 
     // Mobile menu
-    const chevron = document.querySelector('.navbar-toggler-icon');
+    var chevron = document.querySelector('.navbar-toggler-icon');
     if(chevron != null)
     {
         chevron.addEventListener('click', (e) => {
@@ -278,6 +278,8 @@
             }
         })
     }
+
+    document.querySelectorAll('.navresponsive .nav-item').forEach(el => el.addEventListener("click", () => chevron.click()))
     if(getItem('displayTuto') != "no")
     {
         tutorial();

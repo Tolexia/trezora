@@ -23,7 +23,9 @@
         padding: 0;
     }
 }
-
+body {
+    overflow: hidden;
+}
 .container 
 {
     background: #b7b7b77c;
@@ -34,6 +36,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+    margin-top: 5em;
+    --minHeightContainer: 50vh;
 }
 .container > img
 {
@@ -49,8 +53,11 @@
     justify-content: space-around;
     left: 50%;
     transform: translateX(-50%);
+    transition: all .7s;
 }
-
+.options.itemsOpened{
+    top: 10%;
+}
 .options button
 {
     padding: .5em 2em;
@@ -121,7 +128,7 @@
     position: absolute;
     visibility: hidden;
     left: 50%;
-    top: 42%;
+    top: 30%;
     transform: translateX(-50%);
     background-color: #5b0a2ce8;
     z-index: 10;
@@ -137,11 +144,14 @@
     flex-wrap: wrap;
     margin: auto;
     padding: 0;
-    padding-top: 3em;
+    padding-top: 4em;
     color: white;
     position: relative;
-    max-height: 50vh;
     overflow-y: auto;
+    align-items: center;
+    min-height: 100%;
+    height: var(--minHeightContainer);
+    max-height: var(--minHeightContainer);
 }
 .itemsRemaining {
     position: absolute;

@@ -333,5 +333,6 @@ function confirmModifOK()
     iziToast.success({
         title: 'All good',
         message: 'Modifications saved',
+        layout:2
     });
 }
