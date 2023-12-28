@@ -4,12 +4,17 @@ html, body{
 body{
     padding-top: var(--navbar-size);
 }
-.col-md-2{
+.navigation-container{
     height: 100%;
 }
 .row.column{
     flex-wrap: nowrap;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+}
+.boat {
+    max-width: 100%;
+    max-height: 100%;
 }
 .tile {
     height: 120px;
@@ -311,7 +316,11 @@ body{
     background-image: url('../images/map/map.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 1em;
+    padding: .5em 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .navigation {
@@ -628,55 +637,79 @@ h2 {
     {
       position: initial;
     }
-    .col-md-10{
+    .map-container{
         max-width: 100%;
         flex: auto;
     }
-    .col-md-2{
+    .navigation-container{
         width: 90%;
         max-width: unset;
         flex: unset;
     }
 }
 @media screen and (min-width: 769px) and (max-width: 1200px){
-    .container-fluid > .row{
+    .page-container{
+        margin-top: 1.5em;
+    }
+    .page-container > .row{
         flex-direction: column;
     }
     h2.levelTitle{
         margin-top: .25em;
     }
+    .boat-skin{
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 @media screen and (max-width: 768px) {
-
+    .page-container > .row{
+        width: 90%;
+    }
     h2 {
         margin-top: 5px;
     }
     .tile {
-        flex: 0 0 calc(81vh / var(--columnCount));
+        width: calc(81vh / var(--columnCount));
         height: calc(92vw / var(--rowCount));
+    }
+    .boat-skin{
+        max-width: calc(81vh / var(--columnCount));
+        max-height: calc(92vw / var(--rowCount));
     }
 }
 @media screen and (min-width: 1201px) {
+    .map{
+        justify-content: flex-start;
+    }
     h2.levelTitle{
         margin-top: 1.5em;
+        margin-left: 1.5em;
     }
-    .container-fluid{
+    .page-container{
         height: 100%;
         margin-top: 1.25em;
     }
-    .container-fluid > .row, .col-md-10{
+    .page-container > .row, .map-container{
         height: 100%;
-        align-items: center;
         display: flex;
     }
+    .page-container > .row{
+        align-items: center;
+    }
     .tile{
-        width: calc(80vw / var(--columnCount));
-        height: calc(80vh / var(--rowCount));
+        width: calc(90vw / var(--columnCount));
+        height: calc(90vh / var(--rowCount));
+    }
+    .boat-skin{
+        max-width: calc(90vw / var(--columnCount));
+        max-height: calc(90vh / var(--rowCount));
     }
     .north, .south, .west, .east{
         transform: translate(-50%, -50%);
     }
-    .col-md-2{
+    .navigation-container{
         height: 90vh;
+        width: 9vw;
     }
 }

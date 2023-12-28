@@ -100,53 +100,6 @@ a.navbar-brand.logo:hover, a.navbar-brand.logo:focus{
     color: #f1e200;
 }
 
-.introduction {
-    background-image: url('../images/papyrus.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: calc(var(--spacing) * 8) calc(var(--spacing) * 16);
-    font-size: var(--text-size);
-    height: var(--container-size);
-    overflow: auto;
-}
-
-.introduction p::first-letter {
-    font-family: var(--main-font);
-    font-size: 2em;
-}
-
-.deep-sea {
-    margin-top: -15px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 2em;
-    font-size: 16pt;
-    height: 1250px;
-    color: var(--light);
-    background-attachment: fixed;
-}
-
-.instructions {
-    background-color: var(--dark-transparent);
-    padding: var(--spacing);
-    color: var(--light);
-}
-.instructions >li {
-    padding-top: var(--spacing);
-    padding-bottom: var(--spacing);
-    border-bottom:1px solid var(--light);
-}
-
-.instructions > li::first-letter {
-    font-family: var(--main-font);
-    font-size: 1.2em;
-}
-
-.sparrow {
-    width: 200px;
-    filter: sepia(0.5);
-    mix-blend-mode: multiply;
-}
 
 .compass {
     width: 150px;
@@ -276,7 +229,7 @@ button:focus
 }
 @media screen and (max-width: 767px) and (orientation: portrait) {
    
-    .container-fluid {
+    .page-container {
         width: 100vh;
         height: 100vw;
         position: absolute;

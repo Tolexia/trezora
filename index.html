@@ -153,25 +153,25 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
+    <div class="page-container">
         <div class="row">
-            <div class="col-md-10">
+            <div class="map-container">
                 <div class="map" id = "map" style="max-height:100vh;">
                     <div class="row column" style="display: none;">
-                        <div class="tile col-1">
+                        <div class="tile">
                             <div class="tile-name"></div>
                             <div class="tile-name coords"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="navigation-container">
                 <div class="navigation">
                     <h2 class="levelTitle">lvl: <span id = "level"></span></h2>
+                    <a onclick="moveDirection('W',null, this)" class="west">W</a>
                     <a onclick="moveDirection('N',null, this);" class="north">N</a>
                     <a onclick="moveDirection('S',null, this)" class="south">S</a>
                     <a onclick="moveDirection('E',null, this)" class="east">E</a>
-                    <a onclick="moveDirection('W',null, this)" class="west">W</a>
                     <button type="button" class="transparent-button disabled" onclick="fight(window.boat,window.boat2);" id="fightButton">
                         <img src="./images/fight/sabres.png" alt="FIGHT" class="fight-icon">
                     </button>
@@ -180,11 +180,11 @@
         </div>
     </div>
     <div id = "boat" class="boat notinit" style="display: none;">
-        <img  class="img-fluid" alt="Black Pearl" />
+        <img  class="boat-skin" alt="Black Pearl" />
         <span class="lifebar"></span>
     </div>
     <div id="boat2" class="boat notinit" style="display: none;">
-        <img class="img-fluid" src="./images/boat2.png" alt="Silent Mary"/>
+        <img class="boat-skin" src="./images/boat2.png" alt="Silent Mary"/>
         <span class="lifebar"></span>
     </div>
     <img src="./images/fight/nuage.png" width="1px" style="position:absolute;visibility:hidden;">
