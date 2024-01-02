@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 @font-face {
     font-family: Battlesbridge;
-    src: url(./Battlesbridge.ttf);
+    src: url(./fonts/Battlesbridge.ttf);
 }
+@font-face {
+    font-family: Pirata One;
+    src: url(./fonts/PirataOne-Regular.ttf);
+  }
 
 :root {
     --light: #fcfafa;
     --dark: #0e0000;
     --dark-transparent: #0e0000dd;
 
-    --main-font: 'Pirata One', Arial, cursive;
+    --main-font: Pirata One, Arial, cursive;
     --text-size: 14pt;
 
     --navbar-size:70px;
@@ -91,8 +94,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: transparent;
     height:2.25em;
     font-weight: bold;
-    /* color: #f1e200; */
-    /* text-shadow: 0 0 white;  */
     background-clip: text;
     -webkit-background-clip: text;
     background-image: repeating-linear-gradient(5deg, var(--gold)0%, var(--light-shadow)23%, var(--gold)31%);

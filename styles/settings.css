@@ -133,46 +133,7 @@ body{
 .chevronRight{
     background-image: url(../images/arrows/chevron-right.svg);
 }
-@keyframes settings-entrance {
-    0%{
-        visibility: visible;
-        top: 0;
-        right:50%;
-        transform: translateX(-50%) rotate(0);
-    }
-    30%{
-        visibility: visible;
-        top: 3%;
-        right:50%;
-        transform: translateX(-50%) rotate(0);
-    }
-    45%{
-        visibility: visible;
-        top: 1%;
-        right:50%;
-        transform: translateX(-50%) rotate(0);
-    }
-    60%{
-        visibility: visible;
-        top: 2%;
-        right:50%;
-        transform: translateX(-50%) rotate(0);
-    }
-    100%{
-        visibility: visible;
-        top: 2%;
-        right:calc(10% + 6em);
-        transform: translateX(-50%) rotate(720deg);
-    }
-}
-@keyframes display {
-    0%{
-        visibility: hidden;
-    }
-    100%{
-        visibility: visible;
-    }
-}
+
 /* SKINS */
 .skinLabel {
     font-style: oblique;
@@ -272,6 +233,9 @@ body{
 .optionsContainer i,.optionsContainer p {
     text-align: center;
 }
+
+/* KEYFRAMES */
+
 @keyframes selectionCannonAnimation {
     0%{
         right: 110%;
@@ -280,6 +244,48 @@ body{
         right: 120%;
     }
 }
+@keyframes settings-entrance {
+    0%{
+        visibility: visible;
+        top: 0;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    30%{
+        visibility: visible;
+        top: 3%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    45%{
+        visibility: visible;
+        top: 1%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    60%{
+        visibility: visible;
+        top: 2%;
+        right:50%;
+        transform: translateX(-50%) rotate(0);
+    }
+    100%{
+        visibility: visible;
+        top: 2%;
+        right:calc(10% + 6em);
+        transform: translateX(-50%) rotate(720deg);
+    }
+}
+@keyframes display {
+    0%{
+        visibility: hidden;
+    }
+    100%{
+        visibility: visible;
+    }
+}
+
+/* MEDIA QUERIES */
 @media screen and (max-width:960px) {
     .options.open
     {

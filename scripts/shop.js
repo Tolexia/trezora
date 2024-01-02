@@ -3,6 +3,7 @@ window.itemslist = document.getElementById('itemslist')
 window.optionsContainer = document.getElementById('options')
 window.options = [...window.optionsContainer.getElementsByTagName("button")]
 window.optionChosen = "none"
+
 function showlist(option, reload = false)
 {
     if(window.optionChosen == option && !reload)

@@ -1,11 +1,12 @@
+var prefix = "trezora-"
 function getItem(item)
 {
-    return localStorage.getItem(item);
+    return localStorage.getItem(prefix+item);
 }
 
 function setItem(item, value)
 {
-    return localStorage.setItem(item, value);
+    return localStorage.setItem(prefix+item, value);
 }
 function removeItem(item)
 {

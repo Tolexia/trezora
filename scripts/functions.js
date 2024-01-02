@@ -137,13 +137,6 @@ function handleVisibilityFightButton()
 
 function newGame()
 {
-//    for (key in  
-//     {
-//         if(key != "playerXp" && key != "displayTuto")
-//         {
-//             removeItem(key);
-//         }
-//     }
     let minX = 3;
     let maxX = 9;
     let minY = 2;
@@ -171,7 +164,7 @@ function newGame()
         for (let x = 1; x <= gamesystem.columnCount; x++) 
         {
             let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
-            if(type == "sea" && x > 1 && x < columnCount)
+            if(type == "sea" && x > 1 && x < gamesystem.columnCount)
             {
                 const randForCreature = Math.random()
                 if(randForCreature <= 0.15)
@@ -774,10 +767,10 @@ function tutorial()
         if(result.isConfirmed)
         {
             html = "<p>";
-            html += "At the beggining of the game, an hint will appear to tell you which type of tile the treasure is hidden on<br />";
-            html += "There are 3 types of tiles : Sea, Island, and Port<br />";
+            html += "At the beggining of the game, an hint will appear to tell you which type of tile the treasure is hidden on.<br />";
+            html += "There are 3 basic types of tiles : Sea, Island, and Port.<br />";
             html += "During the game, if you want to display the hint again, click on the hint logo :<br />";
-            html += "<span style = 'font-size:25px;padding:0 10px;border:1px solid black; border-radius:50%;display: inline-block;'>?</span>"
+            html += "<span style = 'font-size:25px;padding:0 10px;border:1px solid black; border-radius:50%;display: inline-block;margin-top:10px;'>?</span>"
             html += "</p>";
             Swal.fire({
                 title: "Hint",
@@ -793,8 +786,8 @@ function tutorial()
                 {
                     html = "<p>";
                     html += "To navigate across the sea, click on the first letters of cardinal directions:<br />";
-                    html += "N for North, S for South, E for East, and W for West<br />";
-                    html += "If you were about to reach out of the map, a nice pop up will appear to tell you and prevent you to fall in a warp zone.<br />";
+                    html += "N for North, S for South, E for East, and W for West.<br />";
+                    html += "If you were about to reach out of the map, a nice pop up would appear to tell you and prevent you to fall in a warp zone.<br />";
                     html += "Each time you move, your opponent will do the same. It also knows the hint so beware!<br />";
                     html += "</p>";
                     Swal.fire({
@@ -829,22 +822,44 @@ function tutorial()
                                 if(result.isConfirmed)
                                 {
                                     html = "";
-                                    html += "If you find the treasure, you win the game and gain Xp and coins. <br />";
-                                    html += "If your opponent find the treasure, you lose the game but also gain a bit of xp and coins.<br />";
-                                    html += "Xp makes you level up and will unlock the possibility to buy powers in shop.<br />";
-                                    html += "With coins you'll be able to buy upgrades and powers in shop.<br />";
-                                    html += "When the game is over, a new one starts immediately to keep on having fun !<br />";
-                                    html += "<b>You're now ready for adventure, so set sail fellow pirate, you've got a treasure to find !</b>";
+                                    html += "The sea is a dangerous playground, you'll find creatures on you way. <br />";
+                                    html += "Some are more dangerous than others, but all keep some precious stuff.<br />";
+                                    html += "Dodge them or fight them, the choice will be yours.<br />";
                                     Swal.fire({
-                                        title: "Ending game",
+                                        title: "Creatures",
                                         html: html,
-                                        confirmButtonText: "Start",
+                                        confirmButtonText: "Continue",
                                         confirmButtonColor: "green",
+                                        cancelButtonText: "Skip tutorial",
                                         showConfirmButton: true,
-                                        showCancelButton: false
+                                        showCancelButton: true
                                     })
-                                    .then(res => {
-                                        newGame();
+                                    .then(result => {
+                                        if(result.isConfirmed)
+                                        {
+                                            html = "";
+                                            html += "If you find the treasure, you win the game and gain Xp and coins. <br />";
+                                            html += "If your opponent find the treasure, you lose the game but also gain a bit of xp and coins.<br />";
+                                            html += "Xp makes you level up and will unlock the possibility to buy powers in shop.<br />";
+                                            html += "With coins you'll be able to buy upgrades and powers in shop.<br />";
+                                            html += "When the game is over, a new one starts immediately to keep on having fun !<br />";
+                                            html += "<b>You're now ready for adventure, so set sail fellow pirate, you've got a treasure to find !</b>";
+                                            Swal.fire({
+                                                title: "Ending game",
+                                                html: html,
+                                                confirmButtonText: "Start",
+                                                confirmButtonColor: "green",
+                                                showConfirmButton: true,
+                                                showCancelButton: false
+                                            })
+                                            .then(res => {
+                                                newGame();
+                                            })
+                                        }
+                                        else
+                                        {
+                                            newGame();
+                                        }
                                     })
                                 }
                                 else

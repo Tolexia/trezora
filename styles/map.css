@@ -519,6 +519,9 @@ h2 {
     animation-name: rotateMarker;
     animation: rotateMarker 5s linear infinite forwards;
 }
+
+/* KEYFRAMES */
+
 @keyframes rotateMarker {
     0%{
         transform:translateX(-50%) rotateY(0) translateY(0);
@@ -651,9 +654,10 @@ h2 {
     .map {
         width: 88vh;
         height: 98vw;
-        left: 1em;
+        left: 1.7em;
         position: absolute;
         margin-top: 5px;
+        padding: .5em;
         /* margin-left: 40px; */
     }
 
