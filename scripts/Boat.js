@@ -4,6 +4,7 @@ class Boat
     {
         this.player = player
         this.domElement = document.getElementById(domId)
+        this.movementAnimationDuration = gamesystem.movementAnimationDuration
         this.lifebar = this.domElement.querySelector('.lifebar')
         this.comp = domId.match("2") ? "2" : ""
 
@@ -33,13 +34,13 @@ class Boat
 
     get(property)
     {
-        let value = localStorage.getItem('trezora-'+property)
+        var value = localStorage.getItem('trezora-'+property)
         try {
-            value = JSON.parse(value)
+            value =  JSON.parse(value)
         } catch (error) {
             value = ( !isNaN(parseInt(value)) ? parseInt(value) : value )
         }
-        return value
+        return value;
     }
 
     set(property, value)
@@ -59,26 +60,22 @@ class Boat
     goNorth()
     {
         this.set("coordY", this.coordY-1)
-        this.domElement.classList.add("sailing")
-        this.domElement.style = `animation-name:movingNorth${this.comp};`;
+        this.domElement.style = `animation: ${this.movementAnimationDuration}s movingNorth${this.comp} linear forwards;`;
     }
     goSouth()
     {
         this.set("coordY", this.coordY+1)
-        this.domElement.classList.add("sailing")
-        this.domElement.style = `animation-name:movingSouth${this.comp};`;
+        this.domElement.style = `animation: ${this.movementAnimationDuration}s movingSouth${this.comp} linear forwards;`;
     }
     goEast()
     {
         this.set("coordX", this.coordX+1)
-        this.domElement.classList.add("sailing")
-        this.domElement.style = `animation-name:movingEast${this.comp};`;
+        this.domElement.style = `animation: ${this.movementAnimationDuration}s movingEast${this.comp} linear forwards;`;
     }
     goWest()
     {
         this.set("coordX", this.coordX-1)
-        this.domElement.classList.add("sailing")
-        this.domElement.style = `animation-name:movingWest${this.comp};`;
+        this.domElement.style = `animation: ${this.movementAnimationDuration}s movingWest${this.comp} linear forwards;`;
     }
     refreshNearbyTargets()
     {

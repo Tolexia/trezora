@@ -135,8 +135,7 @@ function alertNotEnoughMoney()
 
 function buy(item)
 {
-    console.log("item", item)
-    if(!isNaN(parseInt(item.quantity)))
+    if(!isNaN(parseInt(item.quantity))  && item.quantity > 1)
     {
         purchaseMultipleItems(item)
     }
@@ -265,7 +264,7 @@ async function purchaseMultipleItems(item){
 
 function sell(item)
 {
-    if(item.quantity)
+    if(item.quantity && item.quantity > 1)
     {
         sellMultipleItems(item)
     }
@@ -346,29 +345,28 @@ async function sellMultipleItems(item)
     if(result && result.value > 0)
     {
         const quantity = parseInt(result.value)
-        if( coins < (item.cost * quantity))
+        coins = (coins + (item.cost * quantity))
+        setItem('playerCoins', coins)
+        const itemsStored = JSON.parse(getItem('itemsToSell'));
+        for(let i = 0; i < itemsStored.length; i++)
         {
-            alertNotEnoughMoney()
-        }
-        else
-        {
-            coins = (coins + (item.cost * quantity))
-            setItem('playerCoins', coins)
-            const itemsStored = JSON.parse(getItem('itemsToSell'));
-            for(let itemStored of itemsStored)
+            const itemStored = itemsStored[i]
+            if(itemStored.name == item.name)
             {
-                if(itemStored.name == item.name)
-                {
-                    itemStored.quantity = ( itemStored.quantity - quantity )
-                    break
-                }
+                const countLeft = ( itemStored.quantity - quantity )
+                if(countLeft > 0)
+                    itemStored.quantity = countLeft
+                else
+                    itemsStored.splice[i, 1]
+
+                break;
             }
-            setItem("itemsToSell", JSON.stringify(itemsStored))
-
-            confirmTransaction()
-
-            fillShop("Sell")
         }
+        setItem("itemsToSell", JSON.stringify(itemsStored))
+
+        confirmTransaction()
+
+        fillShop("Sell")
     }
 }
 

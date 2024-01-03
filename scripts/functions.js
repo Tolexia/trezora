@@ -9,7 +9,6 @@ function moveDirection(direction, boat = null, node = null)
     }
   
     let speed = getItem('speed');
-    boat.domElement.classList.remove('boat');
     switch (direction) {
         case "N":
             if(boat.coordY - 1 >= 1)
@@ -76,8 +75,6 @@ function moveDirection(direction, boat = null, node = null)
     }
     setTimeout(() => {
         tile.appendChild(boat.domElement)
-        boat.domElement.classList.remove('sailing');
-        boat.domElement.classList.add('boat');
         boat.domElement.style = "";
 
         // Handle going on a creature block
@@ -108,9 +105,8 @@ function moveDirection(direction, boat = null, node = null)
             // Let player attack nearby creatures
             boat.refreshNearbyTargets()
         }
-        else{
-            callBackAfterTurn(node)
-        }
+
+        callBackAfterTurn(node)
 
         document.body.style.pointerEvents = "";
     }, (gamesystem.movementAnimationDuration) * 1000);
@@ -121,17 +117,16 @@ function callBackAfterTurn()
 }
 function handleVisibilityFightButton()
 {
-    const fightButton = document.getElementById('fightButton')
     if(
         Math.abs(parseInt(getItem('boatCoordX'))-parseInt(getItem('boat2CoordX'))) <= gamesystem.fightDistances.x && 
         Math.abs(parseInt(getItem('boatCoordY'))-parseInt(getItem('boat2CoordY'))) <= gamesystem.fightDistances.y
     )
     {
-        fightButton.classList.remove('disabled')
+        window.fightButton.classList.remove('disabled')
     }
     else 
     {
-        fightButton.classList.add('disabled')
+        window.fightButton.classList.add('disabled')
     }
 }
 
@@ -281,10 +276,8 @@ function gainCoins(hasWon = true)
 }
 function checkIfWon(boat = null)
 {
-    console.log("trycount", getItem('trycount'))
     if(boat == null)
         boat = window.boat
-    console.log("boat.player", boat.player)
     // if(boat == null || boat.player == "AI")
     // {
         if(boat.player == "human" && boat.coordX == getItem('treasureCoordX') && boat.coordY == getItem('treasureCoordY'))
@@ -311,7 +304,6 @@ function checkIfWon(boat = null)
             setItem('goneThere', JSON.stringify(goneThere))
             if(boat.player == "AI")
             {
-                console.log("boat.currentTarget", boat.currentTarget)
                 setItem('trycount', parseInt(getItem('trycount'))+1);
                 if(boat.currentTarget != null)
                 {
@@ -493,10 +485,10 @@ function moveBoatAuto(boat = null)
         default:
             break;
     }
-    console.log("direction", direction)
-    console.log("nextTile", nextTile)
+    // console.log("direction", direction)
+    // console.log("nextTile", nextTile)
     const nextTileType = getItem(nextTile.x + "-" + nextTile.y)
-    console.log("nextTileType", nextTileType)
+    // console.log("nextTileType", nextTileType)
     if(nextTileType && Object.keys(gamesystem.creatures).includes(nextTileType))
         fightCreature(boat, nextTile, nextTileType)
     else
@@ -516,7 +508,6 @@ function fightCreature(boat, tileObject, creatureType) {
     setTimeout(() => {
         boat.domElement.classList.remove("attack")
         tileNode.classList.add("defend")
-        console.log("tileNode", tileNode)
         setTimeout(() => {
             tileNode.classList.remove("defend")
 
@@ -529,7 +520,6 @@ function fightCreature(boat, tileObject, creatureType) {
                 tileNode.classList.remove("clickable")
                 tileNode.removeAttribute('onclick')
                 tileNode.classList.add("sea")
-                console.log('tileNode.dataset.cordX + "-" + tileNode.dataset.cordY', tileNode.dataset.cordX + "-" + tileNode.dataset.cordY)
                 setItem(tileNode.dataset.cordX + "-" + tileNode.dataset.cordY, "sea")
                 if(boat.player == "human")
                 {
@@ -543,7 +533,6 @@ function fightCreature(boat, tileObject, creatureType) {
 }
 function setCurrentTileTarget(boat)
 {
-    console.log("setCurrentTileTarget")
     let boatCoordX = boat.coordX
     let boatCoordY = boat.coordY
     let treasureCoordX = parseInt(getItem('treasureCoordX'));
@@ -555,7 +544,7 @@ function setCurrentTileTarget(boat)
     let goneThere = JSON.parse(getItem('goneThere'));
     let nearestTile;
 
-    console.log("allSameTiles", allSameTiles)
+    // console.log("allSameTiles", allSameTiles)
     for(let tile of allSameTiles) {
         let tileX = parseInt(tile.dataset.cordX) 
         let tileY = parseInt(tile.dataset.cordY) 
@@ -578,7 +567,7 @@ function setCurrentTileTarget(boat)
                 minX = distanceX;
                 minY = distanceY;
                 nearestTile = tile;
-                console.log("nearestTile", nearestTile)
+                // console.log("nearestTile", nearestTile)
                 boat.set("currentTarget", {x:tile.dataset.cordX,y:tile.dataset.cordY})
             }
         }
@@ -717,8 +706,8 @@ function handleTeleport(e)
    boat.domElement.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
     setTimeout(() => {
         e.target.appendChild(boat.domElement)
-        boat.set('coordX', e.target.dataset.cordX);
-        boat.set('coordY', e.target.dataset.cordY);
+        boat.set('coordX', parseInt(e.target.dataset.cordX));
+        boat.set('coordY', parseInt(e.target.dataset.cordY));
         boat.domElement.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
         setTimeout(() => {
             boat.domElement.classList.add('boat');
@@ -927,6 +916,7 @@ function fight(attacker, defender)
             {
                 moveBoatAuto();
             }
+            handleVisibilityFightButton()
         }, 1000);
     }, 1000);
 }

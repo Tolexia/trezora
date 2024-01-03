@@ -20,6 +20,9 @@ h2 {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
 }
 .map {
     --blockWidth: 120px;
@@ -107,7 +110,6 @@ h2 {
 }
 .boat img {
     filter: drop-shadow(3px 3px 5px var(--dark));
-    backdrop-filter: brightness(3);
 }
 #boat {
     animation: 3s linear myBoat 0s infinite alternate;
@@ -122,12 +124,6 @@ h2 {
     transform: translateY(-110%);
     z-index: 0;
 }
-.boat.sailing{
-    animation-duration: var(--movementAnimationDuration);
-    animation-fill-mode: forwards;
-    filter: drop-shadow(3px 3px 5px var(--dark));
-}
-
 
 .navigation-container{
     height: 100%;
@@ -157,6 +153,9 @@ a.enlightened {
 }
 #fightButton.disabled{
     display: none;
+}
+#fightButton{
+    display: block;
 }
 .fight-icon
 {
@@ -272,8 +271,7 @@ a.enlightened {
 /* KEYFRAMES */
 @keyframes myBoat2 {
     0% {
-        transform: rotate(-5deg)
-        translate(0 px, 0 px);
+        transform: rotate(-5deg) translate(0px, 0px);
     }
     50% {
         transform: translate(5px, 5px);
@@ -286,8 +284,7 @@ a.enlightened {
 @keyframes movingEast {
    
     0% {
-        transform: rotate(5deg)
-        translate(0 px, 0 px);
+        transform: rotate(5deg) translate(0px, 0px);
     }
     50% {
         transform:  rotate(5deg) translate(calc( var(--blockWidth) / 2), 5px);
@@ -342,8 +339,7 @@ a.enlightened {
 @keyframes movingEast2 {
    
     0% {
-        transform: scaleX(-1) rotate(5deg)
-        translate(0 px, 0 px);
+        transform: scaleX(-1) rotate(5deg) translate(0px, 0px);
     }
     50% {
         transform: scaleX(-1)  rotate(5deg) translate(calc( var(--blockWidth) / -2), 5px);
@@ -482,16 +478,28 @@ a.enlightened {
     0%{
         transform: translate(0, 0);
     }
+    10%{
+        transform: translateX(calc(var(--blockWidth) / -14));
+    }
+    15%{
+        transform: translateX(calc(var(--blockWidth) / -14));
+    }
     100%{
-        transform: translateX(-20px);
+        transform: translate(0, 0);
     }
 }
 @keyframes kickback2 {
     0%{
         transform: translate(0, 0);
     }
+    10%{
+        transform: translateX(calc(var(--blockWidth) / 14));
+    }
+    15%{
+        transform: translateX(calc(var(--blockWidth) / 14));
+    }
     100%{
-        transform: translateX(20px);
+        transform: translate(0, 0);
     }
 }
 @keyframes rotateMarker {
@@ -690,6 +698,9 @@ a.enlightened {
     .navigation-container{
         height: 90vh;
         width: 9vw;
+    }
+    #fightButton{
+        margin: auto;
     }
 }
 

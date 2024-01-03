@@ -227,7 +227,6 @@
     const boat = boatObject.domElement;
     const boat2 = boat2Object.domElement;
 
-    console.log("boat", boat)
 
     // Init Map
     for (let y = 1; y <= gamesystem.rowCount; y++) 
@@ -294,6 +293,7 @@
             }
         }, 2000)
     }
+    window.fightButton = document.getElementById('fightButton')
     handleVisibilityFightButton()
     hidePowersNotUnlocked()
     displayLevel()

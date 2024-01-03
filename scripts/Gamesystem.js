@@ -6,7 +6,7 @@ class Gamesystem
         this.columnCount = localStorage.getItem("trezora-columnCount") ? parseInt(localStorage.getItem("trezora-columnCount")) : 12
         this.rowCount = localStorage.getItem("trezora-rowCount") ? parseInt(localStorage.getItem("trezora-rowCount")) : 6
         this.fightDistances = {x:2,y:1}
-        this.movementAnimationDuration = 1.5
+        this.movementAnimationDuration = 2
         this.levels = {
             1: 0,
             2: 500,
