@@ -4,21 +4,39 @@ html, body{
 body{
     padding-top: var(--navbar-size);
 }
-.navigation-container{
-    height: 100%;
+[onclick]{
+    cursor: pointer;
 }
+.disabled {
+    opacity: .4;
+    pointer-events: none;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
 .row.column{
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
 }
-.boat {
-    max-width: 100%;
-    max-height: 100%;
+.map {
+    --blockWidth: 120px;
+    --blockHeight: 120px;
+    background-image: url('../images/map/map.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: .5em 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .tile {
-    height: 120px;
-    width: 120px;
+    height: var(--blockHeight);
+    width: var(--blockWidth);
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
@@ -27,33 +45,9 @@ body{
     background-position: center;
     padding: 0 5px;
 }
-[onclick]{
-    cursor: pointer;
-}
+
 .tile:hover {
     box-shadow: 0 0 1px var(--dark);
-}
-
-.coords {
-    text-shadow: 1px 1px 2px var(--dark);
-    font-size: 3em;
-    display: none;
-}
-
-.tile:hover .coords {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.disabled {
-    opacity: .4;
-    pointer-events: none;
-}
-
-.tile-name {
-    position: absolute;
-    font-family: var(--main-font);
-    opacity: 0.7;
 }
 
 .sea {
@@ -67,6 +61,7 @@ body{
 
 .island {
     background-image: url('../images/map/island.png');
+    background-size: contain;
 }
 .shark{
     background-image: url('../images/wildlife/requin.png');
@@ -101,203 +96,18 @@ body{
     top: 44%;
     left: 80%;
 }
-.sailing{
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    filter: drop-shadow(3px 3px 5px var(--dark));
+.doublespeed {
+    font-size: 25px;
 }
-#fightButton.disabled{
-    display: none;
+.boat {
+    max-width: 100%;
+    max-height: 100%;
+    position:relative;
+    z-index: 1;
 }
-.fight-icon
-{
-    filter: invert(1) drop-shadow(0px 0px 20px white);
-}
-
-@keyframes myBoat2 {
-    0% {
-        transform: rotate(-5deg)
-        translate(0 px, 0 px);
-    }
-    50% {
-        transform: translate(5px, 5px);
-    }
-    100% {
-        transform: rotate(5deg) translate(0px, 0px);
-    }
-}
-
-@keyframes movingEast {
-   
-    0% {
-        transform: rotate(5deg)
-        translate(0 px, 0 px);
-    }
-    50% {
-        transform:  rotate(5deg) translate(60%, 5px);
-    }
-   100% {
-        transform:rotate(-5deg) translateX(120%)
-        ;
-   }
-}
-@keyframes movingWest {
-   
-    0%{
-        transform: scaleX(-1) translateX(0) rotate(5deg);
-    }
-    50% {
-        transform: scaleX(-1)  rotate(5deg) translate(60%, 5px);
-    }
-    100% {
-        transform: scaleX(-1) translateX(120%) rotate(-5deg);
-    }
-}
-@keyframes movingNorth {
-   
-    0%{
-        transform: translate(0,0) rotate(0);
-    }
-    25% {
-        transform:translate(0,0) rotateZ(-68deg) rotateX(60deg);
-    }
-    75% {
-        transform: translateY(-80%) rotateZ(-68deg) rotateX(60deg);
-    }
-    100% {
-        transform: translateY(-80%) rotateZ(0) rotateX(0);
-    }
-}
-@keyframes movingSouth {
-   
-    0%{
-        transform: translate(0,0) rotate(0);
-    }
-    25% {
-        transform:translate(0,0) rotateZ(70deg) rotateX(60deg);
-    }
-    75% {
-        transform: translate(10px, 80%) rotateZ(70deg) rotateX(60deg);
-    }
-    100% {
-        transform:translate(10px, 80%) rotateZ(0) rotateX(0);
-    }
-}
-@keyframes movingEast2 {
-   
-    0% {
-        transform: scaleX(-1) rotate(5deg)
-        translate(0 px, 0 px);
-    }
-    50% {
-        transform: scaleX(-1)  rotate(5deg) translate(-60%, 5px);
-    }
-   100% {
-        transform:scaleX(-1) rotate(-5deg) translateX(-120%)
-        ;
-   }
-}
-@keyframes movingWest2 {
-   
-    0%{
-        transform: translateX(0) rotate(5deg);
-    }
-    50% {
-        transform:  rotate(5deg) translate(-60%, 5px);
-    }
-    100% {
-        transform: translateX(-120%) rotate(-5deg);
-    }
-}
-@keyframes movingNorth2 {
-   
-    0%{
-        transform: translate(0,0) rotate(0);
-    }
-    25% {
-        transform:translate(0,0) rotateZ(68deg) rotateX(-60deg);
-    }
-    75% {
-        transform: translateY(-80%) rotateZ(68deg) rotateX(-60deg);
-    }
-    100% {
-        transform: translateY(-80%) rotateZ(0) rotateX(0);
-    }
-}
-@keyframes movingSouth2 {
-   
-    0%{
-        transform: translate(0,0) rotate(0);
-    }
-    25% {
-        transform:translate(0,0) rotateZ(-70deg) rotateX(-60deg);
-    }
-    75% {
-        transform: translate(10px, 80%) rotateZ(-70deg) rotateX(-60deg);
-    }
-    100% {
-        transform:translate(10px, 80%) rotateZ(0) rotateX(0);
-    }
-}
-@keyframes death {
-   
-    0%{
-        transform: translateY(0) rotate(0);
-        opacity:1;
-    }
-    50% {
-        transform: translateY(0) rotate(-90deg);
-        opacity:1;
-    }
-    100% {
-        transform: translateY(20px) rotate(-90deg);
-        opacity:0;
-    }
-}
-@keyframes death2 {
-   
-    0%{
-        transform: translateY(0) rotate(0);
-        opacity:1;
-    }
-    50% {
-        transform: translateY(0) rotate(90deg);
-        opacity:1;
-    }
-    100% {
-        transform: translateY(20px) rotate(90deg);
-        opacity:0;
-    }
-}
-@keyframes teleport {
-   
-    0%{
-        transform: rotateY(0);
-    }
-    50% {
-        transform: rotateY(180deg);
-    }
-    75% {
-        transform: rotateY(360deg);
-    }
-    90% {
-        transform: rotateY(540deg);
-    }
-    95% {
-        transform: rotateY(720deg);
-    }
-    100% {
-        transform: rotateY(900deg);
-    }
-}
-
 .boat img {
     filter: drop-shadow(3px 3px 5px var(--dark));
     backdrop-filter: brightness(3);
-}
-.boat {
-    position:relative;
-    z-index: 1;
 }
 #boat {
     animation: 3s linear myBoat 0s infinite alternate;
@@ -312,17 +122,16 @@ body{
     transform: translateY(-110%);
     z-index: 0;
 }
-.map {
-    background-image: url('../images/map/map.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: .5em 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.boat.sailing{
+    animation-duration: var(--movementAnimationDuration);
+    animation-fill-mode: forwards;
+    filter: drop-shadow(3px 3px 5px var(--dark));
 }
 
+
+.navigation-container{
+    height: 100%;
+}
 .navigation {
     position: relative;
     width: 100%;
@@ -337,36 +146,23 @@ body{
     color: white!important;
     font-size: 30px;
 }
+.navigation a:hover {
+    color:grey!important;
+}
 a.enlightened {
     color : rgba(4,232,0,0.75)!important;
-    /* box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75);
--webkit-box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75);
--moz-box-shadow: 1px -1px 5px 2px rgba(4,232,0,0.75); */
 }
 .nav-item {
     cursor:pointer;
 }
-
-.navigation a:hover {
-    color:grey!important;
+#fightButton.disabled{
+    display: none;
+}
+.fight-icon
+{
+    filter: invert(1) drop-shadow(0px 0px 20px white);
 }
 
-.infos {
-    background-image: url('../images/map.jpg');
-    width: 100%;
-    min-height: 300px;
-    margin-top: 1em;
-    padding: 1em;
-    padding-top: 0.2em;
-}
-
-h2 {
-    font-size: 1.3em;
-}
-
-.doublespeed {
-    font-size: 25px;
-}
 
 /* Life bar */
 .lifebar
@@ -384,53 +180,6 @@ h2 {
 }
 
 /* FIGHT */
-@keyframes receiveImpact {
-    0%{
-        scale: 0;
-        opacity: 0;
-    }
-    20%{
-        scale: 2;
-        opacity: 1;
-    }
-    100%{
-        scale: 2;
-        opacity: 0;
-    }
-}
-@keyframes shoot {
-    0%{
-        transform: translateY(0);
-        scale: 0;
-        opacity: 0;
-    }
-    20%{
-        transform: translateY(0);
-        scale: 3;
-        opacity: 1;
-    }
-    100%{
-        transform: translateY(-2em);
-        scale: 1;
-        opacity: 0;
-    }
-}
-@keyframes kickback1 {
-    0%{
-        transform: translate(0, 0);
-    }
-    100%{
-        transform: translateX(-20px);
-    }
-}
-@keyframes kickback2 {
-    0%{
-        transform: translate(0, 0);
-    }
-    100%{
-        transform: translateX(20px);
-    }
-}
 #boat.attack
 {
     animation: 1s ease-in kickback1;
@@ -521,7 +270,230 @@ h2 {
 }
 
 /* KEYFRAMES */
+@keyframes myBoat2 {
+    0% {
+        transform: rotate(-5deg)
+        translate(0 px, 0 px);
+    }
+    50% {
+        transform: translate(5px, 5px);
+    }
+    100% {
+        transform: rotate(5deg) translate(0px, 0px);
+    }
+}
 
+@keyframes movingEast {
+   
+    0% {
+        transform: rotate(5deg)
+        translate(0 px, 0 px);
+    }
+    50% {
+        transform:  rotate(5deg) translate(calc( var(--blockWidth) / 2), 5px);
+    }
+   100% {
+        transform:rotate(-5deg) translateX(var(--blockWidth))
+        ;
+   }
+}
+@keyframes movingWest {
+   
+    0%{
+        transform: scaleX(-1) translateX(0) rotate(5deg);
+    }
+    50% {
+        transform: scaleX(-1)  rotate(5deg) translate( calc( var(--blockWidth) / 2), 5px);
+    }
+    100% {
+        transform: scaleX(-1) translateX( var(--blockWidth)) rotate(-5deg);
+    }
+}
+@keyframes movingNorth {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(-68deg) rotateX(60deg);
+    }
+    75% {
+        transform: translateY( calc(var(--blockHeight) * -1)) rotateZ(-68deg) rotateX(60deg);
+    }
+    100% {
+        transform: translateY( calc(var(--blockHeight) * -1)) rotateZ(0) rotateX(0);
+    }
+}
+@keyframes movingSouth {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(70deg) rotateX(60deg);
+    }
+    75% {
+        transform: translate(10px,  var(--blockHeight)) rotateZ(70deg) rotateX(60deg);
+    }
+    100% {
+        transform:translate(10px,  var(--blockHeight)) rotateZ(0) rotateX(0);
+    }
+}
+@keyframes movingEast2 {
+   
+    0% {
+        transform: scaleX(-1) rotate(5deg)
+        translate(0 px, 0 px);
+    }
+    50% {
+        transform: scaleX(-1)  rotate(5deg) translate(calc( var(--blockWidth) / -2), 5px);
+    }
+   100% {
+        transform:scaleX(-1) rotate(-5deg) translateX(calc( var(--blockWidth) * -1) )
+        ;
+   }
+}
+@keyframes movingWest2 {
+   
+    0%{
+        transform: translateX(0) rotate(5deg);
+    }
+    50% {
+        transform:  rotate(5deg) translate(calc( var(--blockWidth) / -2), 5px);
+    }
+    100% {
+        transform: translateX(calc( var(--blockWidth) * -1)) rotate(-5deg);
+    }
+}
+@keyframes movingNorth2 {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(68deg) rotateX(-60deg);
+    }
+    75% {
+        transform: translateY( calc(var(--blockHeight) * -1)) rotateZ(68deg) rotateX(-60deg);
+    }
+    100% {
+        transform: translateY( calc(var(--blockHeight) * -1)) rotateZ(0) rotateX(0);
+    }
+}
+@keyframes movingSouth2 {
+   
+    0%{
+        transform: translate(0,0) rotate(0);
+    }
+    25% {
+        transform:translate(0,0) rotateZ(-70deg) rotateX(-60deg);
+    }
+    75% {
+        transform: translate(10px,  var(--blockHeight)) rotateZ(-70deg) rotateX(-60deg);
+    }
+    100% {
+        transform:translate(10px,  var(--blockHeight)) rotateZ(0) rotateX(0);
+    }
+}
+@keyframes death {
+   
+    0%{
+        transform: translateY(0) rotate(0);
+        opacity:1;
+    }
+    50% {
+        transform: translateY(0) rotate(-90deg);
+        opacity:1;
+    }
+    100% {
+        transform: translateY(20px) rotate(-90deg);
+        opacity:0;
+    }
+}
+@keyframes death2 {
+   
+    0%{
+        transform: translateY(0) rotate(0);
+        opacity:1;
+    }
+    50% {
+        transform: translateY(0) rotate(90deg);
+        opacity:1;
+    }
+    100% {
+        transform: translateY(20px) rotate(90deg);
+        opacity:0;
+    }
+}
+@keyframes teleport {
+   
+    0%{
+        transform: rotateY(0);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    75% {
+        transform: rotateY(360deg);
+    }
+    90% {
+        transform: rotateY(540deg);
+    }
+    95% {
+        transform: rotateY(720deg);
+    }
+    100% {
+        transform: rotateY(900deg);
+    }
+}
+/* FIGHT */
+@keyframes receiveImpact {
+    0%{
+        scale: 0;
+        opacity: 0;
+    }
+    20%{
+        scale: 2;
+        opacity: 1;
+    }
+    100%{
+        scale: 2;
+        opacity: 0;
+    }
+}
+@keyframes shoot {
+    0%{
+        transform: translateY(0);
+        scale: 0;
+        opacity: 0;
+    }
+    20%{
+        transform: translateY(0);
+        scale: 3;
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-2em);
+        scale: 1;
+        opacity: 0;
+    }
+}
+@keyframes kickback1 {
+    0%{
+        transform: translate(0, 0);
+    }
+    100%{
+        transform: translateX(-20px);
+    }
+}
+@keyframes kickback2 {
+    0%{
+        transform: translate(0, 0);
+    }
+    100%{
+        transform: translateX(20px);
+    }
+}
 @keyframes rotateMarker {
     0%{
         transform:translateX(-50%) rotateY(0) translateY(0);
@@ -686,6 +658,8 @@ h2 {
 @media screen and (min-width: 1201px) {
     .map{
         justify-content: flex-start;
+        --blockWidth: calc(90vw / var(--columnCount));
+        --blockHeight: calc(90vh / var(--rowCount));
     }
     h2.levelTitle{
         margin-top: 1.5em;
@@ -702,13 +676,13 @@ h2 {
     .page-container > .row{
         align-items: center;
     }
-    .tile{
-        width: calc(90vw / var(--columnCount));
-        height: calc(90vh / var(--rowCount));
-    }
+    /* .tile{
+        width: var(--blockWidth);
+        height: var(--blockHeight);
+    } */
     .boat-skin{
-        max-width: calc(90vw / var(--columnCount));
-        max-height: calc(90vh / var(--rowCount));
+        max-width: var(--blockWidth);
+        max-height: var(--blockHeight);
     }
     .north, .south, .west, .east{
         transform: translate(-50%, -50%);
@@ -720,9 +694,10 @@ h2 {
 }
 
 @media screen and (max-width: 1200px) {
-    .tile {
-        height: calc(75vh / var(--rowCount));
-        width: calc(98vw / var(--columnCount));
+    .map{
+        justify-content: flex-start;
+        --blockHeight: calc(75vh / var(--rowCount));
+        --blockWidth: calc(98vw / var(--columnCount));
     }
     h1 {
         display: none;
@@ -764,19 +739,20 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
+    .map{
+        --blockWidth: calc(81vh / var(--columnCount));
+        --blockHeight:calc(92vw / var(--rowCount));
+    }
     .page-container > .row{
         width: 90%;
     }
     h2 {
         margin-top: 5px;
     }
-    .tile {
-        width: calc(81vh / var(--columnCount));
-        height: calc(92vw / var(--rowCount));
-    }
+
     .boat-skin{
-        max-width: calc(81vh / var(--columnCount));
-        max-height: calc(92vw / var(--rowCount));
+        max-width: var(--blockWidth);
+        max-height: var(--blockHeight);
     }
 }
 

@@ -308,9 +308,9 @@ function handleChangeMapSize(event){
     }
 
     setItem("map_size", JSON.stringify(map_size))
-    setItem("trezora-columnCount", map_size.columns)
-    setItem("trezora-rowCount", map_size.rows)
-    localStorage.removeItem("boatCoordX")
+    setItem("columnCount", map_size.columns)
+    setItem("rowCount", map_size.rows)
+    removeItem("boatCoordX")
 
     const optionsContainer = event.target.closest('.optionsContainer')
     const items = optionsContainer.getElementsByTagName('div')

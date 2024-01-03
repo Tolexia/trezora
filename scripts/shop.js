@@ -71,7 +71,7 @@ function putItemInList(option, item)
     divItem.dataset.item = item.name
     if(
         (typeof item.bought != "undefined" && item.bought == true)
-        || (item.type == "power" && !JSON.parse(localStorage.getItem("powersUnlocked")).includes(item.name))
+        || (item.type == "power" && !JSON.parse(getItem("powersUnlocked")).includes(item.name))
     )
     {
         divItem.classList.add("bought")

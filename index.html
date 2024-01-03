@@ -203,7 +203,7 @@
 <script src="./scripts/functions.js"></script>
 <script src="./scripts/Boat.js"></script>
 <script>
-    document.getElementById('map').style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};`
+    document.getElementById('map').style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};--movementAnimationDuration: ${gamesystem.movementAnimationDuration}s;`
     if(getItem('displayTuto') == "no" && (
         getItem('boatCoordX') == null || 
         getItem('boatCoordY') == null

@@ -113,7 +113,7 @@ function moveDirection(direction, boat = null, node = null)
         }
 
         document.body.style.pointerEvents = "";
-    }, 1500);
+    }, (gamesystem.movementAnimationDuration) * 1000);
 }
 function callBackAfterTurn()
 {
@@ -716,7 +716,7 @@ function handleTeleport(e)
    boat.domElement.classList.remove('boat');
    boat.domElement.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
     setTimeout(() => {
-        e.target.appendChild(boat)
+        e.target.appendChild(boat.domElement)
         boat.set('coordX', e.target.dataset.cordX);
         boat.set('coordY', e.target.dataset.cordY);
         boat.domElement.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";

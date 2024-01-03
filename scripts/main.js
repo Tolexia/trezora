@@ -10,7 +10,7 @@ function setItem(item, value)
 }
 function removeItem(item)
 {
-    return localStorage.removeItem(item);
+    return localStorage.removeItem(prefix+item);
 }
 function init()
 {
