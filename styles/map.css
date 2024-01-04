@@ -3,6 +3,7 @@ html, body{
 }
 body{
     padding-top: var(--navbar-size);
+    --responsiveNavbarHeight:96px;
 }
 [onclick]{
     cursor: pointer;
@@ -16,6 +17,7 @@ h2 {
     font-size: 1.3em;
 }
 .row {
+    flex-wrap: nowrap;
     margin-left: 0;
     margin-right: 0;
 }
@@ -30,10 +32,11 @@ h2 {
 .map {
     --blockWidth: 120px;
     --blockHeight: 120px;
+    --mapVerticalPadding: 1em;
     background-image: url('../images/map/map.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: .5em 1em;
+    padding: .5em var(--mapVerticalPadding);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -673,7 +676,8 @@ a.enlightened {
 @media screen and (min-width: 1201px) {
     .map{
         justify-content: flex-start;
-        --blockWidth: calc(90vw / var(--columnCount));
+        --mapWidth:88vw;
+        --blockWidth: calc( var(--mapWidth) / var(--columnCount));
         --blockHeight: calc(90vh / var(--rowCount));
     }
     h2.levelTitle{
@@ -704,6 +708,9 @@ a.enlightened {
 }
 
 @media screen and (max-width: 1200px) {
+    .page-container > .row{
+        flex-direction: column;
+    }
     .map{
         justify-content: flex-start;
         --blockHeight: calc(75vh / var(--rowCount));
@@ -732,17 +739,17 @@ a.enlightened {
     }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1200px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .page-container > .row{
         flex-direction: column;
     }
     h2.levelTitle{
-        margin-top: .5em;
+        margin-top: 0.25em;
     }
    
 }
 
-@media screen and (min-width: 769px) and (max-width: 1200px)  and (orientation:portrait){
+@media screen and (min-width: 768px) and (max-width: 1200px)  and (orientation:portrait){
     .page-container{
         margin-top: 1.5em;
     }
@@ -760,13 +767,31 @@ a.enlightened {
     }
 
 }
-@media screen and (max-width: 960px) and (orientation:landscape)
+@media screen and (max-width: 1200px) and (orientation:landscape)
 {
+    body {
+        padding-top: var(--responsiveNavbarHeight);
+    }
+    .page-container{
+        height: 100vh;
+    }
+    .page-container > .row{
+        height: 100%;
+    }
     .map-container{
-        --mapHeight:70vh;
-        height: var(--mapHeight);
+        --mapHeight:calc(90vh - var(--responsiveNavbarHeight));
+        height: calc(var(--mapHeight) + var(--mapVerticalPadding));
     }
     .map{
         --blockHeight:calc(var(--mapHeight) / var(--rowCount));
+    }
+    h2.levelTitle{
+        margin-top: 0.25em;
+    }
+}
+@media screen and (max-height: 500px) and (orientation: landscape)
+{
+    .map-container {
+        --mapHeight: calc(82vh - var(--responsiveNavbarHeight));
     }
 }

@@ -324,3 +324,14 @@ body{
     }
 
 }
+@media screen and (max-height: 500px) and (orientation:landscape)
+{
+    .options
+    {
+        padding-bottom: 0.5em;
+    }
+    .skinContainer
+    {
+        height: 100%;
+    }
+}

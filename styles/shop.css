@@ -218,3 +218,23 @@ body, .container {
         padding: 0;
     }
 }
+@media screen and (max-height: 500px) and (orientation:landscape)
+{
+    .container
+    {
+        margin-top: 3em;
+    }
+    .options.itemsOpened
+    {
+        top: 0;
+    }
+    .items{
+        top: 20%;
+        padding-bottom: 0.5em;
+        bottom: 0;
+    }
+    .itemslist
+    {
+        padding-top: 2em;
+    }
+}

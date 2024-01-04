@@ -30,6 +30,9 @@
     --light-shadow: #9e8422;
     --dark-shadow: #3e2904;
 }
+*{
+    box-sizing: border-box;
+}
 html, body
 {
     height: 100vh;
@@ -109,6 +112,7 @@ _::-webkit-full-page-media, _:future, :root a.navbar-brand.logo {
     position: absolute;
     right: 10%;
     top: 2%;
+    z-index: 2;
 }
 .previous
 {
@@ -218,14 +222,24 @@ blockquote {
         justify-content: space-between;
         align-items: flex-start;
         flex-direction: row!important;
-        padding-top: 2.5em;
-        padding-right: 2.5em;
+        padding-top: 2.25em;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+    .nav-item{
+        margin: 0;
     }
     .doublespeed {
         width: 33px;
     }
 }
-@media screen and (max-width: 1000px) and (orientation: landscape) {
+@media screen and (max-width: 767px) and (orientation:portrait){
+    .navbar-nav {
+        padding-right: 2.5em;
+        padding-left: 0;
+    }
+}
+@media screen and (max-width: 1200px) and (orientation: landscape) {
     a.navbar-brand.logo{
         padding-top: 1.25em;
     }
