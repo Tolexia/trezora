@@ -1,4 +1,4 @@
-body {
+body, .container {
     overflow: hidden;
 }
 .container 
@@ -129,7 +129,7 @@ body {
     max-height: var(--minHeightContainer);
 }
 .itemsRemaining {
-    position: absolute;
+    position: fixed;
     top: 10px;
     left: 10px;
 }

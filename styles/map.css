@@ -15,7 +15,10 @@ body{
 h2 {
     font-size: 1.3em;
 }
-
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
 .row.column{
     flex-wrap: nowrap;
     justify-content: center;
@@ -108,7 +111,10 @@ h2 {
     position:relative;
     z-index: 1;
 }
-.boat img {
+
+.boat-skin{
+    max-width: var(--blockWidth);
+    max-height: var(--blockHeight);
     filter: drop-shadow(3px 3px 5px var(--dark));
 }
 #boat {
@@ -160,6 +166,7 @@ a.enlightened {
 .fight-icon
 {
     filter: invert(1) drop-shadow(0px 0px 20px white);
+    width: 2.5em;
 }
 
 
@@ -684,14 +691,6 @@ a.enlightened {
     .page-container > .row{
         align-items: center;
     }
-    /* .tile{
-        width: var(--blockWidth);
-        height: var(--blockHeight);
-    } */
-    .boat-skin{
-        max-width: var(--blockWidth);
-        max-height: var(--blockHeight);
-    }
     .north, .south, .west, .east{
         transform: translate(-50%, -50%);
     }
@@ -733,23 +732,22 @@ a.enlightened {
     }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1200px){
-    .page-container{
-        margin-top: 1.5em;
-    }
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .page-container > .row{
         flex-direction: column;
     }
     h2.levelTitle{
-        margin-top: .25em;
+        margin-top: .5em;
     }
-    .boat-skin{
-        max-width: 100%;
-        max-height: 100%;
-    }
+   
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 769px) and (max-width: 1200px)  and (orientation:portrait){
+    .page-container{
+        margin-top: 1.5em;
+    }
+}
+@media screen and (max-width: 767px) and (orientation:portrait){
     .map{
         --blockWidth: calc(81vh / var(--columnCount));
         --blockHeight:calc(92vw / var(--rowCount));
@@ -761,9 +759,14 @@ a.enlightened {
         margin-top: 5px;
     }
 
-    .boat-skin{
-        max-width: var(--blockWidth);
-        max-height: var(--blockHeight);
+}
+@media screen and (max-width: 960px) and (orientation:landscape)
+{
+    .map-container{
+        --mapHeight:70vh;
+        height: var(--mapHeight);
+    }
+    .map{
+        --blockHeight:calc(var(--mapHeight) / var(--rowCount));
     }
 }
-
