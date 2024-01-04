@@ -347,6 +347,7 @@ async function sellMultipleItems(item)
         const quantity = parseInt(result.value)
         coins = (coins + (item.cost * quantity))
         setItem('playerCoins', coins)
+
         const itemsStored = JSON.parse(getItem('itemsToSell'));
         for(let i = 0; i < itemsStored.length; i++)
         {
@@ -357,7 +358,7 @@ async function sellMultipleItems(item)
                 if(countLeft > 0)
                     itemStored.quantity = countLeft
                 else
-                    itemsStored.splice[i, 1]
+                    itemsStored.splice(i, 1)
 
                 break;
             }
