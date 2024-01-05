@@ -220,6 +220,9 @@ body, .container {
 }
 @media screen and (max-height: 500px) and (orientation:landscape)
 {
+    body {
+        overflow-y: auto;
+    }
     .container
     {
         margin-top: 3em;
