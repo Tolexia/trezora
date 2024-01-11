@@ -791,6 +791,9 @@ a.enlightened {
 }
 @media screen and (max-height: 500px) and (orientation: landscape)
 {
+    body {
+        overflow-y: auto;
+    }
     .map-container {
         --mapHeight: calc(82dvh - var(--responsiveNavbarHeight));
     }
