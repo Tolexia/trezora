@@ -603,73 +603,6 @@ a.enlightened {
 /* Force landscape display */
 @media screen and (max-width: 767px) and (orientation: portrait) {
    
-    body {
-        overflow: hidden;
-    }
-
-    .navbar-toggler {
-        margin: auto;
-        border-color: transparent!important;
-    }
-    .navbar-brand {
-        display: none;
-    }
-
-    .navbar-dark .navbar-toggler-icon {
-        background-image: url('../svg/chevron-down.svg')!important;
-    }
-    
-    .dropdown{
-        cursor: pointer;
-    }
- 
-    .nav-item{
-        transform: rotate(-90deg) translateX(30px); 
-        transform-origin: right top; 
-        cursor: pointer;
-    }
-
-    .page-container {
-        width: 100dvh;
-        height: 100dvw;
-        position: absolute;
-        top: 100%;
-        margin-top: 50px;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        overflow: hidden;
-    }
-
-
-    .map {
-        width: 88dvh;
-        height: 98dvw;
-        left: 1.7em;
-        position: absolute;
-        margin-top: 5px;
-        padding: .5em;
-        /* margin-left: 40px; */
-    }
-
-
-    .navigation {
-        opacity:0.8;
-    }
-
-    .swal2-container.swal2-backdrop-show {
-        width: 97dvh;
-        height: 100dvw;
-        position: absolute;
-        top: 100%;
-        margin-top: 50px;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        overflow-x: hidden;
-    }
-    .swal2-popup {
-        width: fit-content;
-        transform: translate(4%,0);
-    }
     
 }
 
@@ -733,9 +666,12 @@ a.enlightened {
         flex: auto;
     }
     .navigation-container{
-        width: 90%;
+        width: 100%;
         max-width: unset;
         flex: unset;
+    }
+    .kraken, .shark{
+        background-size: contain;
     }
 }
 
@@ -755,12 +691,85 @@ a.enlightened {
     }
 }
 @media screen and (max-width: 767px) and (orientation:portrait){
-    .map{
-        --blockWidth: calc(81dvh / var(--columnCount));
-        --blockHeight:calc(92dvw / var(--rowCount));
+
+    body {
+        overflow: hidden;
+        --responsiveNavbarWidth:calc(6dvh + 50px);
     }
+
+    .navbar-toggler {
+        margin: auto;
+        border-color: transparent!important;
+    }
+    .navbar-brand {
+        display: none;
+    }
+
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url('../svg/chevron-down.svg')!important;
+    }
+    
+    .dropdown{
+        cursor: pointer;
+    }
+    nav.navbar {
+        padding: 3dvh;
+    }
+    .nav-item{
+        transform: rotate(-90deg) translateX(30px); 
+        transform-origin: right top; 
+        cursor: pointer;
+    }
+    .navigation a 
+    {
+        color: rgba(255, 255, 255, 0.711)!important;
+    }
+    .page-container {
+        width: 100dvh;
+        height: 100dvw;
+        position: absolute;
+        top: 100%;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow: hidden;
+    }
+
+
+    .map {
+        --mapWidth:calc(100dvh - var(--responsiveNavbarWidth));
+        --blockWidth: calc(var(--mapWidth) / var(--columnCount));
+        --blockHeight:calc(92dvw / var(--rowCount));
+        width: var(--mapWidth);
+        height: 98dvw;
+        left: 6dvh;
+        position: absolute;
+        margin-top: 5px;
+        padding: .5em;
+    }
+
+
+    .navigation {
+        opacity:0.8;
+    }
+
+    .swal2-container.swal2-backdrop-show {
+        width: 97dvh;
+        height: 100dvw;
+        position: absolute;
+        top: 100%;
+        margin-top: 50px;
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+    }
+    .swal2-popup {
+        width: fit-content;
+        transform: translate(4%,0);
+    }
+    
     .page-container > .row{
-        width: 90%;
+        width: 100%;
     }
     h2 {
         margin-top: 5px;
