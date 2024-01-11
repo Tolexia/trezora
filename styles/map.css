@@ -802,6 +802,10 @@ a.enlightened {
 {
     body {
         overflow-y: auto;
+        height: 100dvh;
+    }
+    .page-container{
+        height: 100%;
     }
     .map-container {
         --mapHeight: calc(82dvh - var(--responsiveNavbarHeight));
