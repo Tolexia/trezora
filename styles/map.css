@@ -630,8 +630,8 @@ a.enlightened {
     }
 
     .page-container {
-        width: 100vh;
-        height: 100vw;
+        width: 100dvh;
+        height: 100dvw;
         position: absolute;
         top: 100%;
         margin-top: 50px;
@@ -642,8 +642,8 @@ a.enlightened {
 
 
     .map {
-        width: 88vh;
-        height: 98vw;
+        width: 88dvh;
+        height: 98dvw;
         left: 1.7em;
         position: absolute;
         margin-top: 5px;
@@ -657,8 +657,8 @@ a.enlightened {
     }
 
     .swal2-container.swal2-backdrop-show {
-        width: 97vh;
-        height: 100vw;
+        width: 97dvh;
+        height: 100dvw;
         position: absolute;
         top: 100%;
         margin-top: 50px;
@@ -676,9 +676,9 @@ a.enlightened {
 @media screen and (min-width: 1201px) {
     .map{
         justify-content: flex-start;
-        --mapWidth:88vw;
+        --mapWidth:88dvw;
         --blockWidth: calc( var(--mapWidth) / var(--columnCount));
-        --blockHeight: calc(90vh / var(--rowCount));
+        --blockHeight: calc(90dvh / var(--rowCount));
     }
     h2.levelTitle{
         margin-top: 1.5em;
@@ -699,8 +699,8 @@ a.enlightened {
         transform: translate(-50%, -50%);
     }
     .navigation-container{
-        height: 90vh;
-        width: 9vw;
+        height: 90dvh;
+        width: 9dvw;
     }
     #fightButton{
         margin: auto;
@@ -713,8 +713,8 @@ a.enlightened {
     }
     .map{
         justify-content: flex-start;
-        --blockHeight: calc(75vh / var(--rowCount));
-        --blockWidth: calc(98vw / var(--columnCount));
+        --blockHeight: calc(75dvh / var(--rowCount));
+        --blockWidth: calc(98dvw / var(--columnCount));
     }
     h1 {
         display: none;
@@ -756,8 +756,8 @@ a.enlightened {
 }
 @media screen and (max-width: 767px) and (orientation:portrait){
     .map{
-        --blockWidth: calc(81vh / var(--columnCount));
-        --blockHeight:calc(92vw / var(--rowCount));
+        --blockWidth: calc(81dvh / var(--columnCount));
+        --blockHeight:calc(92dvw / var(--rowCount));
     }
     .page-container > .row{
         width: 90%;
@@ -773,13 +773,13 @@ a.enlightened {
         padding-top: var(--responsiveNavbarHeight);
     }
     .page-container{
-        height: 100vh;
+        height: 100dvh;
     }
     .page-container > .row{
         height: 100%;
     }
     .map-container{
-        --mapHeight:calc(90vh - var(--responsiveNavbarHeight));
+        --mapHeight:calc(90dvh - var(--responsiveNavbarHeight));
         height: calc(var(--mapHeight) + var(--mapVerticalPadding));
     }
     .map{
@@ -792,6 +792,6 @@ a.enlightened {
 @media screen and (max-height: 500px) and (orientation: landscape)
 {
     .map-container {
-        --mapHeight: calc(82vh - var(--responsiveNavbarHeight));
+        --mapHeight: calc(82dvh - var(--responsiveNavbarHeight));
     }
 }
