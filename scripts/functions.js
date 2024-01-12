@@ -244,7 +244,7 @@ function gainPowerAnimation(power)
       .then((result) => {
         if(result.isConfirmed)
         {
-            window.location.href = "../shop.html"
+            window.location.href.replace("index", "shop")
         }
         else{
             newGame()

@@ -34,7 +34,7 @@ class Boat
 
     get(property)
     {
-        var value = localStorage.getItem('trezora-'+property)
+        var value = localStorage.getItem(property)
         try {
             value =  JSON.parse(value)
         } catch (error) {
@@ -48,9 +48,9 @@ class Boat
         this[property] = value
 
         try {
-            localStorage.setItem('trezora-'+this.dbMap[property], JSON.stringify(value))
+            localStorage.setItem(this.dbMap[property], JSON.stringify(value))
         } catch (error) {
-            localStorage.setItem('trezora-'+this.dbMap[property], value)
+            localStorage.setItem(this.dbMap[property], value)
         }
 
         if(property.includes("LifeAmount"))

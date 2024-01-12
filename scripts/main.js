@@ -1,19 +1,25 @@
-var prefix = "trezora-"
+var params = (new URL(document.location)).searchParams;
+
 function getItem(item)
 {
-    return localStorage.getItem(prefix+item);
+    return localStorage.getItem(item);
 }
 
 function setItem(item, value)
 {
-    return localStorage.setItem(prefix+item, value);
+    return localStorage.setItem(item, value);
 }
 function removeItem(item)
 {
-    return localStorage.removeItem(prefix+item);
+    return localStorage.removeItem(item);
 }
+
 function init()
 {
+    if(params.has("clear"))
+    {
+        localStorage.clear()
+    }
     if(getItem('itemsInShop') == null)
     {
         setItem("itemsInShop", JSON.stringify(gamesystem.shopItems))
@@ -93,6 +99,10 @@ function init()
     if(getItem('ennemy_strength') == null)
     {
         setItem("ennemy_strength", JSON.stringify(gamesystem.ennemyStrengths[0]))
+    }
+    if(params.has("rosebud"))
+    {
+        setItem('playerCoins', parseInt(getItem('playerCoins')) + 5000)
     }
 }
 init()
