@@ -19,10 +19,26 @@ function init()
     if(params.has("clear"))
     {
         localStorage.clear()
+        window.location.href = window.location.href.replace(window.location.search, "") 
+    }
+    if(getItem('firstgame') == null)
+    {
+        setItem('firstgame', 1);
     }
     if(getItem('itemsInShop') == null)
     {
-        setItem("itemsInShop", JSON.stringify(gamesystem.shopItems))
+        const shopItems = Object.assign(gamesystem.shopItems)
+        if(getItem('firstgame') == 1)
+        {
+            for(let item of shopItems)
+            {
+                if(item.type == "power")
+                {
+                    item.quantity = 1;
+                }
+            }
+        }
+        setItem("itemsInShop", JSON.stringify(shopItems))
     }
     if(getItem('inventory') == null)
     {

@@ -102,7 +102,7 @@ class Gamesystem
             {
                 name : "compass",
                 title : "Compass",
-                cost : 1000,
+                cost : 500,
                 quantity : 0,
                 type : "power",
                 image: "./images/powers/compass.svg",
@@ -110,7 +110,7 @@ class Gamesystem
             {
                 name : "reveal",
                 title : "Reveal",
-                cost : 1000,
+                cost : 500,
                 quantity : 0,
                 type : "power",
                 image: "./images/powers/reveal.svg",
@@ -118,7 +118,7 @@ class Gamesystem
             {
                 name : "doublespeed",
                 title : "Double speed",
-                cost : 5000,
+                cost : 1000,
                 quantity : 0,
                 type : "power",
                 image: "./images/powers/x2.png",
@@ -126,7 +126,7 @@ class Gamesystem
             {
                 name : "teleport",
                 title : "Teleport",
-                cost : 5000,
+                cost : 1000,
                 quantity : 0,
                 type : "power",
                 image: "./images/powers/teleport.svg",

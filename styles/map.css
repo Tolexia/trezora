@@ -670,9 +670,6 @@ a.enlightened {
         max-width: unset;
         flex: unset;
     }
-    .kraken, .shark{
-        background-size: contain;
-    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -688,6 +685,9 @@ a.enlightened {
 @media screen and (min-width: 768px) and (max-width: 1200px)  and (orientation:portrait){
     .page-container{
         margin-top: 1.5em;
+    }
+    .kraken, .shark{
+        background-size: contain;
     }
 }
 @media screen and (max-width: 767px) and (orientation:portrait){
@@ -809,5 +809,8 @@ a.enlightened {
     }
     .map-container {
         --mapHeight: calc(82dvh - var(--responsiveNavbarHeight));
+    }
+    .kraken, .shark{
+        background-size: contain;
     }
 }

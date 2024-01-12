@@ -101,19 +101,21 @@ function moveDirection(direction, boat = null, node = null)
             {
                 node.classList.remove("enlightened");
             }
-            randLoot()
             // Let player attack nearby creatures
             boat.refreshNearbyTargets()
         }
-
-        callBackAfterTurn(node)
+        else
+        {
+            callBackAfterTurn()
+        }
+        handleVisibilityFightButton()
 
         document.body.style.pointerEvents = "";
     }, (gamesystem.movementAnimationDuration) * 1000);
 }
 function callBackAfterTurn()
 {
-    handleVisibilityFightButton()
+    randLoot()
 }
 function handleVisibilityFightButton()
 {
@@ -196,15 +198,20 @@ function gainXp(hasWon = true)
     return xp;
 }
 
-function reachLvl()
+function reachLvl(force = false)
 {
     const xp = parseInt(getItem('playerXp'))
     const lvl = parseInt(getItem('playerLvl'))
     const nxtLvlXpReach = gamesystem.levels[lvl+1]
-    if(xp >= nxtLvlXpReach)
+    if(xp >= nxtLvlXpReach || force)
     {
         const newLvl = lvl+1
         setItem("playerLvl", newLvl)
+        const node = document.getElementById('level')
+        if(node != null)
+        {
+            node.innerText = newLvl;
+        }
         gainPower(newLvl)
     }
     else{
@@ -215,13 +222,14 @@ function gainPower(lvl)
 {
     const newPower = gamesystem.powerReaches[lvl]
     const powersUnlocked = JSON.parse(getItem('powersUnlocked'))
-    if(!powersUnlocked.find(el => el == newPower))
+    if(newPower && !powersUnlocked.find(el => el == newPower))
     {
         powersUnlocked.push(newPower)
         setItem("powersUnlocked", JSON.stringify(powersUnlocked))
         gainPowerAnimation(newPower)
     }else{
-        newGame()
+        if(!params || !params.has("advlevel"))
+            newGame()
     }
 }
 function gainPowerAnimation(power)
@@ -321,6 +329,10 @@ function checkIfWon(boat = null)
 
 function wonAnimation(xp, coins)
 {
+    if(getItem('firstgame') == 1)
+    {
+        setItem('firstgame', 0);
+    }
     Swal.fire({
         title: 'You win!',
         html: `Congrats !<br>Treasure found in ${getItem('trycount')} attempts.<br>${xp} xp and ${coins} coins won !`,
@@ -336,6 +348,10 @@ function wonAnimation(xp, coins)
 }
 function loseAnimation()
 {
+    if(getItem('firstgame') == 1)
+    {
+        setItem('firstgame', 0);
+    }
     let xp = gainXp(false);
     let coins = gainCoins(false);
     setItem('playerXp', parseInt(getItem('playerXp')) + xp)
@@ -523,6 +539,8 @@ function fightCreature(boat, tileObject, creatureType) {
                 setItem(tileNode.dataset.cordX + "-" + tileNode.dataset.cordY, "sea")
                 if(boat.player == "human")
                 {
+                    setItem("dropRate", 0)
+                    moveBoatAuto()
                     setTimeout(() => {
                         randLoot(true)
                     }, 200);
@@ -931,7 +949,7 @@ function hidePowersNotUnlocked()
         const isPowerUnlocked = powersUnlocked.find(el => el == domPower.dataset.power)
         const powerItem = itemsInShop.find(el => el.name == domPower.dataset.power)
         const isPowerBought = powerItem && powerItem.quantity && powerItem.quantity > 0
-        if(!isPowerUnlocked || !isPowerBought)
+        if( !getItem("firstgame") && (!isPowerUnlocked || !isPowerBought) )
         {
             domPower.dataset.quantity = 0
             domPower.removeAttribute("onclick")
@@ -1003,4 +1021,10 @@ function creatureAttack(boat, creature, tile)
     creatureStats.domElement = tile
     
     fight(creatureStats, boat)
+}
+
+/* Cheat (it's bad)*/
+if(params.has("advlevel"))
+{
+    reachLvl(true)
 }

@@ -135,7 +135,7 @@ function alertNotEnoughMoney()
 
 function buy(item)
 {
-    if(!isNaN(parseInt(item.quantity))  && item.quantity > 1)
+    if(!isNaN(parseInt(item.quantity)))
     {
         purchaseMultipleItems(item)
     }
