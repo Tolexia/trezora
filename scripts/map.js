@@ -179,22 +179,24 @@ function newGame()
 function gainXp(hasWon = true)
 {
     let xp = 0;
-    if(parseInt(getItem('trycount')) <= 3 || !hasWon)
+    if(parseInt(getItem('trycount')) <= 3 )
     {
-        xp = 50;
+        xp = (hasWon ? 100 : 70);
     }
     else if(parseInt(getItem('trycount')) <= 6)
     {
-        xp = 100;
+        xp = (hasWon ? 250 : 200);
     }
     else if(parseInt(getItem('trycount')) <= 9)
     {
-        xp = 250;
+        xp = (hasWon ? 400 : 300);
     }
     else if(parseInt(getItem('trycount')) > 9)
     {
-        xp = 500;
+        xp = (hasWon ? 600 : 500);
     }
+    const lvl = parseInt(getItem('playerLvl'))
+    xp = (xp * lvl);
     return xp;
 }
 
@@ -622,11 +624,18 @@ function compass()
             node.classList.add("enlightened");
         }
     })
+    usePowerToast("Direction enlightened.")
 }
 function usePower(domPower)
 {
     const power = domPower.dataset.power 
-    window[power]()
+
+    if(parseInt(domPower.dataset.quantity) <= 0)
+        return;
+
+    const skippedAlerts = JSON.parse(getItem("skippedAlerts"))
+    const skip = skippedAlerts.includes(power)
+    window[power](skip)
     domPower.dataset.quantity = parseInt(domPower.dataset.quantity)-1
     const itemsInShop = JSON.parse(getItem('itemsInShop'));
     const powerItem = itemsInShop.find(el => el.name == domPower.dataset.power)
@@ -637,22 +646,32 @@ function usePower(domPower)
     }
     hidePowersNotUnlocked()
 }
-function reveal()
+async function reveal(skip = false)
 {
-    Swal.fire({
-            text: 'Touch a tile to reveal if the treasure is hidden on it or not',
-            icon: 'info',
-            confirmButtonText: 'Cool',
-            showConfirmButton: true
-    }).then(result => {
-        if(result.isConfirmed)
+    if(!skip)
+    {
+        const result = await Swal.fire({
+                text: 'Touch a tile to reveal if the treasure is hidden on it or not',
+                icon: 'info',
+                showConfirmButton: true,
+                showDenyButton: true,
+                confirmButtonText: 'Understood',
+                denyButtonText: "Don't show again",
+        })
+        if(result.isDenied)
         {
-            const tiles = document.querySelectorAll('.tile');
-            tiles.forEach(tile => {
-                tile.addEventListener('click', handleReveal)
-            })
+            addSkippedAlert("reveal")
         }
+    }
+    else
+    {
+        usePowerToast("Reveal on touch.")
+    }
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => {
+        tile.addEventListener('click', handleReveal)
     })
+   
 }
 
 function handleReveal(e)
@@ -661,7 +680,7 @@ function handleReveal(e)
     {
         Swal.fire({
             title: "Congrats!", 
-            text: 'You have found the treasure, now claim it !',
+            text: 'Here lies the treasure, rush at it !',
             icon: 'success',
             confirmButtonText: 'GO',
             showConfirmButton: true
@@ -687,32 +706,39 @@ function handleReveal(e)
 
 function doublespeed()
 {
-    Swal.fire({
-        text: 'Speed doubled !',
-        icon: 'success',
-        confirmButtonText: 'GO',
-        showConfirmButton: true
-    })
-    .then(res => {
-        setItem('speed', "2");
-    })
+    usePowerToast("Speed doubled.")
+    setItem('speed', "2");
 }
-
-function teleport()
+function addSkippedAlert(alert)
 {
-    Swal.fire({
-            text: "Touch a tile to instantly get to it, it's magic !",
-            icon: 'info',
-            confirmButtonText: "Let's go",
-            showConfirmButton: true
-    }).then(result => {
-        if(result.isConfirmed)
+    const skippedAlerts = JSON.parse(getItem("skippedAlerts"))
+    skippedAlerts.push(alert)
+    setItem("skippedAlerts", JSON.stringify(skippedAlerts))
+}
+async function teleport(skip = false)
+{
+    if(!skip)
+    {
+        const result = await Swal.fire({
+                text: "Touch a tile to instantly get to it, it's magic !",
+                icon: 'info',
+                confirmButtonText: "Let's go",
+                showConfirmButton: true,
+                showDenyButton: true,
+                denyButtonText: "Don't show again",
+        })
+        if(result.isDenied)
         {
-            const tiles = document.querySelectorAll('.tile');
-            tiles.forEach(tile => {
-                tile.addEventListener('click', handleTeleport)
-            })
+            addSkippedAlert("teleport")
         }
+    }
+    else
+    {
+        usePowerToast("Teleport on touch.")
+    }
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => {
+        tile.addEventListener('click', handleTeleport)
     })
 }
 
@@ -737,6 +763,16 @@ function handleTeleport(e)
     document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleTeleport))
 }
 
+function usePowerToast(label)
+{
+    return;
+    iziToast.info({
+        title: 'Power used',
+        message: label,
+        layout:2,
+        timeout: 50000,
+    });
+}
 function confirmNewGame()
 {
     Swal.fire({

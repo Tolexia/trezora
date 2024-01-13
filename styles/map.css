@@ -151,10 +151,8 @@ h2 {
     color: white!important;
     font-size: 30px;
 }
-.navigation a:hover {
-    color:grey!important;
-}
-a.enlightened {
+
+.navigation a.enlightened {
     color : rgba(4,232,0,0.75)!important;
 }
 .nav-item {
@@ -459,11 +457,11 @@ a.enlightened {
         opacity: 0;
     }
     20%{
-        scale: 2;
+        scale: 1;
         opacity: 1;
     }
     100%{
-        scale: 2;
+        scale: 0.5;
         opacity: 0;
     }
 }
@@ -475,7 +473,7 @@ a.enlightened {
     }
     20%{
         transform: translateY(0);
-        scale: 3;
+        scale: 2;
         opacity: 1;
     }
     100%{
@@ -600,12 +598,6 @@ a.enlightened {
 
 /* MEDIA QUERIES */
 
-/* Force landscape display */
-@media screen and (max-width: 767px) and (orientation: portrait) {
-   
-    
-}
-
 @media screen and (min-width: 1201px) {
     .map{
         justify-content: flex-start;
@@ -630,6 +622,9 @@ a.enlightened {
     }
     .north, .south, .west, .east{
         transform: translate(-50%, -50%);
+    }
+    .navigation a:hover {
+        filter: brightness(0.8);
     }
     .navigation-container{
         height: 90dvh;
@@ -690,6 +685,8 @@ a.enlightened {
         background-size: contain;
     }
 }
+
+/* Force landscape display */
 @media screen and (max-width: 767px) and (orientation:portrait){
 
     body {
@@ -722,7 +719,7 @@ a.enlightened {
     }
     .navigation a 
     {
-        color: rgba(255, 255, 255, 0.711)!important;
+        color: rgba(255, 255, 255, 0.818)!important;
     }
     .page-container {
         width: 100dvh;
@@ -774,7 +771,7 @@ a.enlightened {
     h2 {
         margin-top: 5px;
     }
-
+    
 }
 @media screen and (max-width: 1200px) and (orientation:landscape)
 {

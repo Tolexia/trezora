@@ -116,6 +116,10 @@ function init()
     {
         setItem("ennemy_strength", JSON.stringify(gamesystem.ennemyStrengths[0]))
     }
+    if(getItem('skippedAlerts') == null)
+    {
+        setItem("skippedAlerts", JSON.stringify([]))
+    }
     if(params.has("rosebud"))
     {
         setItem('playerCoins', parseInt(getItem('playerCoins')) + 5000)
