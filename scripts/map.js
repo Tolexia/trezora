@@ -312,6 +312,7 @@ function checkIfWon(boat = null)
                 goneThere.push(coordX+"-"+coordY)
             }
             setItem('goneThere', JSON.stringify(goneThere))
+            updateDisplayGoneThere(goneThere)
             if(boat.player == "AI")
             {
                 setItem('trycount', parseInt(getItem('trycount'))+1);
@@ -1057,6 +1058,22 @@ function creatureAttack(boat, creature, tile)
     creatureStats.domElement = tile
     
     fight(creatureStats, boat)
+}
+
+function updateDisplayGoneThere(goneThere)
+{
+    let selector
+    for(let tile of goneThere)
+    {
+        let x = tile.substring(0, tile.indexOf("-"))
+        let y = tile.substring(tile.indexOf("-")+1)
+         selector += `
+            .tile[data-cord-x="${x}"][data-cord-y="${y}"]:not(.visited)
+        `
+        if(tile != goneThere[goneThere.length-1])
+            selector += ","
+    }
+    document.querySelectorAll(selector).forEach(newVisited => newVisited.classList.add("visited"))
 }
 
 /* Cheat (it's bad)*/

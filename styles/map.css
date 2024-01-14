@@ -54,7 +54,9 @@ h2 {
     background-position: center;
     padding: 0 5px;
 }
-
+.tile.visited {
+    background-color: #f3ebebbd;
+}
 .tile:hover {
     box-shadow: 0 0 1px var(--dark);
 }
