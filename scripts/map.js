@@ -625,7 +625,7 @@ function compass()
             node.classList.add("enlightened");
         }
     })
-    usePowerToast("Direction enlightened.")
+    usePowerToast("compass")
 }
 function usePower(domPower)
 {
@@ -666,7 +666,7 @@ async function reveal(skip = false)
     }
     else
     {
-        usePowerToast("Reveal on touch.")
+        usePowerToast("reveal")
     }
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => {
@@ -707,7 +707,7 @@ function handleReveal(e)
 
 function doublespeed()
 {
-    usePowerToast("Speed doubled.")
+    usePowerToast("doublespeed")
     setItem('speed', "2");
 }
 function addSkippedAlert(alert)
@@ -735,7 +735,7 @@ async function teleport(skip = false)
     }
     else
     {
-        usePowerToast("Teleport on touch.")
+        usePowerToast("teleport")
     }
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => {
@@ -764,15 +764,16 @@ function handleTeleport(e)
     document.querySelectorAll('.tile').forEach(tile => tile.removeEventListener('click', handleTeleport))
 }
 
-function usePowerToast(label)
+function usePowerToast(power)
 {
-    return;
-    iziToast.info({
-        title: 'Power used',
-        message: label,
-        layout:2,
-        timeout: 50000,
-    });
+    const icon= document.querySelector(`.navresponsive [data-power="${power}"]`)
+    const animated = icon.cloneNode(true)
+    window.map.appendChild(animated)
+    animated.className = "powerAnimated"
+    animated.dataset.quantity = ""
+    setTimeout(() => {
+        animated.remove()
+    }, 2000);
 }
 function confirmNewGame()
 {
