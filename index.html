@@ -290,6 +290,10 @@
     document.querySelectorAll('.navresponsive .nav-item').forEach(el => el.addEventListener("click", () => chevron.click()))
     if(getItem('displayTuto') != "no")
     {
+        intro();
+    }
+    else if(getItem('firstgame') == 1)
+    {
         tutorial();
     }
     else

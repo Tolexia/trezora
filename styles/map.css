@@ -291,6 +291,19 @@ h2 {
     animation: rotateMarker 5s linear infinite forwards;
 }
 
+body .unselectionable{
+    pointer-events: none!important;
+    filter: brightness(.3)!important;
+}
+.pointer {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url(../images/hand_small.png);
+    background-position: center;
+    background-size: contain;
+}
+
 /* KEYFRAMES */
 @keyframes myBoat2 {
     0% {

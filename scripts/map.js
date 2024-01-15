@@ -792,7 +792,7 @@ function confirmNewGame()
     })
 }
 
-function tutorial()
+function intro()
 {
     let html = "<p>";
     html += "Greetings, fellow sailor !<br />";
@@ -932,7 +932,37 @@ function tutorial()
     })
     setItem('displayTuto',"no");
 }
+async function tutorial()
+{
+    // First step
+    await Swal.fire({
+        title: "Moving",
+        html: "Move by selecting a direction",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#5b0a2cc3",
+        showConfirmButton: true,
+    })
 
+    const allButDirections = document.querySelectorAll('body *:not(.navigation a)')
+    allButDirections.forEach(el => el.classList.add("unselectionable"))
+
+    const pointer = document.createElement('div')
+    const east = document.querySelector('.east')
+    pointer.classList.add("pointer")
+    pointer.style.left = east.offsetLeft
+    pointer.style.top = east.offsetTop
+    east.parentNode.appendChild(pointer)
+
+    document.querySelectorAll('.navigation a').addEventListener("click", validateFirstStepTuto)
+}
+function validateFirstStepTuto()
+{
+    document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
+    document.querySelectorAll('.navigation a').removeEventListener("click", validateFirstStepTuto)
+    setTimeout(() => {
+        
+    }, 2000);
+}
 function fight(attacker, defender)
 {
     const attackPower = attacker.attackPower;
