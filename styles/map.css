@@ -36,7 +36,7 @@ h2 {
     background-image: url('../images/map/map.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: .5em var(--mapVerticalPadding);
+    padding: 0 var(--mapVerticalPadding);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -302,6 +302,9 @@ body .unselectionable{
     background-image: url(../images/hand_small.png);
     background-position: center;
     background-size: contain;
+    background-repeat: no-repeat;
+
+    animation: point 1s ease-in-out infinite alternate;
 }
 
 /* KEYFRAMES */
@@ -706,6 +709,15 @@ body .unselectionable{
         -webkit-filter: blur(40px);
                 filter: blur(40px);
         opacity: 0;
+    }
+}
+
+@keyframes point {
+    from{
+        transform: rotate(5deg) translateY(-10px);
+    }
+    to{
+        transform: rotate(-15deg) translateY(-5px);
     }
 }
 

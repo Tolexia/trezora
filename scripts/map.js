@@ -852,7 +852,7 @@ function intro()
                             html += "<li><b>Compass</b>: cardinal letters indicating the direction of the treasure will be green enlightened</li>";
                             html += "<li><b>Reveal</b>: click a tile to reveal if the treasure is hidden there or not.</li>";
                             html += "<li><b>Double speed</b>: The next move will make you reach 2 tiles instead of one.</li>";
-                            html += "<li><b>Teleport</b>: Click a tile to magically appear on it, after a sweet animation. Hope you'll like it ;).</li>";
+                            html += "<li><b>Teleport</b>: Click a tile to magically appear on it, after a sweet animation.</li>";
                             html += "</ul>";
                             Swal.fire({
                                 title: "Powers",
@@ -932,9 +932,14 @@ function intro()
     })
     setItem('displayTuto',"no");
 }
+var validation = () => validateFirstStepTuto()
+var tutoStepsPassed = JSON.parse(getItem("tutoStepsPassed"))
 async function tutorial()
 {
-    // First step
+    if(tutoStepsPassed.includes("first"))
+        return validateFirstStepTuto();
+
+    // First step : Moving
     await Swal.fire({
         title: "Moving",
         html: "Move by selecting a direction",
@@ -943,25 +948,45 @@ async function tutorial()
         showConfirmButton: true,
     })
 
-    const allButDirections = document.querySelectorAll('body *:not(.navigation a)')
-    allButDirections.forEach(el => el.classList.add("unselectionable"))
+    const elementsToHide = document.querySelectorAll('.map-container, nav.navbar')
+    elementsToHide.forEach(el => el.classList.add("unselectionable"))
 
     const pointer = document.createElement('div')
-    const east = document.querySelector('.east')
+    const south = document.querySelector('.south')
     pointer.classList.add("pointer")
-    pointer.style.left = east.offsetLeft
-    pointer.style.top = east.offsetTop
-    east.parentNode.appendChild(pointer)
+    pointer.style.left = south.offsetLeft+"px"
+    pointer.style.top = south.offsetTop+"px"
+    south.parentNode.appendChild(pointer)
 
-    document.querySelectorAll('.navigation a').addEventListener("click", validateFirstStepTuto)
+    
+    document.querySelectorAll('.navigation a').forEach(el => el.addEventListener("click", validation))
 }
 function validateFirstStepTuto()
 {
+    if(tutoStepsPassed.includes("second"))
+        return ;
+
+    tutoStepsPassed.push("first")
+    setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
-    document.querySelectorAll('.navigation a').removeEventListener("click", validateFirstStepTuto)
+    document.querySelectorAll('.navigation a').forEach(el => el.removeEventListener("click", validation))
     setTimeout(() => {
-        
-    }, 2000);
+        Swal.fire({
+            title: "Powers",
+            html: "As a gift, you were given one unit of each power.<br/>Use them carefully, you'll have the unlock them next by reaching levels and buy them in shop.",
+            confirmButtonText: "Ok",
+            confirmButtonColor: "#5b0a2cc3",
+            showConfirmButton: true,
+        }).then((res) => {
+            tutoStepsPassed.push("second")
+            setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
+        })
+    }, (gamesystem.movementAnimationDuration * 1000) + 500);
+}
+
+function tutoFight()
+{
+    
 }
 function fight(attacker, defender)
 {
@@ -1093,17 +1118,17 @@ function creatureAttack(boat, creature, tile)
 
 function updateDisplayGoneThere(goneThere)
 {
-    let selector
+    let selector = ""
     for(let tile of goneThere)
     {
         let x = tile.substring(0, tile.indexOf("-"))
         let y = tile.substring(tile.indexOf("-")+1)
-         selector += `
-            .tile[data-cord-x="${x}"][data-cord-y="${y}"]:not(.visited)
-        `
+        selector += `.tile[data-cord-x="${x}"][data-cord-y="${y}"]:not(.visited)`
+
         if(tile != goneThere[goneThere.length-1])
             selector += ","
     }
+   
     document.querySelectorAll(selector).forEach(newVisited => newVisited.classList.add("visited"))
 }
 

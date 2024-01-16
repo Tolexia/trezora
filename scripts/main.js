@@ -120,6 +120,10 @@ function init()
     {
         setItem("skippedAlerts", JSON.stringify([]))
     }
+    if(getItem('tutoStepsPassed') == null)
+    {
+        setItem("tutoStepsPassed", JSON.stringify([]))
+    }
     if(params.has("rosebud"))
     {
         setItem('playerCoins', parseInt(getItem('playerCoins')) + 5000)
