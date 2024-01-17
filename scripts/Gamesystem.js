@@ -256,6 +256,8 @@ class Gamesystem
                 rows:8
             }
         ]
+        this.pointer = document.createElement('div')
+        this.pointer.className = "pointer"
     }
 }
 

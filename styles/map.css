@@ -295,6 +295,10 @@ body .unselectionable{
     pointer-events: none!important;
     filter: brightness(.3)!important;
 }
+body .tile.unselectionable
+{
+    background-color: black;
+}
 .pointer {
     position: absolute;
     width: 40px;

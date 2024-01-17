@@ -1,4 +1,4 @@
-
+var tutoStepsPassed = JSON.parse(getItem("tutoStepsPassed"))
 
 function moveDirection(direction, boat = null, node = null)
 {
@@ -125,6 +125,10 @@ function handleVisibilityFightButton()
     )
     {
         window.fightButton.classList.remove('disabled')
+        if(!tutoStepsPassed.includes("fightBoat"))
+        {
+            tutoFightBoat()
+        }
     }
     else 
     {
@@ -254,7 +258,7 @@ function gainPowerAnimation(power)
       .then((result) => {
         if(result.isConfirmed)
         {
-            window.location.href.replace("index", "shop")
+            window.location.href =  window.location.href.replace("index", "shop")
         }
         else{
             newGame()
@@ -805,7 +809,7 @@ function intro()
         title: "Find the treasure !",
         html: html,
         confirmButtonText: "Start",
-        cancelButtonText: "Skip tutorial",
+        cancelButtonText: "Skip intro",
         showConfirmButton: true,
         showCancelButton: true
     }).then(result => {
@@ -822,7 +826,7 @@ function intro()
                 html: html,
                 confirmButtonText: "Continue",
                 confirmButtonColor: "green",
-                cancelButtonText: "Skip tutorial",
+                cancelButtonText: "Skip intro",
                 showConfirmButton: true,
                 showCancelButton: true
             })
@@ -840,7 +844,7 @@ function intro()
                         html: html,
                         confirmButtonText: "Continue",
                         confirmButtonColor: "green",
-                        cancelButtonText: "Skip tutorial",
+                        cancelButtonText: "Skip intro",
                         showConfirmButton: true,
                         showCancelButton: true
                     })
@@ -859,7 +863,7 @@ function intro()
                                 html: html,
                                 confirmButtonText: "Continue",
                                 confirmButtonColor: "green",
-                                cancelButtonText: "Skip tutorial",
+                                cancelButtonText: "Skip intro",
                                 showConfirmButton: true,
                                 showCancelButton: true
                             })
@@ -875,7 +879,7 @@ function intro()
                                         html: html,
                                         confirmButtonText: "Continue",
                                         confirmButtonColor: "green",
-                                        cancelButtonText: "Skip tutorial",
+                                        cancelButtonText: "Skip intro",
                                         showConfirmButton: true,
                                         showCancelButton: true
                                     })
@@ -932,12 +936,15 @@ function intro()
     })
     setItem('displayTuto',"no");
 }
-var validation = () => validateFirstStepTuto()
-var tutoStepsPassed = JSON.parse(getItem("tutoStepsPassed"))
+var validationMove = () => validateTutoStepMove()
+var validationPower = () => validateTutoStepPower()
+var validationFightCreature = () => validationTutoFightCreature()
+var validationFightBoat = () => validationTutoFightBoat()
+
 async function tutorial()
 {
-    if(tutoStepsPassed.includes("first"))
-        return validateFirstStepTuto();
+    if(tutoStepsPassed.includes("move"))
+        return validateTutoStepMove();
 
     // First step : Moving
     await Swal.fire({
@@ -951,91 +958,131 @@ async function tutorial()
     const elementsToHide = document.querySelectorAll('.map-container, nav.navbar')
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
 
-    const pointer = document.createElement('div')
     const south = document.querySelector('.south')
-    pointer.classList.add("pointer")
-    pointer.style.left = south.offsetLeft+"px"
-    pointer.style.top = south.offsetTop+"px"
-    south.parentNode.appendChild(pointer)
-
+    gamesystem.pointer.style.left = south.offsetLeft+"px"
+    gamesystem.pointer.style.top = south.offsetTop+"px"
+    south.parentNode.appendChild(gamesystem.pointer)
     
-    document.querySelectorAll('.navigation a').forEach(el => el.addEventListener("click", validation))
+    document.querySelectorAll('.navigation a').forEach(el => el.addEventListener("click", validationMove))
 }
-// async function tutorial()
-// {
-//     // First step
-//     await Swal.fire({
-//         title: "Moving",
-//         html: "Move by selecting a direction",
-//         confirmButtonText: "Ok",
-//         confirmButtonColor: "#5b0a2cc3",
-//         showConfirmButton: true,
-//     })
 
-//     const allButDirections = document.querySelectorAll('body *:not(.navigation a)')
-//     allButDirections.forEach(el => el.classList.add("unselectionable"))
-
-//     const pointer = document.createElement('div')
-//     const east = document.querySelector('.east')
-//     pointer.classList.add("pointer")
-//     pointer.style.left = east.offsetLeft
-//     pointer.style.top = east.offsetTop
-//     east.parentNode.appendChild(pointer)
-//     window.pointer = pointer
-    
-//     document.querySelectorAll('.navigation a').addEventListener("click", validateFirstStepTuto)
-// }
-// function validateFirstStepTuto()
-// {
-//     window.pointer.style.display = "none"
-//     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
-//     document.querySelectorAll('.navigation a').removeEventListener("click", validateFirstStepTuto)
-//     setItem("tutoFightCreature", 1)
-//     setTimeout(() => {
-//         window.boat.refreshNearbyTargets()
-//     }, 1000);
-// }
-// async function tutoFightCreature(nodeTileCreature)
-// {
-//     await Swal.fire({
-//         title: "Attacking Creatures",
-//         html: "Getting rid of creatures with a sword icon over is possible when you pass nearby.",
-//         confirmButtonText: "Ok",
-//         confirmButtonColor: "#5b0a2cc3",
-//         showConfirmButton: true,
-//     })
-    
-//     window.pointer.style.left = nodeTileCreature.offsetLeft + (nodeTileCreature)
-//     window.pointer.style.top = east.offsetTop
-//     window.pointer.style.display = "block"
-//     east.parentNode.appendChild(window.pointer)
-// }
-function validateFirstStepTuto()
+function validateTutoStepMove()
 {
-    if(tutoStepsPassed.includes("second"))
-        return ;
 
-    tutoStepsPassed.push("first")
+    tutoStepsPassed.push("move")
+    gamesystem.pointer.style.display = "none"
     setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
-    document.querySelectorAll('.navigation a').forEach(el => el.removeEventListener("click", validation))
+    document.querySelectorAll('.navigation a').forEach(el => el.removeEventListener("click", validationMove))
     setTimeout(() => {
-        Swal.fire({
-            title: "Powers",
-            html: "As a gift, you were given one unit of each power.<br/>Use them carefully, you'll have the unlock them next by reaching levels and buy them in shop.",
-            confirmButtonText: "Ok",
-            confirmButtonColor: "#5b0a2cc3",
-            showConfirmButton: true,
-        }).then((res) => {
-            tutoStepsPassed.push("second")
-            setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
-        })
+        tutoPower()
     }, (gamesystem.movementAnimationDuration * 1000) + 500);
 }
-
-function tutoFight()
+function tutoPower()
 {
+    if(tutoStepsPassed.includes("power"))
+        return ;
+
+    Swal.fire({
+        title: "Powers",
+        html: "As a gift, you were given one unit of each power.<br/>Use them carefully, you'll have to unlock them next by reaching levels and buy them in shop.",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#5b0a2cc3",
+        showConfirmButton: true,
+    })
+
+    const selector = (window.innerWidth > 991 ? ".dropdown:nth-child(2)" : ".navbar-toggler-icon")
+    const elementsToHide = document.querySelectorAll(`.map-container, .navigation, .navbar-nav :not(${selector})`)
+    elementsToHide.forEach(el => el.classList.add("unselectionable"))
+
+    const element = document.querySelector(selector)
+    window.powerTutoNode = element
+    gamesystem.pointer.style.left = (element.offsetLeft + (element.clientWidth / 2)) + "px"
+    gamesystem.pointer.style.top = (element.offsetTop + (element.clientHeight / 2)) + "px"
+    gamesystem.pointer.style.display = "block"
+    element.parentNode.appendChild(gamesystem.pointer)
+
+    element.addEventListener("click", validationPower)
+
+}
+
+function validateTutoStepPower()
+{
+    gamesystem.pointer.style.display = "none"
+    document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
+    window.powerTutoNode.removeEventListener("click", validationPower)
+    tutoStepsPassed.push("power")
+    setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
+}
+function tutoFightCreature(nodeTileCreature)
+{
+
+    Swal.fire({
+        title: "Attacking Creatures",
+        html: "Getting rid of creatures with a sword icon over is possible when you pass nearby.",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#5b0a2cc3",
+        showConfirmButton: true,
+    })
+
+    const selectorTileCreature = `[data-cord-x="${nodeTileCreature.dataset.cordX}"][data-cord-y="${nodeTileCreature.dataset.cordY}"]`
+    window.selectorTileCreature = selectorTileCreature
+    const elementsToHide = document.querySelectorAll(`nav.navbar, .navigation, .tile:not(${selectorTileCreature})`)
+    elementsToHide.forEach(el => el.classList.add("unselectionable"))
     
+    gamesystem.pointer.style.left = (nodeTileCreature.offsetLeft + (nodeTileCreature.clientWidth / 2)) + "px"
+    gamesystem.pointer.style.top = (nodeTileCreature.offsetTop + (nodeTileCreature.clientHeight / 2)) + "px"
+    gamesystem.pointer.style.display = "block"
+    nodeTileCreature.parentNode.appendChild(gamesystem.pointer)
+
+    document.querySelectorAll(`.tile${selectorTileCreature}`).forEach(el => el.addEventListener("click", validationFightCreature))
+}
+function validationTutoFightCreature()
+{
+    gamesystem.pointer.style.display = "none"
+    document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
+    document.querySelectorAll(`.tile${window.selectorTileCreature}`).forEach(el => el.removeEventListener("click", validationFightCreature))
+    tutoStepsPassed.push("creature")
+    setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
+    removeItem("tutoFightCreature")
+}
+function tutoFightBoat()
+{
+    if(tutoStepsPassed.includes("fightBoat"))
+        return ;
+
+
+    const elementsToHide = document.querySelectorAll(`nav.navbar, .map-container, .navigation :not(#fightButton, #fightButton img)`)
+    elementsToHide.forEach(el => el.classList.add("unselectionable"))
+        
+    Swal.fire({
+        title: "Attacking Boat Opponent",
+        html: "You can attack your enemy when you both are close enough.<br/>Interact with this icon.",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#5b0a2cc3",
+        showConfirmButton: true,
+    })
+
+    gamesystem.pointer.style.left = (window.fightButton.offsetLeft + window.fightButton.clientWidth) + "px"
+    gamesystem.pointer.style.top = (window.fightButton.offsetTop + window.fightButton.clientHeight) + "px"
+    gamesystem.pointer.style.display = "block"
+    window.fightButton.parentNode.appendChild(gamesystem.pointer)
+
+    window.fightButton.addEventListener("click", validationFightBoat)
+}
+
+function validationTutoFightBoat()
+{
+    if(tutoStepsPassed.includes("fightBoat"))
+        return ;
+
+    
+    gamesystem.pointer.style.display = "none"
+    document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
+    window.fightButton.removeEventListener("click", validationFightCreature)
+    tutoStepsPassed.push("fightBoat")
+    setItem("tutoStepsPassed", JSON.stringify(tutoStepsPassed))
+    removeItem("tutoFightCreature")
 }
 function fight(attacker, defender)
 {
