@@ -961,6 +961,55 @@ async function tutorial()
     
     document.querySelectorAll('.navigation a').forEach(el => el.addEventListener("click", validation))
 }
+// async function tutorial()
+// {
+//     // First step
+//     await Swal.fire({
+//         title: "Moving",
+//         html: "Move by selecting a direction",
+//         confirmButtonText: "Ok",
+//         confirmButtonColor: "#5b0a2cc3",
+//         showConfirmButton: true,
+//     })
+
+//     const allButDirections = document.querySelectorAll('body *:not(.navigation a)')
+//     allButDirections.forEach(el => el.classList.add("unselectionable"))
+
+//     const pointer = document.createElement('div')
+//     const east = document.querySelector('.east')
+//     pointer.classList.add("pointer")
+//     pointer.style.left = east.offsetLeft
+//     pointer.style.top = east.offsetTop
+//     east.parentNode.appendChild(pointer)
+//     window.pointer = pointer
+    
+//     document.querySelectorAll('.navigation a').addEventListener("click", validateFirstStepTuto)
+// }
+// function validateFirstStepTuto()
+// {
+//     window.pointer.style.display = "none"
+//     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
+//     document.querySelectorAll('.navigation a').removeEventListener("click", validateFirstStepTuto)
+//     setItem("tutoFightCreature", 1)
+//     setTimeout(() => {
+//         window.boat.refreshNearbyTargets()
+//     }, 1000);
+// }
+// async function tutoFightCreature(nodeTileCreature)
+// {
+//     await Swal.fire({
+//         title: "Attacking Creatures",
+//         html: "Getting rid of creatures with a sword icon over is possible when you pass nearby.",
+//         confirmButtonText: "Ok",
+//         confirmButtonColor: "#5b0a2cc3",
+//         showConfirmButton: true,
+//     })
+    
+//     window.pointer.style.left = nodeTileCreature.offsetLeft + (nodeTileCreature)
+//     window.pointer.style.top = east.offsetTop
+//     window.pointer.style.display = "block"
+//     east.parentNode.appendChild(window.pointer)
+// }
 function validateFirstStepTuto()
 {
     if(tutoStepsPassed.includes("second"))

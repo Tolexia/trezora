@@ -92,12 +92,18 @@ class Boat
             .tile[data-cord-x="${this.coordX}"][data-cord-y="${this.coordY + 1}"]
         `
         const nearbyTiles = document.querySelectorAll(selector)
+        let hasFightCreature = false
         nearbyTiles.forEach(tile => {
             if(tile.classList.contains('shark') || tile.classList.contains('kraken'))
             {
+                hasFightCreature = true;
                 tile.classList.add('clickable')
                 tile.setAttribute("onclick", `fightCreature(boatObject, this, '${tile.classList.contains('shark') ? "shark" : "kraken"}')`)
             }
         })
+        if(getItem("tutoFightCreature") == 1 && hasFightCreature)
+        {
+
+        }
     }
 }
