@@ -1,10 +1,10 @@
 
-class Player {
+class Player extends Storedobject {
     constructor() 
     {
         super()
         this.dbMap = {
-            tutoStepsPassed : this.get("tutoStepsPassed"),
+            tutoStepsPassed : "tutoStepsPassed",
         }
         for(let key in this.dbMap)
         {
