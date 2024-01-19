@@ -225,7 +225,7 @@
    
     console.log(getItem('treasureCoordX'))
     console.log(getItem('treasureCoordY'))
-    
+
     var player = new Player()
     var boatObject = new Boat("boat", "human")
     var boat2Object = new Boat("boat2", "AI")
@@ -315,6 +315,16 @@
     hidePowersNotUnlocked()
     displayLevel()
     updateDisplayGoneThere(JSON.parse(getItem('goneThere')))
+    window.addEventListener('DOMContentLoaded', () => {
+        let displayMode = 'browser tab';
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            displayMode = 'standalone';
+        }
+        if( displayMode == 'browser tab' && window.innerWidth < 768)
+        {
+            document.body.requestFullscreen();
+        }
+    });
 </script>
 
 
