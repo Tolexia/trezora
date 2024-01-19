@@ -870,7 +870,7 @@ body .tile.unselectionable
         --blockHeight:calc(92dvw / var(--rowCount));
         width: var(--mapWidth);
         height: 98dvw;
-        left: 6dvh;
+        left: 0;
         position: absolute;
         margin-top: 5px;
         padding: .5em;

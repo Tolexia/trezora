@@ -214,7 +214,8 @@
 <script src="./scripts/tutorial.js"></script>
 <script src="./scripts/map.js"></script>
 <script>
-    document.getElementById('map').style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};--movementAnimationDuration: ${gamesystem.movementAnimationDuration}s;`
+    var map = document.getElementById('map')
+    map.style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};--movementAnimationDuration: ${gamesystem.movementAnimationDuration}s;`
     if(getItem('displayTuto') == "no" && (
         getItem('boatCoordX') == null || 
         getItem('boatCoordY') == null
@@ -233,7 +234,6 @@
     window.boat2 = boat2Object
 
     const column = document.querySelector('.row.column');
-    const map = document.querySelector('.map');
     const tile = document.querySelector('.tile');
     window.level = document.getElementById('level');
     window.map = map;
@@ -325,6 +325,7 @@
         let displayMode = 'browser tab';
         if (window.matchMedia('(display-mode: standalone)').matches) {
             displayMode = 'standalone';
+            map.style.left = "6dvh"
         }
         if( displayMode == 'browser tab' && window.innerWidth < 768)
         {
