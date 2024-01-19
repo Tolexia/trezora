@@ -1,4 +1,3 @@
-var player = new Player()
 
 /*************************
  * Moving across the map *
@@ -832,6 +831,10 @@ function hidePowersNotUnlocked()
         const isPowerUnlocked = powersUnlocked.find(el => el == domPower.dataset.power)
         const powerItem = itemsInShop.find(el => el.name == domPower.dataset.power)
         const isPowerBought = powerItem && powerItem.quantity && powerItem.quantity > 0
+        if(!powerItem)
+        {
+            console.log("domPower", domPower);
+        }
         if( !getItem("firstgame") && (!isPowerUnlocked || !isPowerBought) )
         {
             domPower.dataset.quantity = 0
