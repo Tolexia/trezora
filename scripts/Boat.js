@@ -1,4 +1,5 @@
-class Boat
+
+class Boat extends Storedobject
 {
     constructor(domId, player)
     {
@@ -32,31 +33,15 @@ class Boat
         this.lifebar.style.background =  `linear-gradient(90deg, rgb(41, 255, 41) 0%, rgb(41, 255, 41) ${percentLifeAmount}%, #ff0000 ${percentLifeAmount}%)`; 
     }
 
-    get(property)
-    {
-        var value = localStorage.getItem(property)
-        try {
-            value =  JSON.parse(value)
-        } catch (error) {
-            value = ( !isNaN(parseInt(value)) ? parseInt(value) : value )
-        }
-        return value;
-    }
-
     set(property, value)
     {
-        this[property] = value
-
-        try {
-            localStorage.setItem(this.dbMap[property], JSON.stringify(value))
-        } catch (error) {
-            localStorage.setItem(this.dbMap[property], value)
-        }
+        super.set(property, value);
 
         if(property.includes("LifeAmount"))
             this.updateLifeBar()
-    }
 
+        return ;
+    }
     goNorth()
     {
         this.set("coordY", this.coordY-1)
