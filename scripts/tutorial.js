@@ -247,7 +247,6 @@ function validationTutoFightCreature()
     document.querySelectorAll(`.tile${window.selectorTileCreature}`).forEach(el => el.removeEventListener("click", validationFightCreature))
     player.tutoStepsPassed.push("creature")
     player.set("tutoStepsPassed", player.tutoStepsPassed)
-    removeItem("tutoFightCreature")
 }
 function tutoFightBoat()
 {

@@ -821,7 +821,7 @@ body .tile.unselectionable
 
     body {
         overflow: hidden;
-        --responsiveNavbarWidth:calc(6dvh + 50px);
+        --responsiveNavbarWidth:14dvh;
     }
 
     .navbar-toggler {
@@ -841,6 +841,7 @@ body .tile.unselectionable
     }
     nav.navbar {
         padding: 3dvh;
+        height: 14dvh;
     }
     .nav-item{
         transform: rotate(-90deg) translateX(30px); 

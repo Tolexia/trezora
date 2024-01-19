@@ -88,7 +88,7 @@ class Boat extends Storedobject
             }
         })
        
-        if(getItem("tutoFightCreature") == 1 && tileFightCreature)
+        if(!JSON.parse(getItem("tutoStepsPassed")).includes("creature") && tileFightCreature)
         {
             tutoFightCreature(tileFightCreature)
         }
