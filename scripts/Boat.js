@@ -3,6 +3,7 @@ class Boat extends Storedobject
 {
     constructor(domId, player)
     {
+        super()
         this.player = player
         this.domElement = document.getElementById(domId)
         this.movementAnimationDuration = gamesystem.movementAnimationDuration

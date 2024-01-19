@@ -2,8 +2,9 @@
 class Player {
     constructor() 
     {
+        super()
         this.dbMap = {
-            tutoStepsPassed : this.get(tutoStepsPassed),
+            tutoStepsPassed : this.get("tutoStepsPassed"),
         }
         for(let key in this.dbMap)
         {
