@@ -194,7 +194,7 @@ function tutoPower()
         showConfirmButton: true,
     })
 
-    const selector = (window.innerWidth > 991 ? ".dropdown:nth-child(2)" : ".navbar-toggler-icon")
+    const selector = (window.innerWidth > 991 ? ".dropdown:nth-child(2), .dropdown:nth-child(2) *" : ".navbar-toggler-icon")
     const elementsToHide = document.querySelectorAll(`.map-container, .navigation, .navbar-nav :not(${selector})`)
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
 

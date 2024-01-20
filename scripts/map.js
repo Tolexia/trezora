@@ -397,7 +397,7 @@ function newGame()
         for (let x = 1; x <= gamesystem.columnCount; x++) 
         {
             let type = possibleValues[Math.floor(Math.random() * possibleValues.length)]
-            if(type == "sea" && x > 1 && x < gamesystem.columnCount)
+            if(type == "sea" && x > 2 && x < (gamesystem.columnCount-1))
             {
                 const randForCreature = Math.random()
                 if(randForCreature <= 0.15)
