@@ -317,17 +317,6 @@
     hidePowersNotUnlocked()
     displayLevel()
     updateDisplayGoneThere(JSON.parse(getItem('goneThere')))
-    window.addEventListener('DOMContentLoaded', () => {
-        let displayMode = 'browser tab';
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            displayMode = 'standalone';
-            map.style.left = "6dvh"
-        }
-        if( displayMode == 'browser tab' && window.innerWidth < 768)
-        {
-            document.body.requestFullscreen();
-        }
-    });
 </script>
 
 

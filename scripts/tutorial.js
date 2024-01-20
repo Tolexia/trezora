@@ -163,8 +163,8 @@ async function tutorial()
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
 
     const south = document.querySelector('.south')
-    gamesystem.pointer.style.left = south.offsetLeft+"px"
-    gamesystem.pointer.style.top = south.offsetTop+"px"
+    gamesystem.pointer.style.left = window.innerWidth > 991 ? south.offsetLeft+"px" : (south.offsetLeft + south.clientLeft)+"px"
+    gamesystem.pointer.style.top = window.innerWidth > 991 ? south.offsetTop+"px" : (south.offsetTop + south.clientHeight)+"px"
     south.parentNode.appendChild(gamesystem.pointer)
     
     document.querySelectorAll('.navigation a').forEach(el => el.addEventListener("click", validationMove))
@@ -198,7 +198,8 @@ function tutoPower()
     })
 
     const selector = (window.innerWidth > 991 ? ".dropdown:nth-child(2), .dropdown:nth-child(2) *" : ".navbar-toggler-icon")
-    const elementsToHide = document.querySelectorAll(`.map-container, .navigation, .navbar-nav :not(${window.innerWidth > 991 ? selector : selector + ", nav.navbar"})`)
+    const selectorHide =  window.innerWidth > 991 ? `.map-container, .navigation, .navbar-nav :not(${selector})` : ".map-container, .navigation"
+    const elementsToHide = document.querySelectorAll(selectorHide)
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
 
     const element = document.querySelector(selector)
