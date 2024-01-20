@@ -869,10 +869,10 @@ body .tile.unselectionable
         --blockWidth: calc(var(--mapWidth) / var(--columnCount));
         --blockHeight:calc(92dvw / var(--rowCount));
         width: var(--mapWidth);
-        height: 98dvw;
+        height: 100dvw;
         /* left: 40px; */
         position: absolute;
-        margin-top: 5px;
+        /* margin-top: 5px; */
         padding: .5em;
     }
 
