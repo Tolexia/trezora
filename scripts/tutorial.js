@@ -149,6 +149,7 @@ async function tutorial()
     if(player.tutoStepsPassed.includes("move"))
         return validateTutoStepMove();
 
+    setItem('isStepRunning', 1)
     // First step : Moving
     await Swal.fire({
         title: "Moving",
@@ -177,15 +178,17 @@ function validateTutoStepMove()
     player.set("tutoStepsPassed", player.tutoStepsPassed)
     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
     document.querySelectorAll('.navigation a').forEach(el => el.removeEventListener("click", validationMove))
+    removeItem('isStepRunning')
     setTimeout(() => {
         tutoPower()
     }, (gamesystem.movementAnimationDuration * 1000) + 500);
 }
 function tutoPower()
 {
-    if(player.tutoStepsPassed.includes("power"))
+    if(player.tutoStepsPassed.includes("power") || getItem('isStepRunning') != null)
         return ;
 
+    setItem('isStepRunning', 1)
     Swal.fire({
         title: "Powers",
         html: "As a gift, you were given one unit of each power.<br/>Use them carefully, you'll have to unlock them next by reaching levels and buy them in shop.",
@@ -195,7 +198,7 @@ function tutoPower()
     })
 
     const selector = (window.innerWidth > 991 ? ".dropdown:nth-child(2), .dropdown:nth-child(2) *" : ".navbar-toggler-icon")
-    const elementsToHide = document.querySelectorAll(`.map-container, .navigation, .navbar-nav :not(${selector})`)
+    const elementsToHide = document.querySelectorAll(`.map-container, .navigation, .navbar-nav :not(${window.innerWidth > 991 ? selector : selector + ", nav.navbar"})`)
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
 
     const element = document.querySelector(selector)
@@ -216,10 +219,14 @@ function validateTutoStepPower()
     window.powerTutoNode.removeEventListener("click", validationPower)
     player.tutoStepsPassed.push("power")
     player.set("tutoStepsPassed", player.tutoStepsPassed)
+    removeItem('isStepRunning')
 }
 function tutoFightCreature(nodeTileCreature)
 {
+    if(player.tutoStepsPassed.includes("creature") || getItem('isStepRunning') != null)
+        return;
 
+    setItem('isStepRunning', 1)
     Swal.fire({
         title: "Attacking Creatures",
         html: "Getting rid of creatures with a sword icon over is possible when you pass nearby.",
@@ -247,13 +254,16 @@ function validationTutoFightCreature()
     document.querySelectorAll(`.tile${window.selectorTileCreature}`).forEach(el => el.removeEventListener("click", validationFightCreature))
     player.tutoStepsPassed.push("creature")
     player.set("tutoStepsPassed", player.tutoStepsPassed)
+    removeItem("tutoFightCreature")
+    removeItem('isStepRunning')
 }
 function tutoFightBoat()
 {
-    if(player.tutoStepsPassed.includes("fightBoat"))
+    if(player.tutoStepsPassed.includes("fightBoat") || getItem('isStepRunning') != null)
         return ;
 
 
+    setItem('isStepRunning', 1)
     const elementsToHide = document.querySelectorAll(`nav.navbar, .map-container, .navigation :not(#fightButton, #fightButton img)`)
     elementsToHide.forEach(el => el.classList.add("unselectionable"))
         
@@ -275,14 +285,10 @@ function tutoFightBoat()
 
 function validationTutoFightBoat()
 {
-    if(player.tutoStepsPassed.includes("fightBoat"))
-        return ;
-
-    
     gamesystem.pointer.style.display = "none"
     document.querySelectorAll(".unselectionable").forEach(el => el.classList.remove("unselectionable"))
     window.fightButton.removeEventListener("click", validationFightCreature)
     player.tutoStepsPassed.push("fightBoat")
     player.set("tutoStepsPassed", player.tutoStepsPassed)
-    removeItem("tutoFightCreature")
+    removeItem('isStepRunning')
 }

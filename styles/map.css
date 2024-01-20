@@ -841,7 +841,7 @@ body .tile.unselectionable
     }
     nav.navbar {
         padding: 3dvh;
-        height: 14dvh;
+        min-height: 14dvh;
     }
     .nav-item{
         transform: rotate(-90deg) translateX(30px); 
@@ -853,12 +853,12 @@ body .tile.unselectionable
         color: rgba(255, 255, 255, 0.818)!important;
     }
     .page-container {
-        --mapWidth:calc(100dvh - var(--responsiveNavbarWidth));
+        --mapWidth: calc(100dvh - var(--responsiveNavbarWidth));
         width: var(--mapWidth);
         height: 100dvw;
         position: absolute;
-        top: 100%;
-        margin-top: 50px;
+        top: 100dvh;
+        /* margin-top: 50px; */
         transform: rotate(-90deg);
         transform-origin: left top;
         /* overflow: hidden; */
@@ -870,7 +870,7 @@ body .tile.unselectionable
         --blockHeight:calc(92dvw / var(--rowCount));
         width: var(--mapWidth);
         height: 98dvw;
-        left: 40px;
+        /* left: 40px; */
         position: absolute;
         margin-top: 5px;
         padding: .5em;

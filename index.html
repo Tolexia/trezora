@@ -276,7 +276,6 @@
     var navbar = document.querySelector('nav.navbar')
     if(chevron != null && navbar != null)
     {
-        navbar.dataset.height = navbar.style.height
         chevron.addEventListener('mouseup', (e) => {
             const navbarcollapse = document.querySelector('.navbar-collapse');
             if(navbarcollapse != null)
@@ -289,9 +288,6 @@
                 else
                 {
                     e.target.style = "";
-                    setTimeout(() => {
-                        navbar.style.height = navbar.dataset.height
-                    }, 500)
                 }
             }
         })
