@@ -853,24 +853,24 @@ body .tile.unselectionable
         color: rgba(255, 255, 255, 0.818)!important;
     }
     .page-container {
-        width: 100dvh;
+        --mapWidth:calc(100dvh - var(--responsiveNavbarWidth));
+        width: var(--mapWidth);
         height: 100dvw;
         position: absolute;
         top: 100%;
         margin-top: 50px;
         transform: rotate(-90deg);
         transform-origin: left top;
-        overflow: hidden;
+        /* overflow: hidden; */
     }
 
 
     .map {
-        --mapWidth:calc(100dvh - var(--responsiveNavbarWidth));
         --blockWidth: calc(var(--mapWidth) / var(--columnCount));
         --blockHeight:calc(92dvw / var(--rowCount));
         width: var(--mapWidth);
         height: 98dvw;
-        left: 0;
+        left: 40px;
         position: absolute;
         margin-top: 5px;
         padding: .5em;
