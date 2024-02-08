@@ -261,6 +261,9 @@ h2 {
 }
 .powerAnimated{
     position: absolute;
+    color: white!important;
+    font-family: var(--main-font);
+    font-size: 3em;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

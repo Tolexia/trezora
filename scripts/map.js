@@ -706,7 +706,7 @@ async function reveal(skip = false)
                 confirmButtonText: 'Understood',
                 cancelButtonText: "Don't show again",
         })
-        if(result.isDenied)
+        if(result.isDismissed)
         {
             addSkippedAlert("reveal")
         }
@@ -775,7 +775,7 @@ async function teleport(skip = false)
                 showCancelButton: true,
                 cancelButtonText: "Don't show again",
         })
-        if(result.isDenied)
+        if(result.isDismissed)
         {
             addSkippedAlert("teleport")
         }
@@ -795,12 +795,12 @@ function handleTeleport(e)
     const boat = window.boat
     document.body.style.pointerEvents = "none";
    boat.domElement.classList.remove('boat');
-   boat.domElement.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+   boat.domElement.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;";
     setTimeout(() => {
         e.target.appendChild(boat.domElement)
         boat.set('coordX', parseInt(e.target.dataset.cordX));
         boat.set('coordY', parseInt(e.target.dataset.cordY));
-        boat.domElement.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;filter: drop-shadow(3px 3px 5px var(--dark));";
+        boat.domElement.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;";
         setTimeout(() => {
             boat.domElement.classList.add('boat');
             boat.domElement.style = "";

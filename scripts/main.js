@@ -128,5 +128,17 @@ function init()
     {
         setItem('playerCoins', parseInt(getItem('playerCoins')) + 5000)
     }
+    if(params.has("powers"))
+    {
+        const shopItems = JSON.parse(getItem("itemsInShop")) 
+        for(let item of shopItems)
+        {
+            if(item.type == "power")
+            {
+                item.quantity = parseInt(item.quantity)+1;
+            }
+        }
+        setItem("itemsInShop", JSON.stringify(shopItems))
+    }
 }
 init()
