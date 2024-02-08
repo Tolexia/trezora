@@ -218,7 +218,8 @@
     map.style = `--columnCount: ${gamesystem.columnCount};--rowCount: ${gamesystem.rowCount};--movementAnimationDuration: ${gamesystem.movementAnimationDuration}s;`
     if(getItem('displayTuto') == "no" && (
         getItem('boatCoordX') == null || 
-        getItem('boatCoordY') == null
+        getItem('boatCoordY') == null ||
+        getItem('treasureFound') == 1
         ))
     {
         newGame();

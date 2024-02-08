@@ -381,6 +381,7 @@ function newGame()
     setItem('boat2CoordX', gamesystem.columnCount);
     setItem('boat2CoordY', gamesystem.rowCount);
     setItem('trycount', 0);
+    setItem('treasureFound', 0)
     setItem('currentTarget', null);
     setItem('currentTarget2', null);
     setItem('treasureCoordX', randomX);
@@ -594,6 +595,7 @@ function wonAnimation(xp, coins)
     {
         setItem('firstgame', 0);
     }
+    setItem('treasureFound', 1)
     Swal.fire({
         title: 'You win!',
         html: `Congrats !<br>Treasure found in ${getItem('trycount')} attempts.<br>${xp} xp and ${coins} coins won !`,
