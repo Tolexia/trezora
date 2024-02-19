@@ -887,13 +887,15 @@ function fight(attacker, defender)
         newLifeDefender = currentLifeAmount;
 
     attacker.domElement.classList.add("attack")
+    screenImpact()
     setTimeout(() => {
         attacker.domElement.classList.remove("attack")
         if(!attacker.player)
             defender.domElement.classList.add("shaken")
         else
             defender.domElement.classList.add("defend")
-            
+        
+        screenImpact()
         setTimeout(() => {
             defender.domElement.classList.remove("defend")
             defender.set("currentLifeAmount", newLifeDefender);
@@ -908,6 +910,7 @@ function fight(attacker, defender)
                     {
                         loseAnimation()
                     }
+                    handleVisibilityFightButton()
                 }, 1000);
             }
             else if(attacker.player == "human")
@@ -929,10 +932,12 @@ function fightCreature(boat, tileObject, creatureType) {
         // Some other action
     }
     boat.domElement.classList.add("attack")
+    screenImpact()
     const tileNode = tileObject.classList ? tileObject : document.querySelector(`.tile[data-cord-x="${tileObject.x}"][data-cord-y="${tileObject.y}"]`);
     setTimeout(() => {
         boat.domElement.classList.remove("attack")
         tileNode.classList.add("defend")
+        screenImpact()
         setTimeout(() => {
             tileNode.classList.remove("defend")
 
@@ -971,6 +976,14 @@ function creatureAttack(boat, creature, tile)
     creatureStats.domElement = tile
     
     fight(creatureStats, boat)
+}
+
+function screenImpact()
+{
+    document.body.classList.add("screenshake")
+    setTimeout(() => {
+        document.body.classList.remove("screenshake")
+    }, 300);
 }
 
 // End Fight System Part

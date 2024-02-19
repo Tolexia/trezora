@@ -58,9 +58,9 @@ h2 {
 .tile.visited {
     background-color: #f3ebebbd;
 }
-.tile:hover {
+/* .tile:hover {
     box-shadow: 0 0 1px var(--dark);
-}
+} */
 
 .sea {
     background-image: url('../images/map/sea.png');
@@ -313,6 +313,9 @@ body .tile.unselectionable
 
     animation: point 1s ease-in-out infinite alternate;
 }
+.screenshake {
+    animation: screenshake .2s linear;
+}
 
 /* KEYFRAMES */
 @keyframes myBoat2 {
@@ -495,7 +498,7 @@ body .tile.unselectionable
         opacity: 0;
     }
     20%{
-        scale: 1;
+        scale: 1.35;
         opacity: 1;
     }
     100%{
@@ -546,6 +549,18 @@ body .tile.unselectionable
     }
     100%{
         transform: translate(0, 0);
+    }
+}
+@keyframes screenshake {
+    0%,
+    100%{
+        transform: translateX(0);
+    }
+    33%{
+        transform: translateX(-10px);
+    }
+    66%{
+        transform: translateX(10px);
     }
 }
 @keyframes rotateMarker {
