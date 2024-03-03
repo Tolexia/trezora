@@ -117,7 +117,19 @@ h2 {
     position:relative;
     z-index: 1;
 }
-
+/* .boat::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(../images/powers/typhoon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+} */
 .boat-skin{
     max-width: var(--blockWidth);
     max-height: var(--blockHeight);
