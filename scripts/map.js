@@ -795,13 +795,17 @@ function handleTeleport(e)
     const boat = window.boat
     document.body.style.pointerEvents = "none";
    boat.domElement.classList.remove('boat');
+   boat.domElement.classList.add('teleport');
    boat.domElement.style = "animation-name:teleport;animation-duration: 2s;animation-fill-mode: forwards;";
     setTimeout(() => {
         e.target.appendChild(boat.domElement)
         boat.set('coordX', parseInt(e.target.dataset.cordX));
         boat.set('coordY', parseInt(e.target.dataset.cordY));
         boat.domElement.style = "animation-name:teleport;animation-direction: reverse;animation-duration: 2s;animation-fill-mode: forwards;";
+        boat.domElement.classList.add('reverseteleport');
         setTimeout(() => {
+            boat.domElement.classList.remove('teleport');
+            boat.domElement.classList.remove('reverseteleport');
             boat.domElement.classList.add('boat');
             boat.domElement.style = "";
             checkIfWon();

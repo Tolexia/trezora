@@ -117,19 +117,6 @@ h2 {
     position:relative;
     z-index: 1;
 }
-/* .boat::after{
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url(../images/powers/typhoon.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 5;
-} */
 .boat-skin{
     max-width: var(--blockWidth);
     max-height: var(--blockHeight);
@@ -328,7 +315,25 @@ body .tile.unselectionable
 .screenshake {
     animation: screenshake .2s linear;
 }
-
+.teleport::after{
+    content: "";
+    position: absolute;
+    bottom: -20%;
+    left: 0;
+    opacity: 0;
+    height: 40%;
+    width: 100%;
+    background-image: url(../images/powers/tornade.png);
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: 50% 40%;
+    z-index: 5;
+    animation: typhoon 2s linear forwards;
+}
+.teleport.reverseteleport::after
+{
+    animation: typhoon 2s reverse forwards;
+}
 /* KEYFRAMES */
 @keyframes myBoat2 {
     0% {
@@ -501,6 +506,53 @@ body .tile.unselectionable
     }
     100% {
         transform: rotateY(900deg);
+    }
+}
+@keyframes typhoon {
+   
+    0%{
+        background-position: 45% 40%;
+        opacity: 0.2;
+    }
+    10%{
+        background-position: 55% 40%;
+        opacity: 0.3;
+    }
+    20%{
+        background-position: 45% 40%;
+        opacity: 0.4;
+    }
+    30%{
+        background-position: 55% 40%;
+        opacity: 0.5;
+    }
+    40%{
+        background-position: 45% 40%;
+        opacity: 0.6;
+    }
+    50%{
+        background-position: 55% 40%;
+        opacity: 0.7;
+    }
+    60%{
+        background-position: 45% 40%;
+        opacity: 0.8;
+    }
+    70%{
+        background-position: 55% 40%;
+        opacity: 0.8;
+    }
+    80%{
+        transform: translate(-3px,3px);
+        opacity: 0.8;
+    }
+    90%{
+        transform: translate(3px,-3px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0,0);
+        opacity: 0.8;
     }
 }
 /* FIGHT */
